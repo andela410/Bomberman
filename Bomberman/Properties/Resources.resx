@@ -127,6 +127,9 @@
   <data name="Enemy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Enemy.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Fire1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fire1.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="GameField" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GameField.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

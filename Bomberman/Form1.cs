@@ -15,7 +15,6 @@ namespace Bomberman
         public static Classes.Player player = new Classes.Player();
         public static Classes.GameField game = new Classes.GameField();
         public static Classes.Brick brick = new Classes.Brick();
-        public static Classes.Bomb bomb = new Classes.Bomb();
 
 
         public Form1()
@@ -38,9 +37,11 @@ namespace Bomberman
             player.GetLife();
             player.UpdateScore(100);
 
-            brick.DestroyBrickWall(this, 1, 3);
-            bomb.PlantBomb(this, game, 1, 1);
-            bomb.PlantBomb(this, game, 11, 1);
+            //brick.DestroyBrickWall(this, 1, 3);
+
+            Classes.Bomb bomb = new Classes.Bomb(this, game, 3, 5);
+            bomb.PlantBomb();
+            //bomb.PlantBomb(this, game, 11, 1);
         }
     }
 }
