@@ -43,5 +43,11 @@ namespace Bomberman
             bomb.PlantBomb();
             //bomb.PlantBomb(this, game, 11, 1);
         }
+
+        private void closeGame_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+        }
     }
 }
