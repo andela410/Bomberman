@@ -73,7 +73,7 @@ namespace Bomberman
             }
             if(e.KeyCode == Keys.B) //Pusti bombu na tipku B
             {
-                Classes.Bomb bomb = new Classes.Bomb(this, game, player, player.XPlayer, player.YPlayer);
+                Classes.Bomb bomb = new Classes.Bomb(this, game, player, player.YPlayer, player.XPlayer);
                 bomb.PlantBomb();
             }
         }
