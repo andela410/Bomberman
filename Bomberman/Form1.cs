@@ -14,8 +14,8 @@ namespace Bomberman
     {
         public static Classes.Player player;
         public static Classes.GameField game = new Classes.GameField();
-        public static Classes.Brick brick = new Classes.Brick();
-       
+        public static Classes.Brick brick = new Classes.Brick(player);
+
         public Form1()
         {
             InitializeComponent();
@@ -37,11 +37,11 @@ namespace Bomberman
         private void button1_Click(object sender, EventArgs e)
         {
             player.GetLife();
-            player.UpdateScore(100);
+            //player.UpdateScore(100);
 
             //brick.DestroyBrickWall(this, 1, 3);
 
-            Classes.Bomb bomb = new Classes.Bomb(this, game, 3, 5);
+            Classes.Bomb bomb = new Classes.Bomb(this, game, player, 3, 5);
             bomb.PlantBomb();
             //bomb.PlantBomb(this, game, 11, 1);
         }
@@ -73,7 +73,7 @@ namespace Bomberman
             }
             if(e.KeyCode == Keys.B) //Pusti bombu na tipku B
             {
-                Classes.Bomb bomb = new Classes.Bomb(this, game, player.XPlayer, player.YPlayer);
+                Classes.Bomb bomb = new Classes.Bomb(this, game, player, player.XPlayer, player.YPlayer);
                 bomb.PlantBomb();
             }
         }

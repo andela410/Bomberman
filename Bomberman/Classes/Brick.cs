@@ -10,6 +10,12 @@ namespace Bomberman.Classes
 {
     public class Brick
     {
+        Player Player;
+
+        public Brick(Player player)
+        {
+            Player = player;
+        }
         public void CreateBrickWalls(Form formInstance, GameField Field)
         {
             for (int i = 0; i < Field.GameFieldHeight; i++)
@@ -30,14 +36,52 @@ namespace Bomberman.Classes
             }
         }
 
-        public void DestroyBrickWall(Form formInstance, int x, int y)
+        public void DestroyBrickWall(Form formInstance, GameField Field, int x, int y)
         {
             Control[] bricks = formInstance.Controls.Find("Brick" + x.ToString() + y.ToString(), false);
 
             if (bricks != null && bricks.Length > 0)
             {
+                Player.UpdateScore(100);
+                ShowScore(formInstance, Field, 100, x, y);
+                Field.UpdateField(x, y);
                 bricks[0].Visible = false;
             }
+
+        }
+
+        System.Timers.Timer ScoreTimer;
+        
+        private void ShowScore(Form form, GameField field, int score, int x, int y)
+        {
+            Label ScoreText = new Label();
+
+            ScoreText.ForeColor = Color.White;
+            ScoreText.BackColor = Color.DarkOliveGreen;
+            ScoreText.Font = new System.Drawing.Font("Folio XBd BT", 7);
+            ScoreText.Top = 40 * x + 45;
+            ScoreText.Left = 40 * y + 15;
+            ScoreText.Height = 15;
+            ScoreText.Width = 25;
+            ScoreText.Text = score.ToString();
+            form.Controls.Add(ScoreText);
+            ScoreText.BringToFront();
+
+            ScoreTimer = new System.Timers.Timer();
+
+            ScoreTimer.Elapsed += new System.Timers.ElapsedEventHandler((sender, e) => ScoreVanish_tick(sender, e, ScoreText));
+
+            ScoreTimer.Interval = 300;
+            ScoreTimer.Enabled = true;
+
+
+
+        }
+
+        void ScoreVanish_tick(object sender, EventArgs e, Label label)
+        {
+            //label.Visible = false;
+            ScoreTimer.Enabled = false;
 
         }
     }

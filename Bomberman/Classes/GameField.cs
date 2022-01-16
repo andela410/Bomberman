@@ -79,5 +79,10 @@ namespace Bomberman.Classes
                     break;
             }
         }
+
+        public void UpdateField(int x, int y)
+        {
+            field[x, y] = ' ';
+        }
     }
 }
