@@ -43,7 +43,7 @@ namespace Bomberman.Classes
         {
             bomb.Name = "Bomb" + X.ToString() + Y.ToString();
             bomb.SizeMode = PictureBoxSizeMode.AutoSize;
-            bomb.Location = new Point(Y * Field.ElementSize + 10 + 2, X * Field.ElementSize + 40 + 2);
+            bomb.Location = new Point(X * Field.ElementSize + 10 + 2, Y * Field.ElementSize + 40 + 2);
             bomb.Image = Properties.Resources.Bomb;
             Form.Controls.Add(bomb);
             bomb.BringToFront();

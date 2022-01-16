@@ -12,24 +12,26 @@ namespace Bomberman
 {
     public partial class Form1 : Form
     {
-        public static Classes.Player player = new Classes.Player();
+        public static Classes.Player player;
         public static Classes.GameField game = new Classes.GameField();
         public static Classes.Brick brick = new Classes.Brick();
-
-
+       
         public Form1()
         {
             InitializeComponent();
             SetupGame();
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyPreview = true;
         }
 
         void SetupGame()
         {
-            player.CreateLives(this);
-            player.CreatePlayerScore(this);
             game.CreateGameField(this);
             game.InitializeGameField(1);
             brick.CreateBrickWalls(this, game);
+            player = new Classes.Player(this, game, 2, 1);
+            player.CreateLives(this);
+            player.CreatePlayerScore(this);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -48,6 +50,32 @@ namespace Bomberman
         {
             this.Close();
             this.Dispose();
+        }
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A)
+            {
+                //Do here
+                player.Move("left");
+                e.Handled = true;
+            }
+            if (e.KeyCode == Keys.D)
+            { 
+                player.Move("right");
+            }
+            if (e.KeyCode == Keys.W)
+            {
+                player.Move("up");
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                player.Move("down");
+            }
+            if(e.KeyCode == Keys.B) //Pusti bombu na tipku B
+            {
+                Classes.Bomb bomb = new Classes.Bomb(this, game, player.XPlayer, player.YPlayer);
+                bomb.PlantBomb();
+            }
         }
     }
 }
