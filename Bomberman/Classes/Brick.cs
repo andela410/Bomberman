@@ -27,7 +27,8 @@ namespace Bomberman.Classes
                         PictureBox brick = new PictureBox();
                         brick.Name = "Brick" + i.ToString() + j.ToString();
                         brick.SizeMode = PictureBoxSizeMode.AutoSize;
-                        brick.Location = new Point(j * Field.ElementSize + 10, i * Field.ElementSize + 40);
+                        brick.Parent = Field.PictureBox;
+                        brick.Location = new Point(Field.PictureBox.Location.X + j * Field.ElementSize, Field.PictureBox.Location.Y + i * Field.ElementSize);
                         brick.Image = Properties.Resources.Brick;
                         formInstance.Controls.Add(brick);
                         brick.BringToFront();
@@ -59,8 +60,8 @@ namespace Bomberman.Classes
             ScoreText.ForeColor = Color.White;
             ScoreText.BackColor = Color.DarkOliveGreen;
             ScoreText.Font = new System.Drawing.Font("Folio XBd BT", 7);
-            ScoreText.Top = 40 * x + 45;
-            ScoreText.Left = 40 * y + 15;
+            ScoreText.Top = field.ElementSize * x + 5 + field.PictureBox.Location.Y;
+            ScoreText.Left = field.ElementSize * y + 5 + field.PictureBox.Location.X;
             ScoreText.Height = 15;
             ScoreText.Width = 25;
             ScoreText.Text = score.ToString();

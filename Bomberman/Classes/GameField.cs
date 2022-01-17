@@ -18,7 +18,7 @@ namespace Bomberman.Classes
         protected const char Player = 'p';
         protected const char Bomb = 'o';
         protected const char Explosion = 'x';
-
+        protected PictureBox pictureBox;
 
         public int GameFieldWidth
         {
@@ -34,7 +34,12 @@ namespace Bomberman.Classes
         {
             get { return 40; }
         }
-        
+
+        public PictureBox PictureBox
+        {
+            get { return pictureBox; }
+        }
+
         public char [,] Field
         {
             get { return field; }
@@ -48,10 +53,11 @@ namespace Bomberman.Classes
             PictureBox p = new PictureBox();
             p.Name = "GameField";
             p.SizeMode = PictureBoxSizeMode.AutoSize;
-            p.Location = new Point(10, 40);
+            p.Location = new Point((formInstance.Width - 29*ElementSize)/2, (formInstance.Height - 13 * ElementSize) / 2);
             p.Image = Properties.Resources.GameField;
             formInstance.Controls.Add(p);
             p.BringToFront();
+            pictureBox = p;
         }
 
         public void InitializeGameField(int Level)

@@ -45,7 +45,7 @@ namespace Bomberman.Classes
         {
             bomb.Name = "Bomb" + X.ToString() + Y.ToString();
             bomb.SizeMode = PictureBoxSizeMode.AutoSize;
-            bomb.Location = new Point(Y * Field.ElementSize + 10 + 2, X * Field.ElementSize + 40 + 2);
+            bomb.Location = new Point(Y * Field.ElementSize + Field.PictureBox.Location.X + 2, X * Field.ElementSize + Field.PictureBox.Location.Y + 2);
             bomb.Image = Properties.Resources.Bomb;
             Form.Controls.Add(bomb);
             bomb.BringToFront();
@@ -63,7 +63,7 @@ namespace Bomberman.Classes
                 PictureBox e = new PictureBox();
                 e.Name = "Fire" + x.ToString() + y.ToString();
                 e.SizeMode = PictureBoxSizeMode.AutoSize;
-                e.Location = new Point(y * Field.ElementSize + 10, x * Field.ElementSize + 40);
+                e.Location = new Point(y * Field.ElementSize + Field.PictureBox.Location.X, x * Field.ElementSize + Field.PictureBox.Location.Y);
                 e.Image = Properties.Resources.Fire1;
                 Form.Controls.Add(e);
 

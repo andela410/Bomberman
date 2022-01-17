@@ -19,9 +19,13 @@ namespace Bomberman
         public Form1()
         {
             InitializeComponent();
+
+            //this.StartPosition = FormStartPosition.CenterScreen;
+
             SetupGame();
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyPreview = true;
+            
         }
 
         void SetupGame()
@@ -76,6 +80,30 @@ namespace Bomberman
                 Classes.Bomb bomb = new Classes.Bomb(this, game, player, player.YPlayer, player.XPlayer);
                 bomb.PlantBomb();
             }
+        }
+
+        FormWindowState LastWindowState = FormWindowState.Minimized;
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+
+            // When window state changes
+            if (WindowState != LastWindowState)
+            {
+                LastWindowState = WindowState;
+
+
+                if (WindowState == FormWindowState.Maximized)
+                {
+
+                    // Maximized!
+                }
+                if (WindowState == FormWindowState.Normal)
+                {
+
+                    // Restored!
+                }
+            }
+
         }
     }
 }

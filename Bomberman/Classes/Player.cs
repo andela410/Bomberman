@@ -120,7 +120,7 @@ namespace Bomberman.Classes
 
             playerPicture.Name = "Player" + xPlayer.ToString() + yPlayer.ToString();
             playerPicture.SizeMode = PictureBoxSizeMode.AutoSize;
-            playerPicture.Location = new Point(x * Field.ElementSize + 10, y * Field.ElementSize + 40);
+            playerPicture.Location = new Point(x * Field.ElementSize + Field.PictureBox.Location.X, y * Field.ElementSize + Field.PictureBox.Location.Y);
             playerPicture.Image = Properties.Resources.Enemy;
             Form.Controls.Add(playerPicture);
 
@@ -137,7 +137,7 @@ namespace Bomberman.Classes
                 {
                     xPlayer--;
                 }
-                playerPicture.Location = new Point(xPlayer * Field.ElementSize + 10, yPlayer * Field.ElementSize + 40);
+                playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
                 Form.Controls.Add(playerPicture);
 
                 playerPicture.BringToFront();
@@ -149,7 +149,7 @@ namespace Bomberman.Classes
                 {
                     xPlayer++;
                 }
-                playerPicture.Location = new Point(xPlayer * Field.ElementSize + 10, yPlayer * Field.ElementSize + 40);
+                playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
                 Form.Controls.Add(playerPicture);
 
                 playerPicture.BringToFront();
@@ -161,7 +161,7 @@ namespace Bomberman.Classes
                 {
                     yPlayer++;
                 }
-                playerPicture.Location = new Point(xPlayer * Field.ElementSize + 10, yPlayer * Field.ElementSize + 40);
+                playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
                 Form.Controls.Add(playerPicture);
 
                 playerPicture.BringToFront();
@@ -173,7 +173,7 @@ namespace Bomberman.Classes
                 {
                     yPlayer--;
                 }
-                playerPicture.Location = new Point(xPlayer * Field.ElementSize + 10, yPlayer * Field.ElementSize + 40);
+                playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
                 Form.Controls.Add(playerPicture);
 
                 playerPicture.BringToFront();
