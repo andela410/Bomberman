@@ -24,10 +24,12 @@ namespace Bomberman.Classes
         {
             get { return xPlayer; }
         }
+
         public int YPlayer
         {
             get { return yPlayer; }
         }
+
         public Player(Form form, GameField field, int x, int y)
         {
             xPlayer = x;
@@ -40,7 +42,7 @@ namespace Bomberman.Classes
             SetPlayer(x, y);
         }
 
-        public void CreateLives(Form formInstance)
+        public void CreateLives()
         {
             for (int x = 0; x < MaxLives; x++)
             {
@@ -49,22 +51,21 @@ namespace Bomberman.Classes
                 LifeImage[x].SizeMode = PictureBoxSizeMode.AutoSize;
                 LifeImage[x].Location = new Point(x * 22 + 15, 10);
                 LifeImage[x].Image = Properties.Resources.Life;
-                formInstance.Controls.Add(LifeImage[x]);
+                Form.Controls.Add(LifeImage[x]);
                 LifeImage[x].BringToFront();
             }
             SetLives();
         }
 
-        public void CreatePlayerScore(Form formInstance)
+        public void CreatePlayerScore()
         {
             // Create Score label
             ScoreText.ForeColor = Color.White;
-            ScoreText.Font = new System.Drawing.Font("Folio XBd BT", 14);
+            ScoreText.Font = new Font("Folio XBd BT", 14);
             ScoreText.Top = 10;
-            ScoreText.Left = formInstance.Width / 2 - 50;
+            ScoreText.Left = Form.Width / 2 - 50;
             ScoreText.Height = 20;
             ScoreText.Width = 100;
-            formInstance.Controls.Add(ScoreText);
             ScoreText.BringToFront();
             UpdateScore(0);
         }
@@ -125,61 +126,46 @@ namespace Bomberman.Classes
             Form.Controls.Add(playerPicture);
 
             playerPicture.BringToFront();
-
-
         }
+
         public void Move(string direction)
         {
             if(direction == "left")
             {
                 //MessageBox.Show("pomak lijevo");
-                if (xPlayer - 1 > 0 && Field.Field[xPlayer - 1, yPlayer] != 'w' && Field.Field[xPlayer - 1, yPlayer] != 'b')
-                {
-                    xPlayer--;
-                }
-                playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
-                Form.Controls.Add(playerPicture);
-
-                playerPicture.BringToFront();
-            }
-            if (direction == "right")
-            {
-                //MessageBox.Show("pomak desno");
-                if (xPlayer + 1 > 0 && Field.Field[xPlayer + 1, yPlayer] != 'w' && Field.Field[xPlayer + 1, yPlayer] != 'b')
-                {
-                    xPlayer++;
-                }
-                playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
-                Form.Controls.Add(playerPicture);
-
-                playerPicture.BringToFront();
-            }
-            if (direction == "down")
-            {
-                //MessageBox.Show("pomak gore");
-                if (yPlayer + 1 > 0 && Field.Field[xPlayer, yPlayer + 1] != 'w' && Field.Field[xPlayer, yPlayer + 1] != 'b')
-                {
-                    yPlayer++;
-                }
-                playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
-                Form.Controls.Add(playerPicture);
-
-                playerPicture.BringToFront();
-            }
-            if (direction == "up")
-            {
-                //MessageBox.Show("pomak dolje");
                 if (yPlayer - 1 > 0 && Field.Field[xPlayer, yPlayer - 1] != 'w' && Field.Field[xPlayer, yPlayer - 1] != 'b')
                 {
                     yPlayer--;
                 }
-                playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
-                Form.Controls.Add(playerPicture);
-
-                playerPicture.BringToFront();
             }
+            if (direction == "right")
+            {
+                //MessageBox.Show("pomak desno");
+                if (yPlayer + 1 < Field.GameFieldWidth && Field.Field[xPlayer, yPlayer + 1] != 'w' && Field.Field[xPlayer, yPlayer + 1] != 'b')
+                {
+                    yPlayer++;
+                }
+            }
+            if (direction == "down")
+            {
+                //MessageBox.Show("pomak gore");
+                if (xPlayer + 1 < Field.GameFieldHeight && Field.Field[xPlayer + 1, yPlayer] != 'w' && Field.Field[xPlayer + 1, yPlayer] != 'b')
+                {
+                    xPlayer++;
+                }
+            }
+            if (direction == "up")
+            {
+                //MessageBox.Show("pomak dolje");
+                if (xPlayer - 1 > 0 && Field.Field[xPlayer - 1, yPlayer] != 'w' && Field.Field[xPlayer - 1, yPlayer] != 'b')
+                {
+                    xPlayer--;
+                }
+            }
+            playerPicture.Location = new Point(yPlayer * Field.ElementSize + Field.PictureBox.Location.X, xPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
+            Form.Controls.Add(playerPicture);
 
-
+            playerPicture.BringToFront();
         }
     }
 }

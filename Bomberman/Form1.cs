@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bomberman.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,30 +13,28 @@ namespace Bomberman
 {
     public partial class Form1 : Form
     {
-        public static Classes.Player player;
-        public static Classes.GameField game = new Classes.GameField();
-        public static Classes.Brick brick = new Classes.Brick(player);
+        GameField game;
+        Player player;
+        Brick brick;
 
         public Form1()
         {
             InitializeComponent();
-
-            //this.StartPosition = FormStartPosition.CenterScreen;
-
             SetupGame();
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            this.KeyPreview = true;
-            
+            KeyDown += new KeyEventHandler(Form1_KeyDown);
+            KeyPreview = true;
         }
 
         void SetupGame()
         {
-            game.CreateGameField(this);
+            game = new GameField(this);
+            game.CreateGameField();
             game.InitializeGameField(1);
-            brick.CreateBrickWalls(this, game);
-            player = new Classes.Player(this, game, 2, 1);
-            player.CreateLives(this);
-            player.CreatePlayerScore(this);
+            brick = new Brick(this, game);
+            brick.CreateBrickWalls();
+            player = new Player(this, game, 1, 1);
+            player.CreateLives();
+            player.CreatePlayerScore();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -45,7 +44,7 @@ namespace Bomberman
 
             //brick.DestroyBrickWall(this, 1, 3);
 
-            Classes.Bomb bomb = new Classes.Bomb(this, game, player, 3, 5);
+            Bomb bomb = new Bomb(this, game, player, 3, 5);
             bomb.PlantBomb();
             //bomb.PlantBomb(this, game, 11, 1);
         }
@@ -55,6 +54,7 @@ namespace Bomberman
             this.Close();
             this.Dispose();
         }
+
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A)
@@ -77,33 +77,9 @@ namespace Bomberman
             }
             if(e.KeyCode == Keys.B) //Pusti bombu na tipku B
             {
-                Classes.Bomb bomb = new Classes.Bomb(this, game, player, player.YPlayer, player.XPlayer);
+                Bomb bomb = new Bomb(this, game, player, player.XPlayer, player.YPlayer);
                 bomb.PlantBomb();
             }
-        }
-
-        FormWindowState LastWindowState = FormWindowState.Minimized;
-        private void Form1_Resize(object sender, EventArgs e)
-        {
-
-            // When window state changes
-            if (WindowState != LastWindowState)
-            {
-                LastWindowState = WindowState;
-
-
-                if (WindowState == FormWindowState.Maximized)
-                {
-
-                    // Maximized!
-                }
-                if (WindowState == FormWindowState.Normal)
-                {
-
-                    // Restored!
-                }
-            }
-
         }
     }
 }

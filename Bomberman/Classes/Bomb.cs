@@ -41,6 +41,7 @@ namespace Bomberman.Classes
             bomb = new PictureBox();
             fire = new PictureBox();
         }
+
         public void PlantBomb()
         {
             bomb.Name = "Bomb" + X.ToString() + Y.ToString();
@@ -54,7 +55,6 @@ namespace Bomberman.Classes
 
             BombTimer.Enabled = true;
         }
-
 
         private void SetExplosion(int x, int y)
         {
@@ -75,6 +75,7 @@ namespace Bomberman.Classes
                 }
             }
         }
+
         private void BombTimer_Tick(object sender, EventArgs e)
         {
             bomb.Visible = false;
@@ -102,8 +103,8 @@ namespace Bomberman.Classes
             // unisti cigle eksplozijom
             foreach (var coordinates in Bricks)
             {
-                Brick brick = new Brick(Player);
-                brick.DestroyBrickWall(Form, Field, coordinates.Item1, coordinates.Item2);
+                Brick brick = new Brick(Form, Field);
+                if(brick.DestroyBrickWall(coordinates.Item1, coordinates.Item2)) Player.UpdateScore(100);
             }
         }
 
@@ -126,6 +127,7 @@ namespace Bomberman.Classes
                 // Ako smo raznijeli ciglu, ne idi dalje
                 if (Field.Field[X + i, Y] == 'b')
                 {
+                    Field.UpdateField(X + i, Y);
                     break;
                 }
             }
@@ -140,6 +142,7 @@ namespace Bomberman.Classes
                 SetExplosion(X, Y + i);
                 if (Field.Field[X, Y + i] == 'b')
                 {
+                    Field.UpdateField(X, Y + i);
                     break;
                 }
             }
@@ -154,6 +157,7 @@ namespace Bomberman.Classes
                 SetExplosion(X - i, Y);
                 if (Field.Field[X - i, Y] == 'b')
                 {
+                    Field.UpdateField(X - i, Y);
                     break;
                 }
             }
@@ -168,6 +172,7 @@ namespace Bomberman.Classes
                 SetExplosion(X, Y - i);
                 if (Field.Field[X, Y - i] == 'b')
                 {
+                    Field.UpdateField(X, Y - i);
                     break;
                 }
             }
