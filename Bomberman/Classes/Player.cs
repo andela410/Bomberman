@@ -138,7 +138,7 @@ namespace Bomberman.Classes
                     yPlayer--;
                 }
             }
-            if (direction == "right")
+            else if (direction == "right")
             {
                 //MessageBox.Show("pomak desno");
                 if (yPlayer + 1 < Field.GameFieldWidth && Field.Field[xPlayer, yPlayer + 1] != 'w' && Field.Field[xPlayer, yPlayer + 1] != 'b')
@@ -146,7 +146,7 @@ namespace Bomberman.Classes
                     yPlayer++;
                 }
             }
-            if (direction == "down")
+            else if (direction == "down")
             {
                 //MessageBox.Show("pomak gore");
                 if (xPlayer + 1 < Field.GameFieldHeight && Field.Field[xPlayer + 1, yPlayer] != 'w' && Field.Field[xPlayer + 1, yPlayer] != 'b')
@@ -154,7 +154,7 @@ namespace Bomberman.Classes
                     xPlayer++;
                 }
             }
-            if (direction == "up")
+            else if (direction == "up")
             {
                 //MessageBox.Show("pomak dolje");
                 if (xPlayer - 1 > 0 && Field.Field[xPlayer - 1, yPlayer] != 'w' && Field.Field[xPlayer - 1, yPlayer] != 'b')

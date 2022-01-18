@@ -44,7 +44,7 @@ namespace Bomberman
 
             //brick.DestroyBrickWall(this, 1, 3);
 
-            Bomb bomb = new Bomb(this, game, player, 3, 5);
+            Bomb bomb = new Bomb(this, game, player, brick, 3, 5);
             bomb.PlantBomb();
             //bomb.PlantBomb(this, game, 11, 1);
         }
@@ -77,7 +77,7 @@ namespace Bomberman
             }
             if(e.KeyCode == Keys.B) //Pusti bombu na tipku B
             {
-                Bomb bomb = new Bomb(this, game, player, player.XPlayer, player.YPlayer);
+                Bomb bomb = new Bomb(this, game, player, brick, player.XPlayer, player.YPlayer);
                 bomb.PlantBomb();
             }
         }

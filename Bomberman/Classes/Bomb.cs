@@ -16,17 +16,19 @@ namespace Bomberman.Classes
         GameField Field;
         Player Player;
         Form Form;
+        Brick Brick;
         int BombStrength = 2;
         List<PictureBox> Explosion = new List<PictureBox>();
-        List<Tuple<int, int>> Bricks = new List<Tuple<int, int>>();
+        List<Tuple<int, int>> LogicalExplosion = new List<Tuple<int, int>>();
 
-        public Bomb(Form form, GameField field, Player player, int x, int y)
+        public Bomb(Form form, GameField field, Player player, Brick brick, int x, int y)
         {
             X = x;
             Y = y;
             Field = field;
             Form = form;
             Player = player;
+            Brick = brick;
 
             // inicijaliziraj timer za bombu
             BombTimer = new Timer();
@@ -68,11 +70,7 @@ namespace Bomberman.Classes
                 Form.Controls.Add(e);
 
                 Explosion.Add(e);
-
-                if (Field.Field[x, y] == 'b')
-                {
-                    Bricks.Add(new Tuple<int, int>(x, y));
-                }
+                LogicalExplosion.Add(new Tuple<int, int>(x, y));
             }
         }
 
@@ -82,9 +80,12 @@ namespace Bomberman.Classes
             BombTimer.Enabled = false;
 
             // eksplozija
-            foreach (var ex in Explosion)
+            for (int i = 0; i < Explosion.Count(); ++i)
             {
-                ex.BringToFront();
+                (int x, int y) = LogicalExplosion[i];
+
+                Explosion[i].BringToFront();
+                if (x == Player.XPlayer && y == Player.YPlayer) Player.LoseLife();
             }
             FireTimer.Enabled = true;
         }
@@ -100,11 +101,14 @@ namespace Bomberman.Classes
 
             }
 
-            // unisti cigle eksplozijom
-            foreach (var coordinates in Bricks)
+            // unisti cigle eksplozijom i dodaj playeru score
+            foreach((int x, int y) in LogicalExplosion)
             {
-                Brick brick = new Brick(Form, Field);
-                if(brick.DestroyBrickWall(coordinates.Item1, coordinates.Item2)) Player.UpdateScore(100);
+                if (Field.Field[x, y] == 'b')
+                {
+                    if (Brick.DestroyBrickWall(x, y))
+                        Player.UpdateScore(100);
+                }
             }
         }
 
@@ -127,7 +131,6 @@ namespace Bomberman.Classes
                 // Ako smo raznijeli ciglu, ne idi dalje
                 if (Field.Field[X + i, Y] == 'b')
                 {
-                    Field.UpdateField(X + i, Y);
                     break;
                 }
             }
@@ -142,7 +145,6 @@ namespace Bomberman.Classes
                 SetExplosion(X, Y + i);
                 if (Field.Field[X, Y + i] == 'b')
                 {
-                    Field.UpdateField(X, Y + i);
                     break;
                 }
             }
@@ -157,7 +159,6 @@ namespace Bomberman.Classes
                 SetExplosion(X - i, Y);
                 if (Field.Field[X - i, Y] == 'b')
                 {
-                    Field.UpdateField(X - i, Y);
                     break;
                 }
             }
@@ -172,7 +173,6 @@ namespace Bomberman.Classes
                 SetExplosion(X, Y - i);
                 if (Field.Field[X, Y - i] == 'b')
                 {
-                    Field.UpdateField(X, Y - i);
                     break;
                 }
             }
