@@ -10,6 +10,7 @@ namespace Bomberman.Classes
 {
     public class GameField
     {
+        Form Form;
 
         protected const char EmptyElement = ' ';
         protected const char Wall = 'w';
@@ -46,16 +47,20 @@ namespace Bomberman.Classes
         }
 
         protected char[,] field = new char[29, 13];
-        public GameField() { }
 
-        public void CreateGameField(Form formInstance)
+        public GameField(Form form)
+        {
+            Form = form;
+        }
+
+        public void CreateGameField()
         {
             PictureBox p = new PictureBox();
             p.Name = "GameField";
             p.SizeMode = PictureBoxSizeMode.AutoSize;
-            p.Location = new Point((formInstance.Width - 29 * ElementSize)/2, (formInstance.Height - 13 * ElementSize) / 2);
+            p.Location = new Point((Form.Width - 29 * ElementSize) / 2, (Form.Height - 13 * ElementSize) / 2);
             p.Image = Properties.Resources.GameField;
-            formInstance.Controls.Add(p);
+            Form.Controls.Add(p);
             p.BringToFront();
             pictureBox = p;
         }
