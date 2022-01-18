@@ -121,21 +121,23 @@ namespace Bomberman.Classes
             playerPicture.Name = "Player" + xPlayer.ToString() + yPlayer.ToString();
             playerPicture.SizeMode = PictureBoxSizeMode.AutoSize;
             playerPicture.Location = new Point(x * Field.ElementSize + Field.PictureBox.Location.X, y * Field.ElementSize + Field.PictureBox.Location.Y);
-            playerPicture.Image = Properties.Resources.Enemy;
+            Bitmap Enemy_bitmap = new Bitmap(Properties.Resources.Enemy);
+            Enemy_bitmap.MakeTransparent(Color.White);
+            playerPicture.Image = Enemy_bitmap;
             Form.Controls.Add(playerPicture);
 
             playerPicture.BringToFront();
 
 
         }
-        public void Move(string direction)
-        {
+        public void Move(string direction)//treba paziti i da enemy i igrac ne mogu proci jedan kroz drugoga
+        {                                   //ovo bi se moglo dogoditi ako su jedan kraj drugog i onda izvrse provjeru istovremeno
             if(direction == "left")
             {
                 //MessageBox.Show("pomak lijevo");
-                if (xPlayer - 1 > 0 && Field.Field[xPlayer - 1, yPlayer] != 'w' && Field.Field[xPlayer - 1, yPlayer] != 'b')
+                if (xPlayer - 1 > 0 && Field.Field[yPlayer, xPlayer - 1] != 'w' && Field.Field[yPlayer, xPlayer - 1] != 'b')
                 {
-                    xPlayer--;
+                    --xPlayer;
                 }
                 playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
                 Form.Controls.Add(playerPicture);
@@ -145,9 +147,9 @@ namespace Bomberman.Classes
             if (direction == "right")
             {
                 //MessageBox.Show("pomak desno");
-                if (xPlayer + 1 > 0 && Field.Field[xPlayer + 1, yPlayer] != 'w' && Field.Field[xPlayer + 1, yPlayer] != 'b')
+                if (/*xPlayer + 1 > 0 && */Field.Field[yPlayer, xPlayer + 1] != 'w' && Field.Field[yPlayer, xPlayer + 1] != 'b')
                 {
-                    xPlayer++;
+                    ++xPlayer;
                 }
                 playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
                 Form.Controls.Add(playerPicture);
@@ -156,10 +158,10 @@ namespace Bomberman.Classes
             }
             if (direction == "down")
             {
-                //MessageBox.Show("pomak gore");
-                if (yPlayer + 1 > 0 && Field.Field[xPlayer, yPlayer + 1] != 'w' && Field.Field[xPlayer, yPlayer + 1] != 'b')
+                //MessageBox.Show("pomak dolje");
+                if (/*yPlayer + 1 > 0 && */Field.Field[yPlayer + 1, xPlayer] != 'w' && Field.Field[yPlayer + 1, xPlayer] != 'b')
                 {
-                    yPlayer++;
+                    ++yPlayer;
                 }
                 playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
                 Form.Controls.Add(playerPicture);
@@ -168,10 +170,10 @@ namespace Bomberman.Classes
             }
             if (direction == "up")
             {
-                //MessageBox.Show("pomak dolje");
-                if (yPlayer - 1 > 0 && Field.Field[xPlayer, yPlayer - 1] != 'w' && Field.Field[xPlayer, yPlayer - 1] != 'b')
+                //MessageBox.Show("pomak gore");
+                if (yPlayer - 1 > 0 && Field.Field[yPlayer - 1, xPlayer] != 'w' && Field.Field[yPlayer - 1, xPlayer] != 'b')
                 {
-                    yPlayer--;
+                    --yPlayer;
                 }
                 playerPicture.Location = new Point(xPlayer * Field.ElementSize + Field.PictureBox.Location.X, yPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
                 Form.Controls.Add(playerPicture);

@@ -168,5 +168,12 @@
   <ItemGroup>
     <None Include="Resources\Fire1.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Enemy_trans.png" />
+    <Content Include="Resources\Player1.bmp" />
+    <Content Include="Resources\Player2.bmp" />
+    <Content Include="Resources\Player3.bmp" />
+    <Content Include="Resources\Player4.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

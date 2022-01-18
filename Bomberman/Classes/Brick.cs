@@ -53,7 +53,7 @@ namespace Bomberman.Classes
 
         System.Timers.Timer ScoreTimer;
         
-        private void ShowScore(Form form, GameField field, int score, int x, int y)
+        async public void ShowScore(Form form, GameField field, int score, int x, int y)
         {
             Label ScoreText = new Label();
 
@@ -68,20 +68,61 @@ namespace Bomberman.Classes
             form.Controls.Add(ScoreText);
             ScoreText.BringToFront();
 
-            ScoreTimer = new System.Timers.Timer();
 
-            ScoreTimer.Elapsed += new System.Timers.ElapsedEventHandler((sender, e) => ScoreVanish_tick(sender, e, ScoreText));
+            //ScoreTimer = new System.Timers.Timer();
+            //ScoreTimer.Interval = 300;
 
-            ScoreTimer.Interval = 300;
-            ScoreTimer.Enabled = true;
+            //ScoreTimer.Elapsed += (s, e) => {
+            //    ScoreText.Hide();
+            //    ScoreTimer.Stop();
+            //};
+            //ScoreTimer.Start();
 
+            ////ScoreTimer.Elapsed += new System.Timers.ElapsedEventHandler((sender, e) => ScoreVanish_tick(sender, e, ScoreText));
+            //ScoreTimer.Elapsed += new System.Timers.ElapsedEventHandler(ScoreTimer_Elapsed);
+
+            ////ScoreTimer.Elapsed += (source, e) => { ScoreText.Visible = false; ScoreTimer.Stop(); };
+
+            //void ScoreTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+            //{
+            //    ScoreText.Visible = false;
+            //    ScoreTimer.Stop();
+            //}
+
+            ////ScoreTimer.Start();
+
+            //System.Timers.Timer ScoreTimer = new System.Timers.Timer();
+            //ScoreTimer.AutoReset = false;
+            //ScoreTimer.Interval = 300;
+            //ScoreTimer.Elapsed += new System.Timers.ElapsedEventHandler(BombTimer_Elapsed);
+            //ScoreTimer.Start();
+
+            await Task.Delay(300);
+
+            ScoreText.Visible = false;
+
+            //void BombTimer_Elapsed(object sender, EventArgs e)
+            //{
+            //    //bomb.Visible = false;
+            //    //BombTimer.Enabled = false;
+
+            //    //// eksplozija
+            //    //foreach (var ex in Explosion)
+            //    //{
+            //    //    ex.BringToFront();
+            //    //}
+            //    //ScoreTimer.Interval = 300;
+
+            //    Console.WriteLine("disu");
+            //    //ScoreTimer.Stop();
+            //}
 
 
         }
 
         void ScoreVanish_tick(object sender, EventArgs e, Label label)
         {
-            //label.Visible = false;
+            label.Visible = false;
             ScoreTimer.Enabled = false;
 
         }
