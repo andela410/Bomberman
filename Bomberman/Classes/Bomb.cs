@@ -20,6 +20,7 @@ namespace Bomberman.Classes
         int BombStrength = 2;
         List<PictureBox> Explosion = new List<PictureBox>();
         List<Tuple<int, int>> LogicalExplosion = new List<Tuple<int, int>>();
+        static List<Tuple<Bomb, int, int>> BombPositions = new List<Tuple<Bomb, int, int>>();
 
         public Bomb(Form form, GameField field, Player player, Brick brick, int x, int y)
         {
@@ -53,6 +54,8 @@ namespace Bomberman.Classes
             Form.Controls.Add(bomb);
             bomb.BringToFront();
 
+            BombPositions.Add(new Tuple<Bomb, int, int>(this, X, Y));
+
             PrepareExplosion();
 
             BombTimer.Enabled = true;
@@ -79,6 +82,8 @@ namespace Bomberman.Classes
             bomb.Visible = false;
             BombTimer.Enabled = false;
 
+            Tuple<Bomb, int, int> temp = null;
+
             // eksplozija
             for (int i = 0; i < Explosion.Count(); ++i)
             {
@@ -86,7 +91,23 @@ namespace Bomberman.Classes
 
                 Explosion[i].BringToFront();
                 if (x == Player.XPlayer && y == Player.YPlayer) Player.LoseLife();
+
+                // Prodji kroz sve postavljenje bombe i vidi preklapa li se pozicija
+                // sa eksplozijom bombe koja je eksplodirala
+                foreach (var BombPosition in BombPositions)
+                {
+                    if (BombPosition.Item1 != this && x == BombPosition.Item2 && y == BombPosition.Item3)
+                    {
+                        BombPosition.Item1.BombTimer.Interval = 1;
+                    }
+                    else if (BombPosition.Item1 == this)
+                    {
+                        // Ova bomba je eksplodirala, izbaci je iz liste pozicija
+                        temp = BombPosition;
+                    }
+                }
             }
+            if (temp != null) BombPositions.Remove(temp);
             FireTimer.Enabled = true;
         }
 
