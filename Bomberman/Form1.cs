@@ -37,18 +37,6 @@ namespace Bomberman
             player.CreatePlayerScore();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            player.GetLife();
-            //player.UpdateScore(100);
-
-            //brick.DestroyBrickWall(this, 1, 3);
-
-            Bomb bomb = new Bomb(this, game, player, brick, 3, 5);
-            bomb.PlantBomb();
-            //bomb.PlantBomb(this, game, 11, 1);
-        }
-
         private void closeGame_Click(object sender, EventArgs e)
         {
             this.Close();
