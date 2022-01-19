@@ -152,28 +152,28 @@ namespace Bomberman.Classes
         {
             if(direction == "left")
             {
-                if (Field.Field[xPlayer, yPlayer - 1] != 'w' && Field.Field[xPlayer, yPlayer - 1] != 'b')
+                if (Field.Field[xPlayer, yPlayer - 1] != 'w' && Field.Field[xPlayer, yPlayer - 1] != 'b' && Field.Field[xPlayer, yPlayer - 1] != 'h')
                 {
                     yPlayer--;
                 }
             }
             else if (direction == "right")
             {
-                if (Field.Field[xPlayer, yPlayer + 1] != 'w' && Field.Field[xPlayer, yPlayer + 1] != 'b')
+                if (Field.Field[xPlayer, yPlayer + 1] != 'w' && Field.Field[xPlayer, yPlayer + 1] != 'b' && Field.Field[xPlayer, yPlayer + 1] != 'h')
                 {
                     yPlayer++;
                 }
             }
             else if (direction == "down")
             {
-                if (Field.Field[xPlayer + 1, yPlayer] != 'w' && Field.Field[xPlayer + 1, yPlayer] != 'b')
+                if (Field.Field[xPlayer + 1, yPlayer] != 'w' && Field.Field[xPlayer + 1, yPlayer] != 'b' && Field.Field[xPlayer + 1, yPlayer] != 'h')
                 {
                     xPlayer++;
                 }
             }
             else if (direction == "up")
             {
-                if (Field.Field[xPlayer - 1, yPlayer] != 'w' && Field.Field[xPlayer - 1, yPlayer] != 'b')
+                if (Field.Field[xPlayer - 1, yPlayer] != 'w' && Field.Field[xPlayer - 1, yPlayer] != 'b' && Field.Field[xPlayer - 1, yPlayer] != 'h')
                 {
                     xPlayer--;
                 }
