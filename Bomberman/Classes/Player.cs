@@ -30,7 +30,7 @@ namespace Bomberman.Classes
             get { return yPlayer; }
         }
 
-        public Player(Form form, GameField field, int x, int y)
+        public Player(Form form, GameField field, int x, int y, int player_number)
         {
             xPlayer = x;
             yPlayer = y;
@@ -39,7 +39,7 @@ namespace Bomberman.Classes
 
             playerPicture = new PictureBox();
 
-            SetPlayer(x, y);
+            SetPlayer(x, y, player_number);
         }
 
         public void CreateLives()
@@ -113,7 +113,7 @@ namespace Bomberman.Classes
             //if (Score > Form1.highscore.Score) { Form1.highscore.UpdateHighScore(Score); }
         }
 
-        private void SetPlayer(int x, int y) //pozovi u konstruktoru
+        private void SetPlayer(int x, int y, int player_number) //pozovi u konstruktoru
         {
 
             //PictureBox e = new PictureBox();
@@ -122,9 +122,27 @@ namespace Bomberman.Classes
             playerPicture.Name = "Player" + xPlayer.ToString() + yPlayer.ToString();
             playerPicture.SizeMode = PictureBoxSizeMode.AutoSize;
             playerPicture.Location = new Point(x * Field.ElementSize + Field.PictureBox.Location.X, y * Field.ElementSize + Field.PictureBox.Location.Y);
-            Bitmap Enemy_bitmap = new Bitmap(Properties.Resources.Enemy);
-            Enemy_bitmap.MakeTransparent(Color.White);
-            playerPicture.Image = Enemy_bitmap;
+            Bitmap Player_transparent = new Bitmap(Properties.Resources.Player1);
+            switch (player_number)
+            {
+                case 1:
+                    Player_transparent = new Bitmap(Properties.Resources.Player1);
+                    break;
+                case 2:
+                    Player_transparent = new Bitmap(Properties.Resources.Player2);
+                    break;
+                case 3:
+                    Player_transparent = new Bitmap(Properties.Resources.Player3);
+                    break;
+                case 4:
+                    Player_transparent = new Bitmap(Properties.Resources.Player4);
+                    break;
+                default:
+                    break;
+            }
+
+            Player_transparent.MakeTransparent(Color.White);
+            playerPicture.Image = Player_transparent;
             Form.Controls.Add(playerPicture);
 
             playerPicture.BringToFront();
@@ -134,32 +152,28 @@ namespace Bomberman.Classes
         {
             if(direction == "left")
             {
-                //MessageBox.Show("pomak lijevo");
-                if (/*yPlayer - 1 > 0 && */Field.Field[xPlayer, yPlayer - 1] != 'w' && Field.Field[xPlayer, yPlayer - 1] != 'b')
+                if (Field.Field[xPlayer, yPlayer - 1] != 'w' && Field.Field[xPlayer, yPlayer - 1] != 'b')
                 {
                     yPlayer--;
                 }
             }
             else if (direction == "right")
             {
-                //MessageBox.Show("pomak desno");
-                if (/*yPlayer - 1 <  Field.GameFieldWidth && */Field.Field[xPlayer, yPlayer + 1] != 'w' && Field.Field[xPlayer, yPlayer + 1] != 'b')
+                if (Field.Field[xPlayer, yPlayer + 1] != 'w' && Field.Field[xPlayer, yPlayer + 1] != 'b')
                 {
                     yPlayer++;
                 }
             }
             else if (direction == "down")
             {
-                //MessageBox.Show("pomak gore");
-                if (/*xPlayer + 1 < Field.GameFieldHeight && */Field.Field[xPlayer + 1, yPlayer] != 'w' && Field.Field[xPlayer + 1, yPlayer] != 'b')
+                if (Field.Field[xPlayer + 1, yPlayer] != 'w' && Field.Field[xPlayer + 1, yPlayer] != 'b')
                 {
                     xPlayer++;
                 }
             }
             else if (direction == "up")
             {
-                //MessageBox.Show("pomak dolje");
-                if (/*xPlayer - 1 > 0 && */Field.Field[xPlayer - 1, yPlayer] != 'w' && Field.Field[xPlayer - 1, yPlayer] != 'b')
+                if (Field.Field[xPlayer - 1, yPlayer] != 'w' && Field.Field[xPlayer - 1, yPlayer] != 'b')
                 {
                     xPlayer--;
                 }

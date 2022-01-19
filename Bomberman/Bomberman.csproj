@@ -71,6 +71,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="LevelMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LevelMenu.Designer.cs">
+      <DependentUpon>LevelMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelMenu.resx">
+      <DependentUpon>LevelMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
@@ -169,6 +178,7 @@
     <None Include="Resources\Fire1.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Door.bmp" />
     <Content Include="Resources\Enemy_trans.png" />
     <Content Include="Resources\Player1.bmp" />
     <Content Include="Resources\Player2.bmp" />

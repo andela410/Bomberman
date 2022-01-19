@@ -29,92 +29,107 @@ namespace Bomberman
         /// </summary>
         private void InitializeComponent()
         {
-            this.naslov = new System.Windows.Forms.Label();
             this.newGameButton = new System.Windows.Forms.Button();
             this.controlsButton = new System.Windows.Forms.Button();
-            this.exitButton = new System.Windows.Forms.Button();
             this.scoreboardButton = new System.Windows.Forms.Button();
+            this.exitButton = new System.Windows.Forms.Button();
+            this.naslov = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // naslov
-            // 
-            this.naslov.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.naslov.AutoSize = true;
-            this.naslov.Font = new System.Drawing.Font("Ink Free", 65F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.naslov.ForeColor = System.Drawing.Color.Black;
-            this.naslov.Location = new System.Drawing.Point(0, 0);
-            this.naslov.Name = "naslov";
-            this.naslov.Size = new System.Drawing.Size(764, 169);
-            this.naslov.TabIndex = 0;
-            this.naslov.Text = "Bomberman";
-            this.naslov.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // newGameButton
             // 
             this.newGameButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.newGameButton.AutoSize = true;
-            this.newGameButton.Location = new System.Drawing.Point(50, 100);
-            this.newGameButton.MaximumSize = new System.Drawing.Size(276, 81);
-            this.newGameButton.MinimumSize = new System.Drawing.Size(200, 50);
+            this.newGameButton.BackColor = System.Drawing.Color.ForestGreen;
+            this.newGameButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.newGameButton.FlatAppearance.BorderSize = 2;
+            this.newGameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.newGameButton.Font = new System.Drawing.Font("Algerian", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newGameButton.Location = new System.Drawing.Point(12, 12);
             this.newGameButton.Name = "newGameButton";
-            this.newGameButton.Size = new System.Drawing.Size(276, 81);
+            this.newGameButton.Size = new System.Drawing.Size(383, 132);
             this.newGameButton.TabIndex = 1;
-            this.newGameButton.Text = "New game";
-            this.newGameButton.UseVisualStyleBackColor = true;
+            this.newGameButton.Text = "New Game";
+            this.newGameButton.UseVisualStyleBackColor = false;
             this.newGameButton.Click += new System.EventHandler(this.newGameButton_Click);
             // 
             // controlsButton
             // 
             this.controlsButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.controlsButton.AutoSize = true;
-            this.controlsButton.Location = new System.Drawing.Point(50, 200);
-            this.controlsButton.MaximumSize = new System.Drawing.Size(276, 81);
-            this.controlsButton.MinimumSize = new System.Drawing.Size(200, 50);
+            this.controlsButton.BackColor = System.Drawing.Color.DarkMagenta;
+            this.controlsButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.controlsButton.FlatAppearance.BorderSize = 2;
+            this.controlsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.controlsButton.Font = new System.Drawing.Font("Algerian", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.controlsButton.Location = new System.Drawing.Point(12, 150);
             this.controlsButton.Name = "controlsButton";
-            this.controlsButton.Size = new System.Drawing.Size(276, 81);
+            this.controlsButton.Size = new System.Drawing.Size(383, 132);
             this.controlsButton.TabIndex = 2;
             this.controlsButton.Text = "Controls";
-            this.controlsButton.UseVisualStyleBackColor = true;
-            // 
-            // exitButton
-            // 
-            this.exitButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.exitButton.AutoSize = true;
-            this.exitButton.Location = new System.Drawing.Point(50, 400);
-            this.exitButton.MaximumSize = new System.Drawing.Size(276, 81);
-            this.exitButton.MinimumSize = new System.Drawing.Size(200, 50);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(276, 81);
-            this.exitButton.TabIndex = 3;
-            this.exitButton.Text = "Exit";
-            this.exitButton.UseVisualStyleBackColor = true;
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            this.controlsButton.UseVisualStyleBackColor = false;
             // 
             // scoreboardButton
             // 
             this.scoreboardButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.scoreboardButton.AutoSize = true;
-            this.scoreboardButton.Location = new System.Drawing.Point(50, 300);
-            this.scoreboardButton.MaximumSize = new System.Drawing.Size(276, 81);
-            this.scoreboardButton.MinimumSize = new System.Drawing.Size(200, 50);
+            this.scoreboardButton.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.scoreboardButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.scoreboardButton.FlatAppearance.BorderSize = 2;
+            this.scoreboardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.scoreboardButton.Font = new System.Drawing.Font("Algerian", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreboardButton.Location = new System.Drawing.Point(12, 288);
             this.scoreboardButton.Name = "scoreboardButton";
-            this.scoreboardButton.Size = new System.Drawing.Size(276, 81);
+            this.scoreboardButton.Size = new System.Drawing.Size(383, 132);
             this.scoreboardButton.TabIndex = 4;
             this.scoreboardButton.Text = "Scoreboard";
-            this.scoreboardButton.UseVisualStyleBackColor = true;
+            this.scoreboardButton.UseVisualStyleBackColor = false;
             // 
-            // Form2
+            // exitButton
+            // 
+            this.exitButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.exitButton.AutoSize = true;
+            this.exitButton.BackColor = System.Drawing.Color.Maroon;
+            this.exitButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.exitButton.FlatAppearance.BorderSize = 2;
+            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitButton.Font = new System.Drawing.Font("Algerian", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.Location = new System.Drawing.Point(12, 426);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(383, 132);
+            this.exitButton.TabIndex = 3;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = false;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
+            // naslov
+            // 
+            this.naslov.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.naslov.AutoSize = true;
+            this.naslov.BackColor = System.Drawing.Color.Transparent;
+            this.naslov.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.naslov.FlatAppearance.BorderSize = 5;
+            this.naslov.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.naslov.Font = new System.Drawing.Font("Algerian", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.naslov.Location = new System.Drawing.Point(401, 13);
+            this.naslov.Name = "naslov";
+            this.naslov.Size = new System.Drawing.Size(715, 131);
+            this.naslov.TabIndex = 5;
+            this.naslov.Text = "BOMBERMAN";
+            this.naslov.UseVisualStyleBackColor = false;
+            // 
+            // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkGoldenrod;
-            this.ClientSize = new System.Drawing.Size(911, 548);
+            this.BackColor = System.Drawing.Color.Indigo;
+            this.ClientSize = new System.Drawing.Size(1090, 747);
+            this.Controls.Add(this.naslov);
             this.Controls.Add(this.scoreboardButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.controlsButton);
             this.Controls.Add(this.newGameButton);
-            this.Controls.Add(this.naslov);
-            this.Name = "Form2";
+            this.Name = "Menu";
             this.Text = "Form2";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Menu_Load);
@@ -124,11 +139,10 @@ namespace Bomberman
         }
 
         #endregion
-
-        private System.Windows.Forms.Label naslov;
         private System.Windows.Forms.Button newGameButton;
         private System.Windows.Forms.Button controlsButton;
-        private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button scoreboardButton;
+        private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Button naslov;
     }
 }

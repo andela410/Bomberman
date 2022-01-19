@@ -17,22 +17,22 @@ namespace Bomberman
         Player player;
         Brick brick;
 
-        public Form1()
+        public Form1(int level, int player_number)
         {
             InitializeComponent();
-            SetupGame();
+            SetupGame(level, player_number);
             KeyDown += new KeyEventHandler(Form1_KeyDown);
             KeyPreview = true;
         }
 
-        void SetupGame()
+        void SetupGame(int level, int player_number)
         {
             game = new GameField(this);
-            game.CreateGameField();
-            game.InitializeGameField(1);
+            game.CreateGameField(level, player_number);
+            game.InitializeGameField(level);
             brick = new Brick(this, game);
             brick.CreateBrickWalls();
-            player = new Player(this, game, 1, 1);
+            player = new Player(this, game, 1, 1, player_number);
             player.CreateLives();
             player.CreatePlayerScore();
         }

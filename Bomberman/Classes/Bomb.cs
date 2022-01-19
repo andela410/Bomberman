@@ -130,6 +130,11 @@ namespace Bomberman.Classes
                     if (Brick.DestroyBrickWall(x, y))
                         Player.UpdateScore(100);
                 }
+                else if(Field.Field[x, y] == 'h')
+                {
+                    if (Brick.DestroyDoorBrick(x, y))
+                        Player.UpdateScore(100);
+                }
             }
         }
 

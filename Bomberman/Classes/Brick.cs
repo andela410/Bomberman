@@ -36,6 +36,27 @@ namespace Bomberman.Classes
                         Form.Controls.Add(brick);
                         brick.BringToFront();
                     }
+                    else if (Field.Field[i, j] == 'h')
+                    {
+                        PictureBox brick = new PictureBox();
+                        brick.Name = "Hidden" + i.ToString() + j.ToString();
+                        brick.SizeMode = PictureBoxSizeMode.AutoSize;
+                        brick.Parent = Field.PictureBox;
+                        brick.Location = new Point(Field.PictureBox.Location.X + j * Field.ElementSize, Field.PictureBox.Location.Y + i * Field.ElementSize);
+                        brick.Image = Properties.Resources.Brick;
+                        Form.Controls.Add(brick);
+
+                        PictureBox door = new PictureBox();
+                        door.Name = "Hidden" + i.ToString() + j.ToString();
+                        door.SizeMode = PictureBoxSizeMode.AutoSize;
+                        door.Parent = Field.PictureBox;
+                        door.Location = new Point(Field.PictureBox.Location.X + j * Field.ElementSize, Field.PictureBox.Location.Y + i * Field.ElementSize);
+                        door.Image = Properties.Resources.Door;
+                        Form.Controls.Add(door);
+
+                        door.BringToFront();
+                        brick.BringToFront();
+                    }
                 }
             }
         }
@@ -43,6 +64,20 @@ namespace Bomberman.Classes
         public bool DestroyBrickWall(int x, int y)
         {
             Control[] bricks = Form.Controls.Find("Brick" + x.ToString() + y.ToString(), false);
+
+            if (bricks != null && bricks.Length > 0)
+            {
+                ShowScore(100, x, y);
+                Field.UpdateField(x, y);
+                bricks[0].Visible = false;
+                return true;
+            }
+            return false;
+        }
+
+        public bool DestroyDoorBrick(int x, int y)
+        {
+            Control[] bricks = Form.Controls.Find("Hidden" + x.ToString() + y.ToString(), false);
 
             if (bricks != null && bricks.Length > 0)
             {
