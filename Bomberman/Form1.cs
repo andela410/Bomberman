@@ -16,6 +16,7 @@ namespace Bomberman
         GameField game;
         Player player;
         Brick brick;
+        Enemy enemy;
 
         public Form1(int level, int player_number)
         {

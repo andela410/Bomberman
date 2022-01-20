@@ -40,11 +40,11 @@ namespace Bomberman
             // 
             this.newGameButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.newGameButton.AutoSize = true;
-            this.newGameButton.BackColor = System.Drawing.Color.ForestGreen;
+            this.newGameButton.BackColor = System.Drawing.Color.PaleTurquoise;
             this.newGameButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.newGameButton.FlatAppearance.BorderSize = 2;
             this.newGameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.newGameButton.Font = new System.Drawing.Font("Algerian", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newGameButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 25.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newGameButton.Location = new System.Drawing.Point(12, 12);
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(383, 132);
@@ -57,11 +57,11 @@ namespace Bomberman
             // 
             this.controlsButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.controlsButton.AutoSize = true;
-            this.controlsButton.BackColor = System.Drawing.Color.DarkMagenta;
+            this.controlsButton.BackColor = System.Drawing.Color.Cyan;
             this.controlsButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.controlsButton.FlatAppearance.BorderSize = 2;
             this.controlsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.controlsButton.Font = new System.Drawing.Font("Algerian", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.controlsButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 25.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.controlsButton.Location = new System.Drawing.Point(12, 150);
             this.controlsButton.Name = "controlsButton";
             this.controlsButton.Size = new System.Drawing.Size(383, 132);
@@ -73,11 +73,11 @@ namespace Bomberman
             // 
             this.scoreboardButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.scoreboardButton.AutoSize = true;
-            this.scoreboardButton.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.scoreboardButton.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.scoreboardButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.scoreboardButton.FlatAppearance.BorderSize = 2;
             this.scoreboardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.scoreboardButton.Font = new System.Drawing.Font("Algerian", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreboardButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 25.2F);
             this.scoreboardButton.Location = new System.Drawing.Point(12, 288);
             this.scoreboardButton.Name = "scoreboardButton";
             this.scoreboardButton.Size = new System.Drawing.Size(383, 132);
@@ -89,11 +89,11 @@ namespace Bomberman
             // 
             this.exitButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.exitButton.AutoSize = true;
-            this.exitButton.BackColor = System.Drawing.Color.Maroon;
+            this.exitButton.BackColor = System.Drawing.Color.MediumBlue;
             this.exitButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.exitButton.FlatAppearance.BorderSize = 2;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.exitButton.Font = new System.Drawing.Font("Algerian", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 25.2F);
             this.exitButton.Location = new System.Drawing.Point(12, 426);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(383, 132);
@@ -106,14 +106,14 @@ namespace Bomberman
             // 
             this.naslov.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.naslov.AutoSize = true;
-            this.naslov.BackColor = System.Drawing.Color.Transparent;
+            this.naslov.BackColor = System.Drawing.Color.Silver;
             this.naslov.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.naslov.FlatAppearance.BorderSize = 5;
             this.naslov.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.naslov.Font = new System.Drawing.Font("Algerian", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.naslov.Font = new System.Drawing.Font("Microsoft Sans Serif", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.naslov.Location = new System.Drawing.Point(401, 13);
             this.naslov.Name = "naslov";
-            this.naslov.Size = new System.Drawing.Size(715, 131);
+            this.naslov.Size = new System.Drawing.Size(724, 133);
             this.naslov.TabIndex = 5;
             this.naslov.Text = "BOMBERMAN";
             this.naslov.UseVisualStyleBackColor = false;
@@ -123,6 +123,7 @@ namespace Bomberman
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Indigo;
+            this.BackgroundImage = global::Bomberman.Properties.Resources.Background;
             this.ClientSize = new System.Drawing.Size(1090, 747);
             this.Controls.Add(this.naslov);
             this.Controls.Add(this.scoreboardButton);

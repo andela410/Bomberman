@@ -23,6 +23,11 @@ namespace Bomberman
             this.controlsButton.Location = new Point((this.Width - this.controlsButton.Width) / 2, vert_pomak + 230);
             this.scoreboardButton.Location = new Point((this.Width - this.scoreboardButton.Width) / 2, vert_pomak + 345);
             this.exitButton.Location = new Point((this.Width - this.exitButton.Width) / 2, vert_pomak + 460);
+
+            naslov.FlatAppearance.MouseOverBackColor = naslov.BackColor;
+            naslov.BackColorChanged += (s, e) => {
+                naslov.FlatAppearance.MouseOverBackColor = naslov.BackColor;
+            };
         }
 
         private void Menu_Load(object sender, EventArgs e)

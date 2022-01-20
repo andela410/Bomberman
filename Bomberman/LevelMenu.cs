@@ -16,16 +16,19 @@ namespace Bomberman
         {
             InitializeComponent();
 
-            int vert_pomak = (this.Height - 7 * this.button1.Height) / 2;
-            int hor_pomak = (this.Width - 3 * this.button1.Width) / 2 - 5;
-            this.button1.Location = new Point(hor_pomak, vert_pomak);
-            this.button2.Location = new Point(hor_pomak, vert_pomak + 105);
-            this.button3.Location = new Point(hor_pomak, vert_pomak + 210);
-            this.button4.Location = new Point(hor_pomak, vert_pomak + 315);
-            this.button5.Location = new Point(hor_pomak, vert_pomak + 420);
+            int vert_pomak = Height/8;
+            int hor_pomak = Width - button1.Width *3/2;
+            button1.Location = new Point(hor_pomak, vert_pomak);
+            button2.Location = new Point(hor_pomak, vert_pomak + button2.Height * 11 / 10);
+            button3.Location = new Point(hor_pomak, vert_pomak + button3.Height * 22 / 10);
+            button4.Location = new Point(hor_pomak, vert_pomak + button4.Height * 33 / 10);
+            button5.Location = new Point(hor_pomak, vert_pomak + button5.Height * 44 / 10);
 
-            hor_pomak += 2 * this.button1.Width + 200;//zasto ovdje nije dovoljno bez faktora 2?(mozda neka losa pretvorba jedinica)
-            this.panel1.Location = new Point(hor_pomak, vert_pomak + 2 * this.button1.Height);
+            choosePlayer.Width = playersPanel.Width;
+
+            vert_pomak = Height/8 + (button1.Height * 54/10 -playersPanel.Height)/2;
+            hor_pomak = playersPanel.Width * 1 / 2;//zasto ovdje nije dovoljno bez faktora 2?(mozda neka losa pretvorba jedinica)
+            playersPanel.Location = new Point(hor_pomak, vert_pomak);
         }
 
         private void button1_Click(object sender, EventArgs e)
