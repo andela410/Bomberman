@@ -40,13 +40,6 @@ namespace Bomberman.Classes
             SetEnemy(x, y);
         }
 
-        private void SetEnemy(int x, int y) //pozovi u konstruktoru
-        {
-            // enemy nekako nestane s mape
-        }
-
-            //PictureBox e = new PictureBox();
-            // e.Name = "Fire" + x.ToString() + y.ToString();
 
         private void SetEnemy(int x, int y) //pozovi u konstruktoru
         {
