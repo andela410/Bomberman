@@ -179,6 +179,8 @@
     <None Include="Resources\Fire1.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Background.jpg" />
+    <None Include="Resources\Back.png" />
     <Content Include="Resources\Door.bmp" />
     <Content Include="Resources\Enemy_trans.png" />
     <Content Include="Resources\Player1.bmp" />

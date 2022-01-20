@@ -33,7 +33,7 @@ namespace Bomberman.Classes
             Field = field;
             Form = form;
             Direction = direction;
-            
+
 
             enemyPicture = new PictureBox();
 
@@ -42,10 +42,14 @@ namespace Bomberman.Classes
 
         private void SetEnemy(int x, int y) //pozovi u konstruktoru
         {
+            // enemy nekako nestane s mape
+        }
 
             //PictureBox e = new PictureBox();
             // e.Name = "Fire" + x.ToString() + y.ToString();
 
+        private void SetEnemy(int x, int y) //pozovi u konstruktoru
+        {
             enemyPicture.Name = "Enemy" + xEnemy.ToString() + yEnemy.ToString();
             enemyPicture.SizeMode = PictureBoxSizeMode.AutoSize;
             enemyPicture.Location = new Point(x * Field.ElementSize + Field.PictureBox.Location.X, y * Field.ElementSize + Field.PictureBox.Location.Y);
@@ -84,15 +88,15 @@ namespace Bomberman.Classes
                 {
                     yEnemy--;
                     Direction = "left";
+                    }
                 }
+
+
+                enemyPicture.Location = new Point(yEnemy * Field.ElementSize + Field.PictureBox.Location.X, xEnemy * Field.ElementSize + Field.PictureBox.Location.Y);
+                Form.Controls.Add(enemyPicture);
+
+                enemyPicture.BringToFront();
             }
-
-
-            enemyPicture.Location = new Point(yEnemy * Field.ElementSize + Field.PictureBox.Location.X, xEnemy * Field.ElementSize + Field.PictureBox.Location.Y);
-            Form.Controls.Add(enemyPicture);
-
-            enemyPicture.BringToFront();
-        }
 
     }
 }
