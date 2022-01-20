@@ -44,7 +44,7 @@ namespace Bomberman
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            Close();
+            Application.Exit();
         }
     }
 }

@@ -131,7 +131,7 @@ namespace Bomberman
             this.Controls.Add(this.controlsButton);
             this.Controls.Add(this.newGameButton);
             this.Name = "Menu";
-            this.Text = "Form2";
+            this.Text = "Bomberman";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Menu_Load);
             this.ResumeLayout(false);
