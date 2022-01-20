@@ -16,6 +16,7 @@ namespace Bomberman
         GameField game;
         Player player;
         Brick brick;
+        Enemy enemy;
 
         public Form1(int level, int player_number)
         {
@@ -35,6 +36,9 @@ namespace Bomberman
             player = new Player(this, game, 1, 1, player_number);
             player.CreateLives();
             player.CreatePlayerScore();
+            enemy = new Enemy(this, game, 3, 3, "left");
+            enemy.Move();
+            
         }
 
         private void closeGame_Click(object sender, EventArgs e)

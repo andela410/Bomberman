@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Classes\Bomb.cs" />
     <Compile Include="Classes\Brick.cs" />
+    <Compile Include="Classes\Enemy.cs" />
     <Compile Include="Classes\GameField.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Form1.cs">

@@ -54,5 +54,10 @@ namespace Bomberman
         private void button1_MouseHover(object sender, EventArgs e)
         {
         }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
