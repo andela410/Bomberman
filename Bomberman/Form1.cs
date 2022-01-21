@@ -36,8 +36,8 @@ namespace Bomberman
             player = new Player(this, game, 1, 1, player_number);
             player.CreateLives();
             player.CreatePlayerScore();
-            enemy = new Enemy(this, game, 3, 3, "left");
-            enemy.Move();
+            enemy = new Enemy(this, game, 3, 3, "left", player);
+          
             
         }
 
@@ -56,7 +56,7 @@ namespace Bomberman
                 e.Handled = true;
             }
             if (e.KeyCode == Keys.D)
-            { 
+            {
                 player.Move("right");
             }
             if (e.KeyCode == Keys.W)
@@ -69,8 +69,9 @@ namespace Bomberman
             }
             if(e.KeyCode == Keys.B) //Pusti bombu na tipku B
             {
-                Bomb bomb = new Bomb(this, game, player, brick, player.XPlayer, player.YPlayer);
+                Bomb bomb = new Bomb(this, game, player, enemy, brick, player.XPlayer, player.YPlayer);
                 bomb.PlantBomb();
+
             }
         }
     }
