@@ -73,11 +73,11 @@ namespace Bomberman.Classes
         void SetLives()
         {
             // Display lives in form
-            for (int x = 0; x < Lives; x++)
+            for (int x = 0; x < Lives; ++x)
             {
                 LifeImage[x].Visible = true;
             }
-            for (int x = Lives; x < MaxLives; x++)
+            for (int x = Lives; x < MaxLives; ++x)
             {
                 LifeImage[x].Visible = false;
             }
@@ -86,7 +86,7 @@ namespace Bomberman.Classes
         public void LoseLife()
         {
             // Lose a life
-            Lives--;
+            --Lives;
 
             if (Lives <= 0)
             {
@@ -178,9 +178,15 @@ namespace Bomberman.Classes
                     xPlayer--;
                 }
             }
+
             playerPicture.Location = new Point(yPlayer * Field.ElementSize + Field.PictureBox.Location.X, xPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
             Form.Controls.Add(playerPicture);
 
+            playerPicture.BringToFront();
+        }
+
+        public void BringPicToFront()
+        {
             playerPicture.BringToFront();
         }
     }
