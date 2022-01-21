@@ -57,16 +57,16 @@ namespace Bomberman
         {
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
         {
             this.Hide();
             Form menu = new Menu();
             menu.Show();
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
