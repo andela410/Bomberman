@@ -31,7 +31,7 @@ namespace Bomberman
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.newGameButton = new System.Windows.Forms.Button();
-            this.controlsButton = new System.Windows.Forms.Button();
+            this.settingsButton = new System.Windows.Forms.Button();
             this.scoreboardButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.naslov = new System.Windows.Forms.Button();
@@ -54,21 +54,22 @@ namespace Bomberman
             this.newGameButton.UseVisualStyleBackColor = false;
             this.newGameButton.Click += new System.EventHandler(this.newGameButton_Click);
             // 
-            // controlsButton
+            // settingsButton
             // 
-            this.controlsButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.controlsButton.AutoSize = true;
-            this.controlsButton.BackColor = System.Drawing.Color.Cyan;
-            this.controlsButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.controlsButton.FlatAppearance.BorderSize = 2;
-            this.controlsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.controlsButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 25.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.controlsButton.Location = new System.Drawing.Point(12, 150);
-            this.controlsButton.Name = "controlsButton";
-            this.controlsButton.Size = new System.Drawing.Size(383, 132);
-            this.controlsButton.TabIndex = 2;
-            this.controlsButton.Text = "Controls";
-            this.controlsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.settingsButton.AutoSize = true;
+            this.settingsButton.BackColor = System.Drawing.Color.Cyan;
+            this.settingsButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.settingsButton.FlatAppearance.BorderSize = 2;
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 25.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.settingsButton.Location = new System.Drawing.Point(12, 150);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(383, 132);
+            this.settingsButton.TabIndex = 2;
+            this.settingsButton.Text = "Settings";
+            this.settingsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
             // scoreboardButton
             // 
@@ -129,7 +130,7 @@ namespace Bomberman
             this.Controls.Add(this.naslov);
             this.Controls.Add(this.scoreboardButton);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.controlsButton);
+            this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.newGameButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -144,7 +145,7 @@ namespace Bomberman
 
         #endregion
         private System.Windows.Forms.Button newGameButton;
-        private System.Windows.Forms.Button controlsButton;
+        private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button scoreboardButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button naslov;

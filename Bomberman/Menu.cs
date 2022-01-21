@@ -20,7 +20,7 @@ namespace Bomberman
             this.naslov.Location = new Point((this.Width - this.naslov.Width) / 2, vert_pomak);
             vert_pomak += 25;
             this.newGameButton.Location = new Point((this.Width - this.newGameButton.Width) / 2, vert_pomak + 115);
-            this.controlsButton.Location = new Point((this.Width - this.controlsButton.Width) / 2, vert_pomak + 230);
+            this.settingsButton.Location = new Point((this.Width - this.settingsButton.Width) / 2, vert_pomak + 230);
             this.scoreboardButton.Location = new Point((this.Width - this.scoreboardButton.Width) / 2, vert_pomak + 345);
             this.exitButton.Location = new Point((this.Width - this.exitButton.Width) / 2, vert_pomak + 460);
 
@@ -45,6 +45,14 @@ namespace Bomberman
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form settingsForm = new Settings();
+            settingsForm.Show();
+            settingsForm.Closed += (s, args) => { settingsForm.Show(); this.Show(); };
         }
     }
 }
