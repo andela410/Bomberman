@@ -21,14 +21,14 @@ namespace Bomberman.Classes
 
         public void CreateBrickWalls()
         {
-            for (int i = 0; i < Field.GameFieldHeight; i++)
+            for (int i = 0; i < Field.GameFieldHeight; ++i)
             {
-                for (int j = 0; j < Field.GameFieldWidth; j++)
+                for (int j = 0; j < Field.GameFieldWidth; ++j)
                 {
                     if (Field.Field[i, j] == 'b')
                     {
                         PictureBox brick = new PictureBox();
-                        brick.Name = "Brick" + i.ToString() + j.ToString();
+                        brick.Name = "Brick" + j.ToString() + i.ToString();
                         brick.SizeMode = PictureBoxSizeMode.AutoSize;
                         brick.Parent = Field.PictureBox;
                         brick.Location = new Point(Field.PictureBox.Location.X + j * Field.ElementSize, Field.PictureBox.Location.Y + i * Field.ElementSize);
@@ -39,7 +39,7 @@ namespace Bomberman.Classes
                     else if (Field.Field[i, j] == 'h')
                     {
                         PictureBox brick = new PictureBox();
-                        brick.Name = "Hidden" + i.ToString() + j.ToString();
+                        brick.Name = "Hidden" + j.ToString() + i.ToString();
                         brick.SizeMode = PictureBoxSizeMode.AutoSize;
                         brick.Parent = Field.PictureBox;
                         brick.Location = new Point(Field.PictureBox.Location.X + j * Field.ElementSize, Field.PictureBox.Location.Y + i * Field.ElementSize);
@@ -47,7 +47,7 @@ namespace Bomberman.Classes
                         Form.Controls.Add(brick);
 
                         PictureBox door = new PictureBox();
-                        door.Name = "Hidden" + i.ToString() + j.ToString();
+                        door.Name = "Hidden" + j.ToString() + i.ToString();
                         door.SizeMode = PictureBoxSizeMode.AutoSize;
                         door.Parent = Field.PictureBox;
                         door.Location = new Point(Field.PictureBox.Location.X + j * Field.ElementSize, Field.PictureBox.Location.Y + i * Field.ElementSize);
@@ -63,7 +63,7 @@ namespace Bomberman.Classes
 
         public bool DestroyBrickWall(int x, int y)
         {
-            Control[] bricks = Form.Controls.Find("Brick" + x.ToString() + y.ToString(), false);
+            Control[] bricks = Form.Controls.Find("Brick" + y.ToString() + x.ToString(), false);
 
             if (bricks != null && bricks.Length > 0)
             {
@@ -72,6 +72,7 @@ namespace Bomberman.Classes
                 bricks[0].Visible = false;
                 return true;
             }
+
             return false;
         }
 
@@ -90,7 +91,7 @@ namespace Bomberman.Classes
         }
 
         System.Timers.Timer ScoreTimer;
-        
+
         async private void ShowScore(int score, int x, int y)
         {
             Label ScoreText = new Label();

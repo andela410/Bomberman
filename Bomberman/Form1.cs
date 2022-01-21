@@ -71,7 +71,7 @@ namespace Bomberman
             {
                 Bomb bomb = new Bomb(this, game, player, enemy, brick, player.XPlayer, player.YPlayer);
                 bomb.PlantBomb();
-
+                player.BringPicToFront();
             }
         }
     }

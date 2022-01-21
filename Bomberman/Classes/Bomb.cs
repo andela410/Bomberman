@@ -65,7 +65,7 @@ namespace Bomberman.Classes
 
         private void SetExplosion(int x, int y)
         {
-            if (x > 0 && y > 0 && x < Field.GameFieldHeight && y < Field.GameFieldWidth && Field.Field[x, y] != 'w')
+            if (x > 0 && y > 0 && /*x < Field.GameFieldHeight && y < Field.GameFieldWidth && */Field.Field[x, y] != 'w')
             {
                 PictureBox e = new PictureBox();
                 e.Name = "Fire" + x.ToString() + y.ToString();
@@ -122,7 +122,6 @@ namespace Bomberman.Classes
             foreach (var ex in Explosion)
             {
                 ex.Visible = false;
-
             }
 
             // unisti cigle eksplozijom i dodaj playeru score
@@ -147,7 +146,7 @@ namespace Bomberman.Classes
             SetExplosion(X, Y);
 
             // Ekplozija u smjeru prema dolje
-            for (int i = 1; i <= BombStrength; i++)
+            for (int i = 1; i <= BombStrength; ++i)
             {
                 // Ako naidjemo na stup, prekini
                 if (Field.Field[X + i, Y] == 'w')
@@ -158,49 +157,49 @@ namespace Bomberman.Classes
                 SetExplosion(X + i, Y);
                 
                 // Ako smo raznijeli ciglu, ne idi dalje
-                if (Field.Field[X + i, Y] == 'b')
+                if (Field.Field[X + i, Y] == 'b' || Field.Field[X + i, Y] == 'h')
                 {
                     break;
                 }
             }
 
             // Eksplozija u smjeru prema desno
-            for (int i = 1; i <= BombStrength; i++)
+            for (int i = 1; i <= BombStrength; ++i)
             {
                 if (Field.Field[X, Y + i] == 'w')
                 {
                     break;
                 }
                 SetExplosion(X, Y + i);
-                if (Field.Field[X, Y + i] == 'b')
+                if (Field.Field[X, Y + i] == 'b' || Field.Field[X, Y + i] == 'h')
                 {
                     break;
                 }
             }
 
             // Eksplozija u smjeru prema gore
-            for (int i = 1; i <= BombStrength; i++)
+            for (int i = 1; i <= BombStrength; ++i)
             {
                 if (Field.Field[X - i, Y] == 'w')
                 {
                     break;
                 }
                 SetExplosion(X - i, Y);
-                if (Field.Field[X - i, Y] == 'b')
+                if (Field.Field[X - i, Y] == 'b' || Field.Field[X - i, Y] == 'h')
                 {
                     break;
                 }
             }
 
             // Eksplozija u smjeru prema lijevo
-            for (int i = 1; i <= BombStrength; i++)
+            for (int i = 1; i <= BombStrength; ++i)
             {
                 if (Field.Field[X, Y - i] == 'w')
                 {
                     break;
                 }
                 SetExplosion(X, Y - i);
-                if (Field.Field[X, Y - i] == 'b')
+                if (Field.Field[X, Y - i] == 'b' || Field.Field[X, Y - i] == 'h')
                 {
                     break;
                 }
