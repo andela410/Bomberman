@@ -184,6 +184,7 @@
     <Content Include="Resources\Door.bmp" />
     <Content Include="Resources\Enemy2.bmp" />
     <Content Include="Resources\Enemy_trans.png" />
+    <None Include="Resources\FireExit1.jpg" />
     <Content Include="Resources\Player1.bmp" />
     <Content Include="Resources\Player2.bmp" />
     <Content Include="Resources\Player3.bmp" />

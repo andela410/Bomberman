@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelMenu));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -66,7 +65,6 @@
             this.button1.Text = "LEVEL 1";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            this.button1.MouseHover += new System.EventHandler(this.button1_MouseHover);
             // 
             // button2
             // 
@@ -85,7 +83,6 @@
             this.button2.Text = "LEVEL 2";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button1_Click);
-            this.button2.MouseHover += new System.EventHandler(this.button1_MouseHover);
             // 
             // button3
             // 
@@ -104,7 +101,6 @@
             this.button3.Text = "LEVEL 3";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button1_Click);
-            this.button3.MouseHover += new System.EventHandler(this.button1_MouseHover);
             // 
             // button4
             // 
@@ -123,7 +119,6 @@
             this.button4.Text = "LEVEL 4";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button1_Click);
-            this.button4.MouseHover += new System.EventHandler(this.button1_MouseHover);
             // 
             // button5
             // 
@@ -142,7 +137,6 @@
             this.button5.Text = "LEVEL 5";
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button1_Click);
-            this.button5.MouseHover += new System.EventHandler(this.button1_MouseHover);
             // 
             // playersPanel
             // 
@@ -277,7 +271,7 @@
             this.backButton.Size = new System.Drawing.Size(138, 136);
             this.backButton.TabIndex = 10;
             this.backButton.UseVisualStyleBackColor = false;
-            this.backButton.Click += new System.EventHandler(this.button6_Click);
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // LevelMenu
             // 
@@ -292,8 +286,10 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LevelMenu";
-            this.Text = "Level Menu";
+            this.Text = "Bomberman";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.playersPanel.ResumeLayout(false);
             this.playersPanel.PerformLayout();

@@ -29,6 +29,7 @@ namespace Bomberman
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.newGameButton = new System.Windows.Forms.Button();
             this.controlsButton = new System.Windows.Forms.Button();
             this.scoreboardButton = new System.Windows.Forms.Button();
@@ -130,6 +131,8 @@ namespace Bomberman
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.controlsButton);
             this.Controls.Add(this.newGameButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Menu";
             this.Text = "Bomberman";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
