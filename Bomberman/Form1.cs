@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Bomberman
 {
@@ -22,7 +23,6 @@ namespace Bomberman
         {
             InitializeComponent();
             SetupGame(level, player_number);
-            KeyDown += new KeyEventHandler(Form1_KeyDown);
             KeyPreview = true;
         }
 
@@ -51,28 +51,76 @@ namespace Bomberman
         {
             if (e.KeyCode == Keys.A)
             {
-                //Do here
-                player.Move("left");
-                e.Handled = true;
+                if (!player.goleft)
+                {
+                    player.goleft = true;
+                    player.Move();
+                }
             }
             if (e.KeyCode == Keys.D)
             {
-                player.Move("right");
+                if (!player.goright)
+                {
+                    player.goright = true;
+                    player.Move();
+                }
             }
             if (e.KeyCode == Keys.W)
             {
-                player.Move("up");
+                if (!player.goup)
+                {
+                    player.goup = true;
+                    player.Move();
+                }
             }
             if (e.KeyCode == Keys.S)
             {
-                player.Move("down");
+                if (!player.godown)
+                {
+                    player.godown = true;
+                    player.Move();
+                }
             }
-            if(e.KeyCode == Keys.B) //Pusti bombu na tipku B
+            if (e.KeyCode == Keys.B) //Pusti bombu na tipku B
             {
                 Bomb bomb = new Bomb(this, game, player, enemy, brick, player.XPlayer, player.YPlayer);
                 bomb.PlantBomb();
                 player.BringPicToFront();
             }
+
+            /*keyUp = false;
+            Stopwatch sw = new Stopwatch();
+            while (keyUp == false)
+            {
+                if (sw.ElapsedMilliseconds < 100) player.Move();
+            }*/
+
         }
+        //private Boolean keyUp = false;
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //keyUp = true;
+            if (e.KeyCode == Keys.A)
+            {
+                player.goleft = false;
+                player.MoveStop();
+            }
+            if (e.KeyCode == Keys.D)
+            {
+                player.goright = false;
+                player.MoveStop();
+            }
+            if (e.KeyCode == Keys.W)
+            {
+                player.goup = false;
+                player.MoveStop();
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                player.godown = false;
+                player.MoveStop();
+            }
+        }
+
     }
 }

@@ -19,6 +19,9 @@ namespace Bomberman.Classes
         GameField Field;
         Form Form;
         PictureBox playerPicture;
+        Timer MoveTimer;
+
+
 
         public int XPlayer
         {
@@ -30,6 +33,25 @@ namespace Bomberman.Classes
             get { return yPlayer; }
         }
 
+        public Boolean goleft
+        {
+            get; set;
+        }
+
+        public Boolean goright
+        {
+            get; set;
+        }
+        public Boolean goup
+        {
+            get; set;
+        }
+        public Boolean godown
+        {
+            get; set;
+        }
+
+
         public Player(Form form, GameField field, int x, int y, int player_number)
         {
             xPlayer = x;
@@ -40,6 +62,10 @@ namespace Bomberman.Classes
             playerPicture = new PictureBox();
 
             SetPlayer(x, y, player_number);
+
+            MoveTimer = new Timer();
+            MoveTimer.Interval = 250;
+            MoveTimer.Tick += new EventHandler(MoveTimer_Tick);
         }
 
         public void CreateLives()
@@ -148,30 +174,35 @@ namespace Bomberman.Classes
             playerPicture.BringToFront();
         }
 
-        public void Move(string direction)
+        private void MoveTimer_Tick(object sender, EventArgs e)
         {
-            if(direction == "left")
+            Move();
+        }
+        public void Move()
+        {
+            MoveTimer.Enabled = true;
+            if (goleft == true)
             {
                 if (Field.Field[xPlayer, yPlayer - 1] != 'w' && Field.Field[xPlayer, yPlayer - 1] != 'b' && Field.Field[xPlayer, yPlayer - 1] != 'h')
                 {
                     yPlayer--;
                 }
             }
-            else if (direction == "right")
+            else if (goright == true)
             {
                 if (Field.Field[xPlayer, yPlayer + 1] != 'w' && Field.Field[xPlayer, yPlayer + 1] != 'b' && Field.Field[xPlayer, yPlayer + 1] != 'h')
                 {
                     yPlayer++;
                 }
             }
-            else if (direction == "down")
+            else if (godown == true)
             {
                 if (Field.Field[xPlayer + 1, yPlayer] != 'w' && Field.Field[xPlayer + 1, yPlayer] != 'b' && Field.Field[xPlayer + 1, yPlayer] != 'h')
                 {
                     xPlayer++;
                 }
             }
-            else if (direction == "up")
+            else if (goup == true)
             {
                 if (Field.Field[xPlayer - 1, yPlayer] != 'w' && Field.Field[xPlayer - 1, yPlayer] != 'b' && Field.Field[xPlayer - 1, yPlayer] != 'h')
                 {
@@ -185,6 +216,10 @@ namespace Bomberman.Classes
             playerPicture.BringToFront();
         }
 
+        public void MoveStop()
+        {
+            MoveTimer.Enabled = false;
+        }
         public void BringPicToFront()
         {
             playerPicture.BringToFront();

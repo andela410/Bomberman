@@ -1,5 +1,4 @@
-﻿
-namespace Bomberman
+﻿namespace Bomberman
 {
     partial class Form1
     {
@@ -40,28 +39,29 @@ namespace Bomberman
             this.closeGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.closeGame.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.closeGame.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeGame.Location = new System.Drawing.Point(1316, 1);
-            this.closeGame.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.closeGame.Location = new System.Drawing.Point(987, 1);
+            this.closeGame.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.closeGame.Name = "closeGame";
-            this.closeGame.Size = new System.Drawing.Size(145, 72);
+            this.closeGame.Size = new System.Drawing.Size(109, 58);
             this.closeGame.TabIndex = 1;
             this.closeGame.UseVisualStyleBackColor = false;
             this.closeGame.Click += new System.EventHandler(this.closeGame_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(1596, 753);
+            this.ClientSize = new System.Drawing.Size(1197, 612);
             this.Controls.Add(this.closeGame);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bomberman";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.ResumeLayout(false);
 
         }
