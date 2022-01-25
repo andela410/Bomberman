@@ -17,7 +17,7 @@ namespace Bomberman.Classes
         public PictureBox[] LifeImage = new PictureBox[MaxLives];
         private int xPlayer, yPlayer;
         GameField Field;
-        Form Form;
+        Form1 Form;
         PictureBox playerPicture;
         Timer MoveTimer;
 
@@ -52,7 +52,7 @@ namespace Bomberman.Classes
         }
 
 
-        public Player(Form form, GameField field, int x, int y, int player_number)
+        public Player(Form1 form, GameField field, int x, int y, int player_number)
         {
             xPlayer = x;
             yPlayer = y;
@@ -116,9 +116,12 @@ namespace Bomberman.Classes
 
             if (Lives <= 0)
             {
-                Application.Exit();
+                Form.Close();
             }
-            SetLives();
+            else
+            {
+                SetLives();
+            }
         }
 
         public void GetLife()

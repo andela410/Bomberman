@@ -14,45 +14,55 @@ namespace Bomberman
     public partial class Settings : Form
     {
         SoundPlayer player;
-        public Settings()
+        Menu menu;
+        public Settings(Menu tempMenu)
         {
             InitializeComponent();
+            backButton.Location = new Point(Width - backButton.Width * 11 / 8, 12);
             player = new SoundPlayer(Properties.Resources.Black_Betty);
+            menu = tempMenu;
+            if(menu.SviraMuzika)
+            {
+                SoundOnOff.Tag = "on";
+                SoundOnOff.BackgroundImage = Properties.Resources.soundOff;
+            } else
+            {
+                SoundOnOff.Tag = "off";
+                SoundOnOff.BackgroundImage = Properties.Resources.soundOn;
+            }
         }
 
         private void SoundOnOff_Click(object sender, EventArgs e)
         {
-            if(SoundOnOff.Tag == "on")
+            if(menu.SviraMuzika)
             {
                 player.Stop();
                 SoundOnOff.Tag = "off";
+                menu.SviraMuzika = false;
                 SoundOnOff.BackgroundImage = Properties.Resources.soundOn;
             }
-            else if (SoundOnOff.Tag == "off")
+            else
             {
                 player.PlayLooping();
                 SoundOnOff.Tag = "on";
+                menu.SviraMuzika = true;
                 SoundOnOff.BackgroundImage = Properties.Resources.soundOff;
             }
         }
 
         private void Settings_Load(object sender, EventArgs e)
         {
-            if (SoundOnOff.Tag == "off")
-            {
-                SoundOnOff.BackgroundImage = Properties.Resources.soundOn;
-            }
-            else if (SoundOnOff.Tag == "on")
-            {
-                SoundOnOff.BackgroundImage = Properties.Resources.soundOff;
-            }
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form menu = new Menu();
             menu.Show();
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

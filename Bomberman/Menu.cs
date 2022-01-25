@@ -15,7 +15,6 @@ namespace Bomberman
         public Menu()
         {
             InitializeComponent();
-
             int vert_pomak = (this.Height - this.naslov.Height - 5 * this.newGameButton.Height) / 2;
             this.naslov.Location = new Point((this.Width - this.naslov.Width) / 2, vert_pomak);
             vert_pomak += 25;
@@ -37,7 +36,7 @@ namespace Bomberman
         private void newGameButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form levelMenu = new LevelMenu();
+            Form levelMenu = new LevelMenu(this);
             levelMenu.Show();
             levelMenu.Closed += (s, args) => { this.Show(); };
         }
@@ -47,12 +46,19 @@ namespace Bomberman
             Application.Exit();
         }
 
+        private bool sviraMuzika = true;
+        public bool SviraMuzika
+        {
+            get { return sviraMuzika; }
+            set { sviraMuzika = value; }
+        }
+
         private void settingsButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form settingsForm = new Settings();
+            Form settingsForm = new Settings(this);
             settingsForm.Show();
-            settingsForm.Closed += (s, args) => { settingsForm.Show(); this.Show(); };
+            settingsForm.Closed += (s, args) => { this.Show(); };
         }
     }
 }

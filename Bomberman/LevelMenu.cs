@@ -12,10 +12,11 @@ namespace Bomberman
 {
     public partial class LevelMenu : Form
     {
-        public LevelMenu()
+        Menu menu;
+        public LevelMenu(Menu tempMenu)
         {
             InitializeComponent();
-
+            menu = tempMenu;
             int vert_pomak = Height/8;
             int hor_pomak = Width *3/4;
             button1.Location = new Point(hor_pomak, vert_pomak);
@@ -49,23 +50,13 @@ namespace Bomberman
                     Form1 = new Form1(level, 4);
                 
                 Form1.Show();
-                Form1.Closed += (s, args) => { this.Show(); };
+                Form1.Closed += (s, args) => { this.Show(); Form1.Dispose(); };
             }
-        }
-
-        private void button1_MouseHover(object sender, EventArgs e)
-        {
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form menu = new Menu();
             menu.Show();
         }
     }
