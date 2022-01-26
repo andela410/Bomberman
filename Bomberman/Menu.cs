@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace Bomberman
 {
     public partial class Menu : Form
     {
+        SoundPlayer soundPlayer;
+        bool isPlaying;
+
         public Menu()
         {
             InitializeComponent();
@@ -27,6 +31,10 @@ namespace Bomberman
             naslov.BackColorChanged += (s, e) => {
                 naslov.FlatAppearance.MouseOverBackColor = naslov.BackColor;
             };
+
+            soundPlayer = new SoundPlayer(Properties.Resources.Black_Betty);
+            soundPlayer.PlayLooping();
+            isPlaying = true;
         }
 
         private void Menu_Load(object sender, EventArgs e)
@@ -59,6 +67,24 @@ namespace Bomberman
             Form settingsForm = new Settings(this);
             settingsForm.Show();
             settingsForm.Closed += (s, args) => { this.Show(); };
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (isPlaying)
+            {
+                soundPlayer.Stop();
+                pictureBox1.BackgroundImage = Properties.Resources.soundOn;
+                isPlaying = false;
+                Refresh();
+            }
+            else
+            {
+                soundPlayer.Play();
+                pictureBox1.BackgroundImage = Properties.Resources.soundOff;
+                isPlaying = true;
+                Refresh();
+            }
         }
     }
 }

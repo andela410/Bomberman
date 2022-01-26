@@ -47,11 +47,8 @@ namespace Bomberman.Classes
         protected List<char[,]> fields = new List<char[,]>() {
             field1, field1, field1, field1, field1
         };
-
-        
-
+    
         protected char[,] field = new char[MaxHeight, MaxWidth];
-
 
         public int GameFieldWidth
         {
@@ -82,7 +79,6 @@ namespace Bomberman.Classes
         {
             get { return fields; }
         }
-
 
         public GameField(Form form)
         {
@@ -119,6 +115,23 @@ namespace Bomberman.Classes
             { 'w', 'h', ' ', ' ', 'b', ' ', ' ', 'b', 'b', 'b', ' ', ' ', 'b', 'b', ' ', ' ', 'b', ' ', 'b', ' ', ' ', 'b', 'b', ' ', ' ', 'b', ' ', 'b', 'w' },
             { 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w' }
         };
+        }
+
+        internal void ShowDoors()
+        {
+            field[11, 1] = 'd'; // Ako uopce treba ova funkcija, ovo treba biti dinamicki, kao i dolje u kodu
+
+            PictureBox p = new PictureBox();
+            p.Name = "Doors";
+            p.SizeMode = PictureBoxSizeMode.AutoSize;
+            p.Location = new Point(11 * ElementSize + PictureBox.Location.X, 1 * ElementSize + PictureBox.Location.Y);
+            Bitmap Enemy_transparent = new Bitmap(Properties.Resources.Enemy);
+
+            Enemy_transparent.MakeTransparent(Color.White);
+            p.Image = Enemy_transparent;
+            Form.Controls.Add(p);
+
+            p.BringToFront();
         }
 
         public void UpdateField(int x, int y)

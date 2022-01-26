@@ -37,8 +37,6 @@ namespace Bomberman
             player.CreateLives();
             player.CreatePlayerScore();
             enemy = new Enemy(this, game, 3, 3, "left", player);
-          
-            
         }
 
         private void closeGame_Click(object sender, EventArgs e)

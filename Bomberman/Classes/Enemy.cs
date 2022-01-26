@@ -11,6 +11,7 @@ namespace Bomberman.Classes
     public class Enemy
     {
         private int xEnemy, yEnemy;
+        private static int enemyCnt = 0;
         GameField Field;
         Form Form;
         PictureBox enemyPicture;
@@ -18,7 +19,8 @@ namespace Bomberman.Classes
         private Timer EnemyTimer;
         int cnt = 0;
         Player player;
-
+        Random rand = new Random();
+        
         public int XEnemy
         {
             get { return xEnemy; }
@@ -31,6 +33,7 @@ namespace Bomberman.Classes
 
         public Enemy(Form form, GameField field, int x, int y, string direction, Player player_construct)
         {
+            enemyCnt++;
             xEnemy = x;
             yEnemy = y;
             Field = field;
@@ -51,7 +54,6 @@ namespace Bomberman.Classes
 
         private void EnemyTimer_Tick(object sender, EventArgs e)
         {
- 
             if (Direction == "left")
             {
                 if (Field.Field[xEnemy, yEnemy - 1] != 'w' && Field.Field[xEnemy, yEnemy - 1] != 'b' && Field.Field[xEnemy, yEnemy - 1] != 'h')
@@ -107,7 +109,7 @@ namespace Bomberman.Classes
 
                 enemyPicture.BringToFront();
 
-            cnt++;//probat s random
+            cnt = rand.Next(4);
 
             if(cnt % 3 == 0 && (Direction == "right" || Direction == "left"))
             {
@@ -126,14 +128,13 @@ namespace Bomberman.Classes
             if (XEnemy == player.XPlayer && YEnemy == player.YPlayer) player.LoseLife();
         }
 
-            private void SetEnemy(int x, int y) //pozovi u konstruktoru
+        private void SetEnemy(int x, int y) //pozovi u konstruktoru
         {
             enemyPicture.Name = "Enemy" + xEnemy.ToString() + yEnemy.ToString();
             enemyPicture.SizeMode = PictureBoxSizeMode.AutoSize;
             enemyPicture.Location = new Point(x * Field.ElementSize + Field.PictureBox.Location.X, y * Field.ElementSize + Field.PictureBox.Location.Y);
             Bitmap Enemy_transparent = new Bitmap(Properties.Resources.Enemy);
             
-
             Enemy_transparent.MakeTransparent(Color.White);
             enemyPicture.Image = Enemy_transparent;
             Form.Controls.Add(enemyPicture);
@@ -147,10 +148,10 @@ namespace Bomberman.Classes
             yEnemy = -1;
             EnemyTimer.Stop();
             enemyPicture.Dispose();
-            
+            if (--enemyCnt == 0) // Ako unistimo sve neprijatelje pokazu nam se vrata (nije jos dokraja implementirano)
+            {
+                Field.ShowDoors();
+            }
         }
-
-        
-
     }
 }
