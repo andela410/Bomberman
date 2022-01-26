@@ -32,42 +32,29 @@ namespace Bomberman
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.SoundOnOff = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
-            this.controlBox = new System.Windows.Forms.GroupBox();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.PLAYER1 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.PLAYER2 = new System.Windows.Forms.Label();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.controlBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.igrac1Kontrola = new System.Windows.Forms.Panel();
+            this.Igrac1Gore = new System.Windows.Forms.TextBox();
+            this.Igrac1Lijevo = new System.Windows.Forms.TextBox();
+            this.Igrac1Dolje = new System.Windows.Forms.TextBox();
+            this.Igrac1Desno = new System.Windows.Forms.TextBox();
+            this.Igrac1Bomba = new System.Windows.Forms.TextBox();
+            this.soundLabel = new System.Windows.Forms.Label();
+            this.controlsLabel = new System.Windows.Forms.Label();
+            this.igrac2Kontrola = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.igrac1Kontrola.SuspendLayout();
+            this.igrac2Kontrola.SuspendLayout();
             this.SuspendLayout();
             // 
             // SoundOnOff
             // 
             this.SoundOnOff.BackgroundImage = global::Bomberman.Properties.Resources.soundOff;
             this.SoundOnOff.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.SoundOnOff.Location = new System.Drawing.Point(783, 576);
+            this.SoundOnOff.Location = new System.Drawing.Point(1001, 187);
             this.SoundOnOff.Name = "SoundOnOff";
             this.SoundOnOff.Size = new System.Drawing.Size(73, 63);
             this.SoundOnOff.TabIndex = 0;
@@ -88,268 +75,154 @@ namespace Bomberman
             this.backButton.UseVisualStyleBackColor = false;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
-            // controlBox
+            // igrac1Kontrola
             // 
-            this.controlBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.controlBox.BackColor = System.Drawing.Color.Transparent;
-            this.controlBox.Controls.Add(this.splitContainer1);
-            this.controlBox.Location = new System.Drawing.Point(512, 155);
-            this.controlBox.Name = "controlBox";
-            this.controlBox.Size = new System.Drawing.Size(600, 350);
-            this.controlBox.TabIndex = 2;
-            this.controlBox.TabStop = false;
+            this.igrac1Kontrola.BackColor = System.Drawing.Color.Bisque;
+            this.igrac1Kontrola.Controls.Add(this.Igrac1Bomba);
+            this.igrac1Kontrola.Controls.Add(this.Igrac1Desno);
+            this.igrac1Kontrola.Controls.Add(this.Igrac1Dolje);
+            this.igrac1Kontrola.Controls.Add(this.Igrac1Lijevo);
+            this.igrac1Kontrola.Controls.Add(this.Igrac1Gore);
+            this.igrac1Kontrola.Font = new System.Drawing.Font("Franklin Gothic Medium", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.igrac1Kontrola.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.igrac1Kontrola.Location = new System.Drawing.Point(446, 408);
+            this.igrac1Kontrola.Name = "igrac1Kontrola";
+            this.igrac1Kontrola.Size = new System.Drawing.Size(307, 281);
+            this.igrac1Kontrola.TabIndex = 2;
             // 
-            // splitContainer1
+            // Igrac1Gore
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 18);
-            this.splitContainer1.Name = "splitContainer1";
+            this.Igrac1Gore.Location = new System.Drawing.Point(138, 61);
+            this.Igrac1Gore.MaxLength = 1;
+            this.Igrac1Gore.Name = "Igrac1Gore";
+            this.Igrac1Gore.Size = new System.Drawing.Size(24, 27);
+            this.Igrac1Gore.TabIndex = 0;
+            this.Igrac1Gore.Text = "w";
+            this.Igrac1Gore.TextChanged += new System.EventHandler(this.promjenaKontrole);
             // 
-            // splitContainer1.Panel1
+            // Igrac1Lijevo
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.DarkRed;
-            this.splitContainer1.Panel1.Controls.Add(this.label5);
-            this.splitContainer1.Panel1.Controls.Add(this.label4);
-            this.splitContainer1.Panel1.Controls.Add(this.label3);
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.PLAYER1);
-            this.splitContainer1.Panel1.Controls.Add(this.button5);
-            this.splitContainer1.Panel1.Controls.Add(this.button4);
-            this.splitContainer1.Panel1.Controls.Add(this.button3);
-            this.splitContainer1.Panel1.Controls.Add(this.button2);
-            this.splitContainer1.Panel1.Controls.Add(this.button1);
+            this.Igrac1Lijevo.Location = new System.Drawing.Point(51, 134);
+            this.Igrac1Lijevo.MaxLength = 1;
+            this.Igrac1Lijevo.Name = "Igrac1Lijevo";
+            this.Igrac1Lijevo.Size = new System.Drawing.Size(24, 27);
+            this.Igrac1Lijevo.TabIndex = 1;
+            this.Igrac1Lijevo.Text = "a";
+            this.Igrac1Lijevo.TextChanged += new System.EventHandler(this.promjenaKontrole);
             // 
-            // splitContainer1.Panel2
+            // Igrac1Dolje
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.MidnightBlue;
-            this.splitContainer1.Panel2.Controls.Add(this.label10);
-            this.splitContainer1.Panel2.Controls.Add(this.label9);
-            this.splitContainer1.Panel2.Controls.Add(this.label8);
-            this.splitContainer1.Panel2.Controls.Add(this.label7);
-            this.splitContainer1.Panel2.Controls.Add(this.label6);
-            this.splitContainer1.Panel2.Controls.Add(this.PLAYER2);
-            this.splitContainer1.Panel2.Controls.Add(this.button10);
-            this.splitContainer1.Panel2.Controls.Add(this.button9);
-            this.splitContainer1.Panel2.Controls.Add(this.button8);
-            this.splitContainer1.Panel2.Controls.Add(this.button7);
-            this.splitContainer1.Panel2.Controls.Add(this.button6);
-            this.splitContainer1.Size = new System.Drawing.Size(594, 329);
-            this.splitContainer1.SplitterDistance = 300;
-            this.splitContainer1.TabIndex = 0;
+            this.Igrac1Dolje.Location = new System.Drawing.Point(138, 134);
+            this.Igrac1Dolje.MaxLength = 1;
+            this.Igrac1Dolje.Name = "Igrac1Dolje";
+            this.Igrac1Dolje.Size = new System.Drawing.Size(24, 27);
+            this.Igrac1Dolje.TabIndex = 2;
+            this.Igrac1Dolje.Text = "s";
+            this.Igrac1Dolje.TextChanged += new System.EventHandler(this.promjenaKontrole);
             // 
-            // label5
+            // Igrac1Desno
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label5.Location = new System.Drawing.Point(123, 203);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 17);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "BOMB";
+            this.Igrac1Desno.Location = new System.Drawing.Point(217, 134);
+            this.Igrac1Desno.MaxLength = 1;
+            this.Igrac1Desno.Name = "Igrac1Desno";
+            this.Igrac1Desno.Size = new System.Drawing.Size(24, 27);
+            this.Igrac1Desno.TabIndex = 3;
+            this.Igrac1Desno.Text = "d";
+            this.Igrac1Desno.TextChanged += new System.EventHandler(this.promjenaKontrole);
             // 
-            // label4
+            // Igrac1Bomba
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label4.Location = new System.Drawing.Point(212, 128);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 17);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "RIGHT";
+            this.Igrac1Bomba.Location = new System.Drawing.Point(138, 204);
+            this.Igrac1Bomba.MaxLength = 1;
+            this.Igrac1Bomba.Name = "Igrac1Bomba";
+            this.Igrac1Bomba.Size = new System.Drawing.Size(24, 27);
+            this.Igrac1Bomba.TabIndex = 4;
+            this.Igrac1Bomba.Text = "b";
+            this.Igrac1Bomba.TextChanged += new System.EventHandler(this.promjenaKontrole);
             // 
-            // label3
+            // soundLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(119, 128);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 17);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "DOWN";
+            this.soundLabel.AutoSize = true;
+            this.soundLabel.BackColor = System.Drawing.Color.Bisque;
+            this.soundLabel.Font = new System.Drawing.Font("Franklin Gothic Medium", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.soundLabel.ForeColor = System.Drawing.Color.Black;
+            this.soundLabel.Location = new System.Drawing.Point(591, 175);
+            this.soundLabel.Name = "soundLabel";
+            this.soundLabel.Size = new System.Drawing.Size(374, 75);
+            this.soundLabel.TabIndex = 3;
+            this.soundLabel.Text = "Music on/off:";
             // 
-            // label2
+            // controlsLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(35, 128);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 17);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "LEFT";
+            this.controlsLabel.AutoSize = true;
+            this.controlsLabel.BackColor = System.Drawing.Color.Bisque;
+            this.controlsLabel.Font = new System.Drawing.Font("Franklin Gothic Medium", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.controlsLabel.ForeColor = System.Drawing.Color.Black;
+            this.controlsLabel.Location = new System.Drawing.Point(745, 275);
+            this.controlsLabel.Name = "controlsLabel";
+            this.controlsLabel.Size = new System.Drawing.Size(258, 75);
+            this.controlsLabel.TabIndex = 4;
+            this.controlsLabel.Text = "Controls:";
             // 
-            // label1
+            // igrac2Kontrola
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(128, 59);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 17);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "UP";
+            this.igrac2Kontrola.BackColor = System.Drawing.Color.Bisque;
+            this.igrac2Kontrola.Controls.Add(this.textBox1);
+            this.igrac2Kontrola.Controls.Add(this.textBox2);
+            this.igrac2Kontrola.Controls.Add(this.textBox3);
+            this.igrac2Kontrola.Controls.Add(this.textBox4);
+            this.igrac2Kontrola.Controls.Add(this.textBox5);
+            this.igrac2Kontrola.Font = new System.Drawing.Font("Franklin Gothic Medium", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.igrac2Kontrola.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.igrac2Kontrola.Location = new System.Drawing.Point(967, 408);
+            this.igrac2Kontrola.Name = "igrac2Kontrola";
+            this.igrac2Kontrola.Size = new System.Drawing.Size(307, 281);
+            this.igrac2Kontrola.TabIndex = 5;
             // 
-            // PLAYER1
+            // textBox1
             // 
-            this.PLAYER1.AutoSize = true;
-            this.PLAYER1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.PLAYER1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.PLAYER1.Location = new System.Drawing.Point(83, 16);
-            this.PLAYER1.Name = "PLAYER1";
-            this.PLAYER1.Size = new System.Drawing.Size(126, 29);
-            this.PLAYER1.TabIndex = 5;
-            this.PLAYER1.Text = "PLAYER1";
+            this.textBox1.Location = new System.Drawing.Point(138, 204);
+            this.textBox1.MaxLength = 1;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(24, 27);
+            this.textBox1.TabIndex = 4;
+            this.textBox1.Text = "m";
             // 
-            // button5
+            // textBox2
             // 
-            this.button5.Location = new System.Drawing.Point(88, 223);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(121, 46);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
+            this.textBox2.Location = new System.Drawing.Point(217, 134);
+            this.textBox2.MaxLength = 1;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(24, 27);
+            this.textBox2.TabIndex = 3;
+            this.textBox2.Text = "j";
             // 
-            // button4
+            // textBox3
             // 
-            this.button4.Location = new System.Drawing.Point(215, 148);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(52, 46);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.textBox3.Location = new System.Drawing.Point(138, 134);
+            this.textBox3.MaxLength = 1;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(24, 27);
+            this.textBox3.TabIndex = 2;
+            this.textBox3.Text = "h";
             // 
-            // button3
+            // textBox4
             // 
-            this.button3.Location = new System.Drawing.Point(119, 148);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(52, 46);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.textBox4.Location = new System.Drawing.Point(51, 134);
+            this.textBox4.MaxLength = 1;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(24, 27);
+            this.textBox4.TabIndex = 1;
+            this.textBox4.Text = "g";
             // 
-            // button2
+            // textBox5
             // 
-            this.button2.Location = new System.Drawing.Point(25, 148);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(52, 46);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(119, 79);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(52, 46);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label10.Location = new System.Drawing.Point(112, 203);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(48, 17);
-            this.label10.TabIndex = 11;
-            this.label10.Text = "BOMB";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label9.Location = new System.Drawing.Point(210, 128);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 17);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "RIGHT";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label8.Location = new System.Drawing.Point(105, 128);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 17);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "DOWN";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label7.Location = new System.Drawing.Point(16, 128);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(42, 17);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "LEFT";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label6.Location = new System.Drawing.Point(113, 56);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(27, 17);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "UP";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
-            // 
-            // PLAYER2
-            // 
-            this.PLAYER2.AutoSize = true;
-            this.PLAYER2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.PLAYER2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.PLAYER2.Location = new System.Drawing.Point(74, 16);
-            this.PLAYER2.Name = "PLAYER2";
-            this.PLAYER2.Size = new System.Drawing.Size(126, 29);
-            this.PLAYER2.TabIndex = 6;
-            this.PLAYER2.Text = "PLAYER2";
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(79, 223);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(121, 46);
-            this.button10.TabIndex = 5;
-            this.button10.Text = "button10";
-            this.button10.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(209, 148);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(52, 46);
-            this.button9.TabIndex = 4;
-            this.button9.Text = "button9";
-            this.button9.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(108, 148);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(52, 46);
-            this.button8.TabIndex = 3;
-            this.button8.Text = "button8";
-            this.button8.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(19, 148);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(52, 46);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(108, 73);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(52, 46);
-            this.button6.TabIndex = 1;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
+            this.textBox5.Location = new System.Drawing.Point(138, 61);
+            this.textBox5.MaxLength = 1;
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(24, 27);
+            this.textBox5.TabIndex = 0;
+            this.textBox5.Text = "z";
             // 
             // Settings
             // 
@@ -357,7 +230,10 @@ namespace Bomberman
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Bomberman.Properties.Resources.Background;
             this.ClientSize = new System.Drawing.Size(1600, 757);
-            this.Controls.Add(this.controlBox);
+            this.Controls.Add(this.igrac2Kontrola);
+            this.Controls.Add(this.controlsLabel);
+            this.Controls.Add(this.soundLabel);
+            this.Controls.Add(this.igrac1Kontrola);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.SoundOnOff);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -366,14 +242,12 @@ namespace Bomberman
             this.Text = "Bomberman";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Settings_Load);
-            this.controlBox.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.igrac1Kontrola.ResumeLayout(false);
+            this.igrac1Kontrola.PerformLayout();
+            this.igrac2Kontrola.ResumeLayout(false);
+            this.igrac2Kontrola.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -381,29 +255,19 @@ namespace Bomberman
 
         private System.Windows.Forms.Button SoundOnOff;
         private System.Windows.Forms.Button backButton;
-        private System.Windows.Forms.GroupBox controlBox;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label PLAYER1;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label PLAYER2;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Panel igrac1Kontrola;
+        private System.Windows.Forms.TextBox Igrac1Bomba;
+        private System.Windows.Forms.TextBox Igrac1Desno;
+        private System.Windows.Forms.TextBox Igrac1Dolje;
+        private System.Windows.Forms.TextBox Igrac1Lijevo;
+        private System.Windows.Forms.TextBox Igrac1Gore;
+        private System.Windows.Forms.Label soundLabel;
+        private System.Windows.Forms.Label controlsLabel;
+        private System.Windows.Forms.Panel igrac2Kontrola;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }

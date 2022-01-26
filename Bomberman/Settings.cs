@@ -18,7 +18,14 @@ namespace Bomberman
         public Settings(Menu tempMenu)
         {
             InitializeComponent();
+            Width = Screen.PrimaryScreen.Bounds.Width;
+            Height = Screen.PrimaryScreen.Bounds.Height;
             backButton.Location = new Point(Width - backButton.Width * 11 / 8, 12);
+            soundLabel.Location = new Point(Width / 2 - soundLabel.Width / 2 - SoundOnOff.Width / 2, 50);
+            SoundOnOff.Location = new Point(Width / 2 + soundLabel.Width / 2, 50);
+            controlsLabel.Location = new Point(Width / 2 - controlsLabel.Width / 2, Height / 3 - controlsLabel.Height * 2);
+            igrac1Kontrola.Location = new Point(Width/2 - igrac1Kontrola.Width - (Width / 2 - igrac1Kontrola.Width) / 4, Height /3);
+            igrac2Kontrola.Location = new Point(Width/2 +(Width / 2 - igrac2Kontrola.Width) / 4, Height / 3);
             player = new SoundPlayer(Properties.Resources.Black_Betty);
             menu = tempMenu;
             if(menu.SviraMuzika)
@@ -60,7 +67,7 @@ namespace Bomberman
             menu.Show();
         }
 
-        private void label6_Click(object sender, EventArgs e)
+        private void promjenaKontrole(object sender, EventArgs e)
         {
 
         }
