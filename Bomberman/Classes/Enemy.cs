@@ -52,6 +52,11 @@ namespace Bomberman.Classes
             //Move();
         }
 
+        public void CheckIfPlayerHit(Player player)
+        {
+            if (player.XPlayer == XEnemy && player.YPlayer == YEnemy) player.LoseLife();
+        }
+
         private void EnemyTimer_Tick(object sender, EventArgs e)
         {
             if (Direction == "left")
@@ -101,7 +106,6 @@ namespace Bomberman.Classes
                     xEnemy++;
                     Direction = "down";
                 }
-
             }
 
             enemyPicture.Location = new Point(yEnemy * Field.ElementSize + Field.PictureBox.Location.X, xEnemy * Field.ElementSize + Field.PictureBox.Location.Y);
@@ -125,8 +129,10 @@ namespace Bomberman.Classes
                 else if(Field.Field[xEnemy, yEnemy + 1] != 'w' && Field.Field[xEnemy, yEnemy + 1] != 'b' && Field.Field[xEnemy, yEnemy + 1] != 'h')
                     Direction="right";
             }
-            if (XEnemy == player.XPlayer && YEnemy == player.YPlayer) player.LoseLife();
+            EnemyMoved?.Invoke(this);
         }
+
+        public event Action<Enemy> EnemyMoved;
 
         private void SetEnemy(int x, int y) //pozovi u konstruktoru
         {

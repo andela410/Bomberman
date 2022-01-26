@@ -11,6 +11,7 @@ namespace Bomberman.Classes
     public class Player
     {
         private const int MaxLives = 10;
+        private static int PlayerCnt = 0;
         public int Lives = 3;
         public int Score = 0;
         public Label ScoreText = new Label();
@@ -20,8 +21,7 @@ namespace Bomberman.Classes
         Form1 Form;
         PictureBox playerPicture;
         Timer MoveTimer;
-
-
+        bool Alive;
 
         public int XPlayer
         {
@@ -51,7 +51,6 @@ namespace Bomberman.Classes
             get; set;
         }
 
-
         public Player(Form1 form, GameField field, int x, int y, int player_number)
         {
             xPlayer = x;
@@ -66,6 +65,13 @@ namespace Bomberman.Classes
             MoveTimer = new Timer();
             MoveTimer.Interval = 250;
             MoveTimer.Tick += new EventHandler(MoveTimer_Tick);
+            PlayerCnt++;
+            Alive = true;
+        }
+
+        public void CheckIfEnemyHit(Enemy enemy)
+        {
+            if (xPlayer == enemy.XEnemy && yPlayer == enemy.YEnemy) LoseLife();
         }
 
         public void CreateLives()
@@ -112,15 +118,26 @@ namespace Bomberman.Classes
         public void LoseLife()
         {
             // Lose a life
-            --Lives;
+            if (Lives > 0) Lives--;
+            else return;
 
-            if (Lives <= 0)
+            if (Lives == 0)
             {
-                Form.Close();
+                Alive = false;
+                PlayerCnt--;
             }
-            else
+            else if (Lives > 0)
             {
                 SetLives();
+            }
+
+            if(PlayerCnt == 0)
+            {
+                Form gameOver = new GameOver();
+                gameOver.Show();
+                Form.Hide();
+                gameOver.Closed += (s, args) => Form.Close();
+                gameOver.Show();
             }
         }
 
@@ -181,8 +198,10 @@ namespace Bomberman.Classes
         {
             Move();
         }
+
         public void Move()
         {
+            if (!Alive) return;
             MoveTimer.Enabled = true;
             if (goleft == true)
             {
@@ -217,15 +236,19 @@ namespace Bomberman.Classes
             Form.Controls.Add(playerPicture);
 
             playerPicture.BringToFront();
+            PlayerMoved?.Invoke(this);
         }
 
         public void MoveStop()
         {
             MoveTimer.Enabled = false;
         }
+
         public void BringPicToFront()
         {
             playerPicture.BringToFront();
         }
+
+        public event Action<Player> PlayerMoved;
     }
 }

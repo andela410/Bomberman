@@ -77,7 +77,7 @@ namespace Bomberman
             if (this.radioButton1.Checked || this.radioButton2.Checked || this.radioButton3.Checked || this.radioButton4.Checked)
             {
                 this.Hide();
-                Form Form1 = new Form1(level, 1);
+                Form Form1;
 
                 if (this.radioButton1.Checked)
                     Form1 = new Form1(level, 1);
