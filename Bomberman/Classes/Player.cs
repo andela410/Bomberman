@@ -98,6 +98,7 @@ namespace Bomberman.Classes
             ScoreText.Left = Form.Width / 2 - 50;
             ScoreText.Height = 20;
             ScoreText.Width = 100;
+            Form.Controls.Add(ScoreText);
             ScoreText.BringToFront();
             UpdateScore(0);
         }

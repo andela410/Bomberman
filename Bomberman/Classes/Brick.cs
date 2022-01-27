@@ -90,8 +90,6 @@ namespace Bomberman.Classes
             return false;
         }
 
-        System.Timers.Timer ScoreTimer;
-
         async private void ShowScore(int score, int x, int y)
         {
             Label ScoreText = new Label();
@@ -110,12 +108,6 @@ namespace Bomberman.Classes
             await Task.Delay(300);
 
             ScoreText.Visible = false;
-        }
-
-        void ScoreVanish_tick(object sender, EventArgs e, Label label)
-        {
-            label.Visible = false;
-            ScoreTimer.Enabled = false;
         }
     }
 }
