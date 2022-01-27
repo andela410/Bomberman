@@ -133,8 +133,8 @@ namespace Bomberman.Classes
 
             if(PlayerCnt == 0)
             {
+                youDiedScreen();               
                 Form gameOver = new GameOver();
-                gameOver.Show();
                 Form.Hide();
                 gameOver.Closed += (s, args) => Form.Close();
                 gameOver.Show();
@@ -250,5 +250,29 @@ namespace Bomberman.Classes
         }
 
         public event Action<Player> PlayerMoved;
+
+        public void youDiedScreen()
+        {
+            Form.SuspendLayout();
+            Form.youDied = new Label();
+            Form.youDied.Text = "YOU DIED";
+            Form.youDied.ForeColor = Color.Maroon;
+            Form.youDied.Font = new Font("Franklin Gothic Medium", 50, FontStyle.Bold);
+            Form.youDied.BackColor = Color.Black;
+            Form.youDied.Visible = true;
+            Form.youDied.AutoSize = true;
+            Form.youDied.Location = new Point(Form.Width / 2 - Form.youDied.Width / 2, Form.Height / 2 - Form.youDied.Height / 2);
+            Form.Controls.Add(Form.youDied);
+            Form.youDied.BringToFront();
+            Form.ResumeLayout();
+            for (int i = 50; i < 100; ++i)
+            {
+                Form.youDied.Font = new Font("Franklin Gothic Medium", i, FontStyle.Bold);
+                Form.youDied.Location = new Point(Form.Width / 2 - Form.youDied.Width / 2, Form.Height / 2 - Form.youDied.Height / 2);
+                Form.youDied.Refresh();
+                System.Threading.Thread.Sleep(50);
+            }
+            System.Threading.Thread.Sleep(1000);
+        }
     }
 }

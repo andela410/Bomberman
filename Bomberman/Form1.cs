@@ -18,6 +18,7 @@ namespace Bomberman
         Player player;
         Brick brick;
         Enemy enemy;
+        public Label youDied;
 
         public Form1(int level, int player_number)
         {
