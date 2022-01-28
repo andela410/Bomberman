@@ -183,10 +183,10 @@ namespace Bomberman.Classes
             p.Name = "Doors";
             p.SizeMode = PictureBoxSizeMode.AutoSize;
             p.Location = new Point(11 * ElementSize + PictureBox.Location.X, 1 * ElementSize + PictureBox.Location.Y);
-            Bitmap Enemy_transparent = new Bitmap(Properties.Resources.Enemy);
+            Bitmap Door_transparent = new Bitmap(Properties.Resources.Door);
 
-            Enemy_transparent.MakeTransparent(Color.White);
-            p.Image = Enemy_transparent;
+            Door_transparent.MakeTransparent(Color.White);
+            p.Image = Door_transparent;
             Form.Controls.Add(p);
 
             p.BringToFront();

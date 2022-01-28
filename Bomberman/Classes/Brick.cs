@@ -47,7 +47,7 @@ namespace Bomberman.Classes
                         Form.Controls.Add(brick);
 
                         PictureBox door = new PictureBox();
-                        door.Name = "Hidden" + j.ToString() + i.ToString();
+                        door.Name = "HiddenD" + j.ToString() + i.ToString();
                         door.SizeMode = PictureBoxSizeMode.AutoSize;
                         door.Parent = Field.PictureBox;
                         door.Location = new Point(Field.PictureBox.Location.X + j * Field.ElementSize, Field.PictureBox.Location.Y + i * Field.ElementSize);
@@ -78,13 +78,13 @@ namespace Bomberman.Classes
 
         public bool DestroyDoorBrick(int x, int y)
         {
-            Control[] bricks = Form.Controls.Find("Hidden" + x.ToString() + y.ToString(), false);
+            Control[] bricks = Form.Controls.Find("Hidden" + y.ToString() + x.ToString(), false);
 
             if (bricks != null && bricks.Length > 0)
             {
                 ShowScore(100, x, y);
-                Field.UpdateField(x, y);
                 bricks[0].Visible = false;
+                Field.UpdateField(x, y);
                 return true;
             }
             return false;
