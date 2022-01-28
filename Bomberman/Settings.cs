@@ -15,7 +15,10 @@ namespace Bomberman
     {
         SoundPlayer player;
         Menu menu;
-        public Settings(Menu tempMenu)
+        PlayerKeys P1keys;
+        PlayerKeys P2keys;
+
+        public Settings(Menu tempMenu, PlayerKeys p1keys, PlayerKeys p2keys)
         {
             InitializeComponent();
             Width = Screen.PrimaryScreen.Bounds.Width;
@@ -28,15 +31,29 @@ namespace Bomberman
             igrac2Kontrola.Location = new Point(Width/2 +(Width / 2 - igrac2Kontrola.Width) / 4, Height / 3);
             player = new SoundPlayer(Properties.Resources.Black_Betty);
             menu = tempMenu;
-            if(menu.SviraMuzika)
+            P1keys = p1keys;
+            P2keys = p2keys;
+            if (menu.SviraMuzika)
             {
                 SoundOnOff.Tag = "on";
                 SoundOnOff.BackgroundImage = Properties.Resources.soundOff;
-            } else
+            }
+            else
             {
                 SoundOnOff.Tag = "off";
                 SoundOnOff.BackgroundImage = Properties.Resources.soundOn;
             }
+
+            L1.Text = P1keys.Left;
+            U1.Text = P1keys.Up;
+            R1.Text = P1keys.Right;
+            D1.Text = P1keys.Down;
+            B1.Text = P1keys.Bomb;
+            L2.Text = P2keys.Left;
+            U2.Text = P2keys.Up;
+            R2.Text = P2keys.Right;
+            D2.Text = P2keys.Down;
+            B2.Text = P2keys.Bomb;
         }
 
         private void SoundOnOff_Click(object sender, EventArgs e)
@@ -69,7 +86,41 @@ namespace Bomberman
 
         private void promjenaKontrole(object sender, EventArgs e)
         {
+            TextBox box = (TextBox)sender;
 
+            switch (box.Name)
+            {
+                case "L1":
+                    P1keys.Left = box.Text;
+                    break;
+                case "U1":
+                    P1keys.Up = box.Text;
+                    break;
+                case "R1":
+                    P1keys.Right = box.Text;
+                    break;
+                case "D1":
+                    P1keys.Down = box.Text;
+                    break;
+                case "B1":
+                    P1keys.Bomb = box.Text;
+                    break;
+                case "L2":
+                    P2keys.Left = box.Text;
+                    break;
+                case "U2":
+                    P2keys.Up = box.Text;
+                    break;
+                case "R2":
+                    P2keys.Right = box.Text;
+                    break;
+                case "D2":
+                    P2keys.Down = box.Text;
+                    break;
+                case "B2":
+                    P2keys.Bomb = box.Text;
+                    break;
+            }
         }
     }
 }
