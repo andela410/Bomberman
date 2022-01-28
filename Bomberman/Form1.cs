@@ -55,8 +55,8 @@ namespace Bomberman
 
             player1.Enemies = Enemies;
 
-            //setupGameTimer();
-            //startGameTimer();
+            setupGameTimer();
+            startGameTimer();
         }
         private void SetupEnemies(int level)
         {
@@ -129,6 +129,49 @@ namespace Bomberman
         {
             player1.playerKeys = tup.Item1;
             player2.playerKeys = tup.Item2;
+        }
+
+        Label TimeLabel;
+        Label TimeStaticString;
+        Timer gameTimer;
+        int secondsCounter;
+        private void setupGameTimer()
+        {
+            TimeStaticString = new Label();
+            TimeStaticString.ForeColor = Color.White;
+            TimeStaticString.Font = new Font("Folio XBd BT", 14);
+            TimeStaticString.Top = 40 + 30 + game.GameFieldHeight * game.ElementSize;
+            TimeStaticString.Left = 40;
+            TimeStaticString.Height = 25;
+            TimeStaticString.Width = 100;
+            TimeStaticString.Text = "Time: ";
+            this.Controls.Add(TimeStaticString);
+            TimeStaticString.BringToFront();
+
+            TimeLabel = new Label();
+            TimeLabel.ForeColor = Color.White;
+            TimeLabel.Font = new Font("Folio XBd BT", 14);
+            TimeLabel.Top = 40 + 30 + game.GameFieldHeight * game.ElementSize;
+            TimeLabel.Left = 40 + TimeLabel.Width - 40;
+            TimeLabel.Height = 25;
+            TimeLabel.Width = 100;
+            this.Controls.Add(TimeLabel);
+            TimeLabel.BringToFront();
+
+            gameTimer = new Timer();
+            gameTimer.Interval = 1000;
+            gameTimer.Tick += new EventHandler(gameTimerUpdate);
+
+        }
+
+        private void startGameTimer()
+        {
+            gameTimer.Enabled = true;
+        }
+        private void gameTimerUpdate(object sender, EventArgs e)
+        {
+            secondsCounter++;
+            TimeLabel.Text = secondsCounter.ToString() + " sec";
         }
     }
 }
