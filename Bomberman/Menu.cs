@@ -15,6 +15,11 @@ namespace Bomberman
     {
         SoundPlayer soundPlayer;
         private bool sviraMuzika;
+        Form levelMenu;
+        Form settingsForm;
+        PlayerKeys p1keys;
+        PlayerKeys p2keys;
+
         public bool SviraMuzika
         {
             get { return sviraMuzika; }
@@ -24,16 +29,16 @@ namespace Bomberman
         public Menu()
         {
             InitializeComponent();
-            int vert_pomak = (this.Height - this.naslov.Height - 5 * this.campaignButton.Height) / 2;
-            this.naslov.Location = new Point((this.Width - this.naslov.Width) / 2, vert_pomak);
+            int vert_pomak = (Height - naslov.Height - 5 * campaignButton.Height) / 2;
+            naslov.Location = new Point((Width - naslov.Width) / 2, vert_pomak);
             vert_pomak += 25;
-            this.campaignButton.Location = new Point((this.Width - this.campaignButton.Width) / 3, vert_pomak + 120);
-            this.singleplayerButton.Location = new Point((this.Width - this.campaignButton.Width) / 3, vert_pomak + 250);
-            this.multiplayerButton.Location = new Point((this.Width - this.campaignButton.Width) / 3, vert_pomak + 380);
+            campaignButton.Location = new Point((Width - campaignButton.Width) / 3, vert_pomak + 120);
+            singleplayerButton.Location = new Point((Width - campaignButton.Width) / 3, vert_pomak + 250);
+            multiplayerButton.Location = new Point((Width - campaignButton.Width) / 3, vert_pomak + 380);
 
-            this.settingsButton.Location = new Point((this.Width - this.settingsButton.Width) * 2 / 3, vert_pomak + 120);
-            this.scoreboardButton.Location = new Point((this.Width - this.scoreboardButton.Width) * 2 /3, vert_pomak + 250);
-            this.exitButton.Location = new Point((this.Width - this.exitButton.Width) * 2 /3, vert_pomak + 380);
+            settingsButton.Location = new Point((Width - settingsButton.Width) * 2 / 3, vert_pomak + 120);
+            scoreboardButton.Location = new Point((Width - scoreboardButton.Width) * 2 /3, vert_pomak + 250);
+            exitButton.Location = new Point((Width - exitButton.Width) * 2 /3, vert_pomak + 380);
 
             naslov.FlatAppearance.MouseOverBackColor = naslov.BackColor;
             naslov.BackColorChanged += (s, e) => {
@@ -43,6 +48,8 @@ namespace Bomberman
             soundPlayer = new SoundPlayer(Properties.Resources.Black_Betty);
             //soundPlayer.PlayLooping();
             sviraMuzika = true;
+            p1keys = new PlayerKeys("a", "w", "s", "d", "c");
+            p2keys = new PlayerKeys("j", "i", "k", "l", "n");
         }
 
         private void Menu_Load(object sender, EventArgs e)
@@ -56,34 +63,35 @@ namespace Bomberman
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Form settingsForm = new Settings(this);
+            Hide();
+            settingsForm = new Settings(this, p1keys, p2keys);
+
             settingsForm.Show();
-            settingsForm.Closed += (s, args) => { this.Show(); };
+            settingsForm.Closed += (s, args) => { Show(); };
         }
 
         private void campaignButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Form levelMenu = new LevelMenu(this, 1);
+            Hide();
+            levelMenu = new LevelMenu(this, 1, p1keys, p2keys);
             levelMenu.Show();
-            levelMenu.Closed += (s, args) => { this.Show(); };
+            levelMenu.Closed += (s, args) => { Show(); };
         }
 
         private void singleplayerButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Form levelMenu = new LevelMenu(this, 2);
+            Hide();
+            levelMenu = new LevelMenu(this, 2, p1keys, p2keys);
             levelMenu.Show();
-            levelMenu.Closed += (s, args) => { this.Show(); };
+            levelMenu.Closed += (s, args) => { Show(); };
         }
 
         private void multiplayerButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Form levelMenu = new LevelMenu(this, 3);
+            Hide();
+            levelMenu = new LevelMenu(this, 3, p1keys, p2keys);
             levelMenu.Show();
-            levelMenu.Closed += (s, args) => { this.Show(); };
+            levelMenu.Closed += (s, args) => { Show(); };
         }
     }
 }

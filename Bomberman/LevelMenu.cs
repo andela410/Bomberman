@@ -13,7 +13,10 @@ namespace Bomberman
     public partial class LevelMenu : Form
     {
         Menu menu;
-        public LevelMenu(Menu tempMenu, int menuType)
+        PlayerKeys P1keys;
+        PlayerKeys P2keys;
+
+        public LevelMenu(Menu tempMenu, int menuType, PlayerKeys p1keys, PlayerKeys p2keys)
         {
             InitializeComponent();
             Width = Screen.PrimaryScreen.Bounds.Width;
@@ -52,7 +55,8 @@ namespace Bomberman
                 
                 hor_pomak = hor_pomak*2 + player1panel.Width;
                 player2panel.Location = new Point(hor_pomak, vert_pomak);
-            } else //Singleplayer
+            }
+            else //Singleplayer
             {
                 player2panel.Hide();
                 vert_pomak = Height / 2 - button1.Height * 54 / 20;
@@ -68,34 +72,36 @@ namespace Bomberman
                 player1panel.Location = new Point(hor_pomak, vert_pomak);
             }
             backButton.Location = new Point(Width - backButton.Width *11/8, 12);
+            P1keys = p1keys;
+            P2keys = p2keys;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             string ime = ((Button)sender).Name;
             int level = ime.Last() - '0';
-            if (this.radioButton1.Checked || this.radioButton2.Checked || this.radioButton3.Checked || this.radioButton4.Checked)
+            if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked)
             {
-                this.Hide();
+                Hide();
                 Form Form1;
 
-                if (this.radioButton1.Checked)
-                    Form1 = new Form1(level, 1);
-                else if (this.radioButton2.Checked)
-                    Form1 = new Form1(level, 2);
-                else if (this.radioButton3.Checked)
-                    Form1 = new Form1(level, 3);
+                if (radioButton1.Checked)
+                    Form1 = new Form1(level, 1, P1keys, P2keys);
+                else if (radioButton2.Checked)
+                    Form1 = new Form1(level, 2, P1keys, P2keys);
+                else if (radioButton3.Checked)
+                    Form1 = new Form1(level, 3, P1keys, P2keys);
                 else
-                    Form1 = new Form1(level, 4);
+                    Form1 = new Form1(level, 4, P1keys, P2keys);
                 
                 Form1.Show();
-                Form1.Closed += (s, args) => { this.Show(); Form1.Dispose(); };
+                Form1.Closed += (s, args) => { Show(); Form1.Dispose(); };
             }
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             menu.Show();
         }
     }

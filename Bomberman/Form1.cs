@@ -15,16 +15,22 @@ namespace Bomberman
     public partial class Form1 : Form
     {
         GameField game;
-        Player player;
+        Player player1;
+        Player player2;
         Brick brick;
+        Enemy enemy;
+        PlayerKeys P1keys;
+        PlayerKeys P2keys;
         List<Enemy> enemies;
         public Label youDied;
 
-        public Form1(int level, int player_number)
+        public Form1(int level, int player_number, PlayerKeys p1keys, PlayerKeys p2keys)
         {
             InitializeComponent();
-            SetupGame(level, player_number);
             KeyPreview = true;
+            P1keys = p1keys;
+            P2keys = p2keys;
+            SetupGame(level, player_number);
         }
 
         void SetupGame(int level, int player_number)
@@ -36,9 +42,14 @@ namespace Bomberman
             brick = new Brick(this, game);
             brick.CreateBrickWalls();
             
-            player = new Player(this, game, 1, 1, player_number);
-            player.CreateLives();
-            player.CreatePlayerScore();
+            player1 = new Player(this, game, 1, 1, player_number, P1keys);
+            player1.CreateLives();
+            player1.CreatePlayerScore();
+
+            KeyDown += player1.OnKeyDown;
+            //KeyDown += player2.OnKeyDown;
+            KeyUp += player1.OnKeyUp;
+            //KeyUp += player2.OnKeyUp;
 
             SetupEnemies(level);
             //enemy = new Enemy(this, game, 3, 3, "left", player);
@@ -115,115 +126,10 @@ namespace Bomberman
             this.Dispose();
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        public void SetPlayersKeys(Tuple<PlayerKeys, PlayerKeys> tup)
         {
-            if (e.KeyCode == Keys.A)
-            {
-                if (!player.goleft)
-                {
-                    player.goleft = true;
-                    player.Move();
-                }
-            }
-            if (e.KeyCode == Keys.D)
-            {
-                if (!player.goright)
-                {
-                    player.goright = true;
-                    player.Move();
-                }
-            }
-            if (e.KeyCode == Keys.W)
-            {
-                if (!player.goup)
-                {
-                    player.goup = true;
-                    player.Move();
-                }
-            }
-            if (e.KeyCode == Keys.S)
-            {
-                if (!player.godown)
-                {
-                    player.godown = true;
-                    player.Move();
-                }
-            }
-            if (e.KeyCode == Keys.B) //Pusti bombu na tipku B
-            {
-                Bomb bomb = new Bomb(this, game, player, enemies, brick, player.XPlayer, player.YPlayer);
-                bomb.PlantBomb();
-                player.BringPicToFront();
-            }
+            player1.playerKeys = tup.Item1;
+            player2.playerKeys = tup.Item2;
         }
-
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
-        {
-            //keyUp = true;
-            if (e.KeyCode == Keys.A)
-            {
-                player.goleft = false;
-                player.MoveStop();
-            }
-            if (e.KeyCode == Keys.D)
-            {
-                player.goright = false;
-                player.MoveStop();
-            }
-            if (e.KeyCode == Keys.W)
-            {
-                player.goup = false;
-                player.MoveStop();
-            }
-            if (e.KeyCode == Keys.S)
-            {
-                player.godown = false;
-                player.MoveStop();
-            }
-        }
-
-        Label TimeLabel;
-        Label TimeStaticString;
-        Timer gameTimer;
-        int secondsCounter;
-        private void setupGameTimer()
-        {
-            TimeStaticString = new Label();
-            TimeStaticString.ForeColor = Color.White;
-            TimeStaticString.Font = new Font("Folio XBd BT", 14);
-            TimeStaticString.Top = 40 + 30 + game.GameFieldHeight * game.ElementSize;
-            TimeStaticString.Left = 40;
-            TimeStaticString.Height = 25;
-            TimeStaticString.Width = 100;
-            TimeStaticString.Text = "Time: ";
-            this.Controls.Add(TimeStaticString);
-            TimeStaticString.BringToFront();
-
-            TimeLabel = new Label();
-            TimeLabel.ForeColor = Color.White;
-            TimeLabel.Font = new Font("Folio XBd BT", 14);
-            TimeLabel.Top = 40 + 30 + game.GameFieldHeight * game.ElementSize;
-            TimeLabel.Left = 40 + TimeLabel.Width - 40;
-            TimeLabel.Height = 25;
-            TimeLabel.Width = 100;
-            this.Controls.Add(TimeLabel);
-            TimeLabel.BringToFront();
-
-            gameTimer = new Timer();
-            gameTimer.Interval = 1000;
-            gameTimer.Tick += new EventHandler(gameTimerUpdate);
-
-        }
-
-        private void startGameTimer()
-        {
-            gameTimer.Enabled = true;
-        }
-        private void gameTimerUpdate(object sender, EventArgs e)
-        {
-            secondsCounter++;
-            TimeLabel.Text = secondsCounter.ToString() + " sec";
-        }
-
     }
 }

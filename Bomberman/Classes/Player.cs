@@ -24,6 +24,16 @@ namespace Bomberman.Classes
         Timer MoveTimer;
         bool Alive;
 
+        public Brick Brick 
+        {
+            get; set;
+        }
+
+        public Enemy Enemy
+        {
+            get; set;
+        }
+
         public int XPlayer
         {
             get { return xPlayer; }
@@ -43,16 +53,20 @@ namespace Bomberman.Classes
         {
             get; set;
         }
+
         public Boolean goup
         {
             get; set;
         }
+
         public Boolean godown
         {
             get; set;
         }
 
-        public Player(Form1 form, GameField field, int x, int y, int player_number)
+        public PlayerKeys playerKeys { get; set; }
+
+        public Player(Form1 form, GameField field, int x, int y, int player_number, PlayerKeys keys)
         {
             xPlayer = x;
             yPlayer = y;
@@ -68,6 +82,7 @@ namespace Bomberman.Classes
             MoveTimer.Tick += new EventHandler(MoveTimer_Tick);
             PlayerCnt++;
             Alive = true;
+            playerKeys = keys;
         }
 
         public void CheckIfEnemyHit(Enemy enemy)
@@ -276,5 +291,77 @@ namespace Bomberman.Classes
             }
             System.Threading.Thread.Sleep(1000);
         }
+
+        public void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            String key = e.KeyCode.ToString();
+
+            if (key == playerKeys.Left.ToUpper())
+            {
+                if (!goleft)
+                {
+                    goleft = true;
+                    Move();
+                }
+            }
+            if (key == playerKeys.Right.ToUpper())
+            {
+                if (!goright)
+                {
+                    goright = true;
+                    Move();
+                }
+            }
+            if (key == playerKeys.Up.ToUpper())
+            {
+                if (!goup)
+                {
+                    goup = true;
+                    Move();
+                }
+            }
+            if (key == playerKeys.Down.ToUpper())
+            {
+                if (!godown)
+                {
+                    godown = true;
+                    Move();
+                }
+            }
+            if (key == playerKeys.Bomb.ToUpper()) //Pusti bombu na tipku B
+            {
+                Bomb bomb = new Bomb(Form, Field, this, Enemy, Brick, XPlayer, YPlayer);
+                bomb.PlantBomb();
+                BringPicToFront();
+            }
+        }
+
+        public void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            //keyUp = true;
+            String key = e.KeyCode.ToString();
+
+            if (key == playerKeys.Left.ToUpper())
+            {
+                goleft = false;
+                MoveStop();
+            }
+            if (key == playerKeys.Right.ToUpper())
+            {
+                goright = false;
+                MoveStop();
+            }
+            if (key == playerKeys.Up.ToUpper())
+            {
+                goup = false;
+                MoveStop();
+            }
+            if (key == playerKeys.Down.ToUpper())
+            {
+                godown = false;
+                MoveStop();
+            }
+        }
+
     }
 }
