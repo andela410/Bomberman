@@ -41,7 +41,7 @@ namespace Bomberman
             };
 
             soundPlayer = new SoundPlayer(Properties.Resources.Black_Betty);
-            soundPlayer.PlayLooping();
+            //soundPlayer.PlayLooping();
             sviraMuzika = true;
         }
 

@@ -14,6 +14,7 @@ namespace Bomberman.Classes
         private static int PlayerCnt = 0;
         public int Lives = 3;
         public int Score = 0;
+        public int MaxLevel = 1;
         public Label ScoreText = new Label();
         public PictureBox[] LifeImage = new PictureBox[MaxLives];
         private int xPlayer, yPlayer;

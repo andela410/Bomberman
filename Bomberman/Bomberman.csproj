@@ -204,6 +204,7 @@
     <None Include="Resources\Black_Betty.wav" />
     <Content Include="Resources\Door.bmp" />
     <Content Include="Resources\Enemy2.bmp" />
+    <Content Include="Resources\Enemy3.bmp" />
     <Content Include="Resources\Enemy_trans.png" />
     <None Include="Resources\FireExit1.jpg" />
     <Content Include="Resources\Player1.bmp" />

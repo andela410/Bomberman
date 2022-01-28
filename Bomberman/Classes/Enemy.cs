@@ -11,6 +11,7 @@ namespace Bomberman.Classes
     public class Enemy
     {
         private int xEnemy, yEnemy;
+        private int enemyType;
         private static int enemyCnt = 0;
         GameField Field;
         Form Form;
@@ -30,8 +31,14 @@ namespace Bomberman.Classes
         {
             get { return yEnemy; }
         }
+        public int EnemyType
+        {
+            get { return enemyType; }
+            set { enemyType = value; }
+        }
 
-        public Enemy(Form form, GameField field, int x, int y, string direction, Player player_construct)
+
+        public Enemy(Form form, GameField field, int x, int y, int type, string direction, Player player_construct)
         {
             enemyCnt++;
             xEnemy = x;
@@ -39,16 +46,23 @@ namespace Bomberman.Classes
             Field = field;
             Form = form;
             Direction = direction;
+            EnemyType = type;
             player = player_construct;
 
             EnemyTimer = new Timer();
-            EnemyTimer.Interval = 500;
+            if (type == 1)
+                EnemyTimer.Interval = 500;
+            else if (type == 2)
+                EnemyTimer.Interval = 400;
+            else if (type == 3)
+                EnemyTimer.Interval = 250;
+            
             EnemyTimer.Tick += new EventHandler(EnemyTimer_Tick);
             EnemyTimer.Start();
 
             enemyPicture = new PictureBox();
 
-            SetEnemy(x, y);
+            SetEnemy(x, y, type);
             //Move();
         }
 
@@ -134,13 +148,22 @@ namespace Bomberman.Classes
 
         public event Action<Enemy> EnemyMoved;
 
-        private void SetEnemy(int x, int y) //pozovi u konstruktoru
+        private void SetEnemy(int x, int y, int type)
         {
             enemyPicture.Name = "Enemy" + xEnemy.ToString() + yEnemy.ToString();
             enemyPicture.SizeMode = PictureBoxSizeMode.AutoSize;
             enemyPicture.Location = new Point(x * Field.ElementSize + Field.PictureBox.Location.X, y * Field.ElementSize + Field.PictureBox.Location.Y);
+
             Bitmap Enemy_transparent = new Bitmap(Properties.Resources.Enemy);
-            
+
+            if(type == 1)
+                Enemy_transparent = new Bitmap(Properties.Resources.Enemy);
+            else if(type == 2)
+                Enemy_transparent = new Bitmap(Properties.Resources.Enemy2);
+            else if(type == 3)
+                Enemy_transparent = new Bitmap(Properties.Resources.Enemy3);
+
+
             Enemy_transparent.MakeTransparent(Color.White);
             enemyPicture.Image = Enemy_transparent;
             Form.Controls.Add(enemyPicture);
