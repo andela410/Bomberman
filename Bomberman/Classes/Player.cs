@@ -21,6 +21,7 @@ namespace Bomberman.Classes
         GameField Field;
         Form1 Form;
         PictureBox playerPicture;
+        List<Enemy> enemies;
         Timer MoveTimer;
         bool Alive;
 
@@ -64,14 +65,21 @@ namespace Bomberman.Classes
             get; set;
         }
 
+        public List<Enemy> Enemies
+        {
+            get { return enemies; }
+            set { enemies = value; }
+        }
+
         public PlayerKeys playerKeys { get; set; }
 
-        public Player(Form1 form, GameField field, int x, int y, int player_number, PlayerKeys keys)
+        public Player(Form1 form, GameField field, int x, int y, int player_number, PlayerKeys keys, List<Enemy> enemies)
         {
             xPlayer = x;
             yPlayer = y;
             Field = field;
             Form = form;
+            this.enemies = enemies;
 
             playerPicture = new PictureBox();
 
@@ -330,7 +338,7 @@ namespace Bomberman.Classes
             }
             if (key == playerKeys.Bomb.ToUpper()) //Pusti bombu na tipku B
             {
-                Bomb bomb = new Bomb(Form, Field, this, Enemy, Brick, XPlayer, YPlayer);
+                Bomb bomb = new Bomb(Form, Field, this, this.enemies, Brick, XPlayer, YPlayer);
                 bomb.PlantBomb();
                 BringPicToFront();
             }
