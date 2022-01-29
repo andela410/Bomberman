@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 namespace Bomberman
 {
-    public partial class Form1 : Form
+    public partial class LevelForm : Form
     {
         GameField game;
         Player player1;
@@ -27,7 +27,7 @@ namespace Bomberman
         int GameMode;
         Label youDied;
 
-        public Form1(int level, int player_number1, int player_number2, int game_mode, PlayerKeys p1keys, PlayerKeys p2keys)
+        public LevelForm(int level, int player_number1, int player_number2, int game_mode, PlayerKeys p1keys, PlayerKeys p2keys)
         {
             InitializeComponent();
             KeyPreview = true;
@@ -37,10 +37,10 @@ namespace Bomberman
             GameMode = game_mode;
             P1keys = p1keys;
             P2keys = p2keys;
-            SetupGame(level, player_number1, player_number2);
+            SetupGame(level);
         }
 
-        void SetupGame(int level, int player_number1, int player_number2)
+        void SetupGame(int level)
         {
             game = new GameField(this);
             game.CreateGameField(level);
@@ -49,22 +49,22 @@ namespace Bomberman
             brick = new Brick(this, game);
             brick.CreateBrickWalls();
 
-            player1 = new Player(this, game, 1, 1, player_number1, P1keys, Enemies);
+            player1 = new Player(this, game, 1, 1, PlayerNumber1, P1keys, Enemies);
             player1.CreateLives(0);
             player1.CreatePlayerScore();
             player1.Brick = brick;
-            player1.PlayerMoved += game.CheckIfLevelPassed;
+            Player.PlayerMoved += game.CheckIfLevelPassed;
+            Bomb.BombExploadedEvent += player1.CheckIfHit;
 
             KeyDown += player1.OnKeyDown;
             KeyUp += player1.OnKeyUp;
 
             if (GameMode == 3)
             {
-                player2 = new Player(this, game, 1, 2, player_number2, P2keys, Enemies);
+                player2 = new Player(this, game, 1, 2, PlayerNumber2, P2keys, Enemies);
                 player2.CreateLives(1);
                 player2.CreatePlayerScore();
                 player2.Brick = brick;
-                player2.PlayerMoved += game.CheckIfLevelPassed;
 
                 KeyDown += player2.OnKeyDown;
                 KeyUp += player2.OnKeyUp;
@@ -77,12 +77,8 @@ namespace Bomberman
             if (GameMode == 3)
             {
                 player2.Enemies = Enemies;
-
-                foreach (Enemy en in Enemies)
-                {
-                    en.EnemyMoved += player2.CheckIfEnemyHit;
-                    player2.PlayerMoved += en.CheckIfPlayerHit;
-                }
+                Enemy.EnemyMoved += player2.CheckIfHit;
+                Bomb.BombExploadedEvent += player2.CheckIfHit;
             }
 
             setupGameTimer();
@@ -96,56 +92,58 @@ namespace Bomberman
             switch (level)//ovo dodavanje enemya isto ne smije biti u formi nego odvojeno, npr. nova klasa level u koji onda ovo napravimo
             {
                 case 1:
-                    Enemies.Add(new Enemy(this, game, 3, 14, 1, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 5, 20, 1, "right", player1));
-                    Enemies.Add(new Enemy(this, game, 11, 21, 1, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 11, 27, 1, "left", player1));
+                    Enemies.Add(new Enemy(this, game, 3, 14, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 5, 20, 1, "right"));
+                    Enemies.Add(new Enemy(this, game, 11, 21, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 11, 27, 1, "left"));
                     break;
                 case 2:
-                    Enemies.Add(new Enemy(this, game, 1, 11, 2, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 7, 9, 1, "right", player1));
-                    Enemies.Add(new Enemy(this, game, 3, 12, 2, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 6, 13, 2, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 11, 28, 1, "left", player1));
+                    Enemies.Add(new Enemy(this, game, 1, 11, 2, "left"));
+                    Enemies.Add(new Enemy(this, game, 7, 9, 1, "right"));
+                    Enemies.Add(new Enemy(this, game, 3, 12, 2, "left"));
+                    Enemies.Add(new Enemy(this, game, 6, 13, 2, "left"));
+                    Enemies.Add(new Enemy(this, game, 11, 28, 1, "left"));
                     break;
                 case 3:
-                    Enemies.Add(new Enemy(this, game, 6, 11, 3, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 3, 15, 2, "right", player1));
-                    Enemies.Add(new Enemy(this, game, 4, 21, 1, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 1, 21, 1, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 11, 21, 1, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 11, 26, 1, "right", player1));
-                    Enemies.Add(new Enemy(this, game, 11, 28, 2, "left", player1));
+                    Enemies.Add(new Enemy(this, game, 6, 11, 3, "left"));
+                    Enemies.Add(new Enemy(this, game, 3, 15, 2, "right"));
+                    Enemies.Add(new Enemy(this, game, 4, 21, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 1, 21, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 11, 21, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 11, 26, 1, "right"));
+                    Enemies.Add(new Enemy(this, game, 11, 28, 2, "left"));
                     break;
                 case 4:
-                    Enemies.Add(new Enemy(this, game, 5, 7, 1, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 7, 23, 2, "right", player1));
-                    Enemies.Add(new Enemy(this, game, 3, 21, 1, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 7, 2, 1, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 5, 25, 1, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 1, 19, 1, "right", player1));
-                    Enemies.Add(new Enemy(this, game, 8, 28, 3, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 11, 25, 3, "left", player1));
+                    Enemies.Add(new Enemy(this, game, 5, 7, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 7, 23, 2, "right"));
+                    Enemies.Add(new Enemy(this, game, 3, 21, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 7, 2, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 5, 25, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 1, 19, 1, "right"));
+                    Enemies.Add(new Enemy(this, game, 8, 28, 3, "left"));
+                    Enemies.Add(new Enemy(this, game, 11, 25, 3, "left"));
                     break;
                 case 5:
-                    Enemies.Add(new Enemy(this, game, 1, 4, 3, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 1, 6, 3, "right", player1));
-                    Enemies.Add(new Enemy(this, game, 1, 7, 3, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 3, 4, 3, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 3, 10, 3, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 5, 17, 3, "right", player1));
-                    Enemies.Add(new Enemy(this, game, 11, 17, 3, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 11, 16, 3, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 1, 24, 3, "left", player1));
-                    Enemies.Add(new Enemy(this, game, 6, 28, 3, "left", player1));
+                    Enemies.Add(new Enemy(this, game, 1, 4, 3, "left"));
+                    Enemies.Add(new Enemy(this, game, 1, 6, 3, "right"));
+                    Enemies.Add(new Enemy(this, game, 1, 7, 3, "left"));
+                    Enemies.Add(new Enemy(this, game, 3, 4, 3, "left"));
+                    Enemies.Add(new Enemy(this, game, 3, 10, 3, "left"));
+                    Enemies.Add(new Enemy(this, game, 5, 17, 3, "right"));
+                    Enemies.Add(new Enemy(this, game, 11, 17, 3, "left"));
+                    Enemies.Add(new Enemy(this, game, 11, 16, 3, "left"));
+                    Enemies.Add(new Enemy(this, game, 1, 24, 3, "left"));
+                    Enemies.Add(new Enemy(this, game, 6, 28, 3, "left"));
                     break;
                 default:
                     break;
             }
-            foreach(Enemy en in Enemies)
+
+            Enemy.EnemyMoved += player1.CheckIfHit;
+            foreach (Enemy en in Enemies)
             {
-                en.EnemyMoved += player1.CheckIfEnemyHit;
-                player1.PlayerMoved += en.CheckIfPlayerHit;
+                Player.PlayerMoved += en.CheckIfPlayerHit;
+                Bomb.BombExploadedEvent += en.CheckIfHit;
             }
 
         }
@@ -163,7 +161,7 @@ namespace Bomberman
             }
             if (GameMode == 1) //campain
             {
-                Form NextLevelForm = new Form1(++Level, PlayerNumber1, PlayerNumber2, GameMode, P1keys, P2keys);
+                Form NextLevelForm = new LevelForm(++Level, PlayerNumber1, PlayerNumber2, GameMode, P1keys, P2keys);
                 NextLevelForm.Show();
                 NextLevelForm.Closed += (s, args) => {
                     NextLevelForm.Show();

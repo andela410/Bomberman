@@ -100,13 +100,13 @@ namespace Bomberman
                 Hide();
                 Form Form1;
                 if (radioButton1.Checked)
-                    Form1 = new Form1(level, 1, playerCharacter2, GameMode, P1keys, P2keys);
+                    Form1 = new LevelForm(level, 1, playerCharacter2, GameMode, P1keys, P2keys);
                 else if (radioButton2.Checked)
-                    Form1 = new Form1(level, 2, playerCharacter2, GameMode, P1keys, P2keys);
+                    Form1 = new LevelForm(level, 2, playerCharacter2, GameMode, P1keys, P2keys);
                 else if (radioButton3.Checked)
-                    Form1 = new Form1(level, 3, playerCharacter2, GameMode, P1keys, P2keys);
+                    Form1 = new LevelForm(level, 3, playerCharacter2, GameMode, P1keys, P2keys);
                 else
-                    Form1 = new Form1(level, 4, playerCharacter2, GameMode, P1keys, P2keys);
+                    Form1 = new LevelForm(level, 4, playerCharacter2, GameMode, P1keys, P2keys);
                 
                 Form1.Show();
                 Form1.Closed += (s, args) => { Show(); Form1.Dispose(); };

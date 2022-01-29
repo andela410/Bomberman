@@ -14,23 +14,19 @@ namespace Bomberman.Classes
         private Timer BombTimer, FireTimer;
         private int X, Y;
         GameField Field;
-        Player Player;
         Form Form;
         Brick Brick;
-        List<Enemy> Enemies;
         int BombStrength = 2;
         List<PictureBox> Explosion = new List<PictureBox>();
         List<Tuple<int, int>> LogicalExplosion = new List<Tuple<int, int>>();
         static List<Tuple<Bomb, int, int>> BombPositions = new List<Tuple<Bomb, int, int>>();
 
-        public Bomb(Form form, GameField field, Player player, List<Enemy> enemies, Brick brick, int x, int y)
+        public Bomb(Form form, GameField field, Brick brick, int x, int y)
         {
             X = x;
             Y = y;
             Field = field;
             Form = form;
-            Player = player;
-            Enemies = enemies;
             Brick = brick;
 
             // inicijaliziraj timer za bombu
@@ -79,6 +75,8 @@ namespace Bomberman.Classes
             }
         }
 
+        public static event Action<Tuple<int, int>> BombExploadedEvent;
+
         private void BombTimer_Tick(object sender, EventArgs e)
         {
             bomb.Visible = false;
@@ -92,11 +90,7 @@ namespace Bomberman.Classes
                 (int x, int y) = LogicalExplosion[i];
 
                 Explosion[i].BringToFront();
-                if (x == Player.XPlayer && y == Player.YPlayer) Player.LoseLife();
-                foreach (Enemy en in Enemies)
-                {
-                    if (x == en.XEnemy && y == en.YEnemy) en.Die();
-                }
+                BombExploadedEvent?.Invoke(new Tuple<int, int>(x, y));
 
                 // Prodji kroz sve postavljenje bombe i vidi preklapa li se pozicija
                 // sa eksplozijom bombe koja je eksplodirala

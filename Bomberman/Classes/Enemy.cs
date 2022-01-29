@@ -12,7 +12,7 @@ namespace Bomberman.Classes
     {
         private int xEnemy, yEnemy;
         private int enemyType;
-        int enemyCnt = 0;
+        static int enemyCnt = 0;
         GameField Field;
         Form Form;
         PictureBox enemyPicture;
@@ -38,7 +38,7 @@ namespace Bomberman.Classes
         }
 
 
-        public Enemy(Form form, GameField field, int x, int y, int type, string direction, Player player_construct)
+        public Enemy(Form form, GameField field, int x, int y, int type, string direction)
         {
             enemyCnt++;
             xEnemy = x;
@@ -47,7 +47,6 @@ namespace Bomberman.Classes
             Form = form;
             Direction = direction;
             EnemyType = type;
-            player = player_construct;
 
             EnemyTimer = new Timer();
             if (type == 1)
@@ -143,10 +142,10 @@ namespace Bomberman.Classes
                 else if(Field.Field[xEnemy, yEnemy + 1] != 'w' && Field.Field[xEnemy, yEnemy + 1] != 'b' && Field.Field[xEnemy, yEnemy + 1] != 'h')
                     Direction="right";
             }
-            EnemyMoved?.Invoke(this);
+            EnemyMoved?.Invoke(new Tuple<int, int>(xEnemy, yEnemy));
         }
 
-        public event Action<Enemy> EnemyMoved;
+        public static event Action<Tuple<int, int>> EnemyMoved;
 
         private void SetEnemy(int x, int y, int type)
         {
@@ -169,6 +168,12 @@ namespace Bomberman.Classes
             Form.Controls.Add(enemyPicture);
 
             enemyPicture.BringToFront();
+        }
+
+        internal void CheckIfHit(Tuple<int, int> coordinates)
+        {
+            (int x, int y) = coordinates;
+            if (x == XEnemy && y == YEnemy) Die();
         }
 
         public void Die()

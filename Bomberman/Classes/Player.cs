@@ -19,7 +19,7 @@ namespace Bomberman.Classes
         public PictureBox[] LifeImage = new PictureBox[MaxLives];
         private int xPlayer, yPlayer;
         GameField Field;
-        Form1 Form;
+        LevelForm Form;
         PictureBox playerPicture;
         List<Enemy> enemies;
         Timer MoveTimer;
@@ -73,7 +73,7 @@ namespace Bomberman.Classes
 
         public PlayerKeys playerKeys { get; set; }
 
-        public Player(Form1 form, GameField field, int x, int y, int player_number, PlayerKeys keys, List<Enemy> enemies)
+        public Player(LevelForm form, GameField field, int x, int y, int player_number, PlayerKeys keys, List<Enemy> enemies)
         {
             xPlayer = x;
             yPlayer = y;
@@ -93,9 +93,10 @@ namespace Bomberman.Classes
             playerKeys = keys;
         }
 
-        public void CheckIfEnemyHit(Enemy enemy)
+        public void CheckIfHit(Tuple<int, int> coordinates)
         {
-            if (xPlayer == enemy.XEnemy && yPlayer == enemy.YEnemy) LoseLife();
+            (int x, int y) = coordinates;
+            if (xPlayer == x && yPlayer == y) LoseLife();
         }
 
         public void CreateLives(int player)
@@ -274,7 +275,7 @@ namespace Bomberman.Classes
             MoveTimer.Enabled = false;
         }
 
-        public event Action<Player> PlayerMoved;
+        public static event Action<Player> PlayerMoved;
 
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
@@ -314,7 +315,7 @@ namespace Bomberman.Classes
             }
             if (key == playerKeys.Bomb.ToUpper()) //Pusti bombu na tipku B
             {
-                Bomb bomb = new Bomb(Form, Field, this, this.enemies, Brick, XPlayer, YPlayer);
+                Bomb bomb = new Bomb(Form, Field, Brick, XPlayer, YPlayer);
                 bomb.PlantBomb();
                 playerPicture.BringToFront();
             }
