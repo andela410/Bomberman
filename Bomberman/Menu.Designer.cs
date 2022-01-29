@@ -91,6 +91,7 @@ namespace Bomberman
             this.scoreboardButton.TabIndex = 4;
             this.scoreboardButton.Text = "Scoreboard";
             this.scoreboardButton.UseVisualStyleBackColor = false;
+            this.scoreboardButton.Click += new System.EventHandler(this.scoreboardButton_Click);
             // 
             // exitButton
             // 
