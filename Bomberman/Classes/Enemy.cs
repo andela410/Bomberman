@@ -173,7 +173,7 @@ namespace Bomberman.Classes
 
         public void Die()
         {
-            player.UpdateScore(100 * enemyType);
+            Player.UpdateScore(100 * enemyType);
             Field.ShowScore(100 * enemyType, xEnemy, yEnemy);
             xEnemy = -1;
             yEnemy = -1;

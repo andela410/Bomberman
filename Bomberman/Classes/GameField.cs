@@ -66,7 +66,7 @@ namespace Bomberman.Classes
             Form = form;
         }
 
-        public void CreateGameField(int level, int player_number)
+        public void CreateGameField(int level)
         {
             PictureBox p = new PictureBox();
             p.Name = "GameField";

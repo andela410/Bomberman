@@ -22,49 +22,73 @@ namespace Bomberman
         PlayerKeys P2keys;
         List<Enemy> Enemies;
         int Level;
-        int PlayerNumber;
+        int PlayerNumber1;
+        int PlayerNumber2;
         int GameMode;
-        public Label youDied;
+        Label youDied;
 
-        public Form1(int level, int player_number, int game_mode, PlayerKeys p1keys, PlayerKeys p2keys)
+        public Form1(int level, int player_number1, int player_number2, int game_mode, PlayerKeys p1keys, PlayerKeys p2keys)
         {
             InitializeComponent();
             KeyPreview = true;
             Level = level;
-            PlayerNumber = player_number;
+            PlayerNumber1 = player_number1;
+            PlayerNumber2 = player_number2;
             GameMode = game_mode;
             P1keys = p1keys;
             P2keys = p2keys;
-            SetupGame(level, player_number);
+            SetupGame(level, player_number1, player_number2);
         }
 
-        void SetupGame(int level, int player_number)
+        void SetupGame(int level, int player_number1, int player_number2)
         {
             game = new GameField(this);
-            game.CreateGameField(level, player_number);
+            game.CreateGameField(level);
             game.InitializeGameField(level);
             
             brick = new Brick(this, game);
             brick.CreateBrickWalls();
 
-            player1 = new Player(this, game, 1, 1, player_number, P1keys, Enemies);
-            player1.CreateLives();
+            player1 = new Player(this, game, 1, 1, player_number1, P1keys, Enemies);
+            player1.CreateLives(0);
             player1.CreatePlayerScore();
             player1.Brick = brick;
             player1.PlayerMoved += game.CheckIfLevelPassed;
 
             KeyDown += player1.OnKeyDown;
-            //KeyDown += player2.OnKeyDown;
             KeyUp += player1.OnKeyUp;
-            //KeyUp += player2.OnKeyUp;
+
+            if (GameMode == 3)
+            {
+                player2 = new Player(this, game, 1, 2, player_number2, P2keys, Enemies);
+                player2.CreateLives(1);
+                player2.CreatePlayerScore();
+                player2.Brick = brick;
+                player2.PlayerMoved += game.CheckIfLevelPassed;
+
+                KeyDown += player2.OnKeyDown;
+                KeyUp += player2.OnKeyUp;
+            }
 
             SetupEnemies(level);
 
             player1.Enemies = Enemies;
 
+            if (GameMode == 3)
+            {
+                player2.Enemies = Enemies;
+
+                foreach (Enemy en in Enemies)
+                {
+                    en.EnemyMoved += player2.CheckIfEnemyHit;
+                    player2.PlayerMoved += en.CheckIfPlayerHit;
+                }
+            }
+
             setupGameTimer();
             startGameTimer();
         }
+
         private void SetupEnemies(int level)
         {
             Enemies = new List<Enemy>();
@@ -128,8 +152,8 @@ namespace Bomberman
 
         public void NextLevel()
         {
-            this.Close();
-            this.Dispose();
+            Close();
+            Dispose();
             if (Level == 5)
             {
                 // kraj
@@ -139,16 +163,19 @@ namespace Bomberman
             }
             if (GameMode == 1) //campain
             {
-                Form NextLevelForm = new Form1(++Level, PlayerNumber, GameMode, P1keys, P2keys);
+                Form NextLevelForm = new Form1(++Level, PlayerNumber1, PlayerNumber2, GameMode, P1keys, P2keys);
                 NextLevelForm.Show();
-                NextLevelForm.Closed += (s, args) => { NextLevelForm.Show(); NextLevelForm.Dispose(); };
+                NextLevelForm.Closed += (s, args) => {
+                    NextLevelForm.Show();
+                    NextLevelForm.Dispose();
+                };
             }
         }
 
         private void closeGame_Click(object sender, EventArgs e)
         {
-            this.Close();
-            this.Dispose();
+            Close();
+            Dispose();
         }
 
         public void SetPlayersKeys(Tuple<PlayerKeys, PlayerKeys> tup)
@@ -161,6 +188,7 @@ namespace Bomberman
         Label TimeStaticString;
         Timer gameTimer;
         int secondsCounter;
+
         private void setupGameTimer()
         {
             TimeStaticString = new Label();
@@ -171,7 +199,7 @@ namespace Bomberman
             TimeStaticString.Height = 25;
             TimeStaticString.Width = 100;
             TimeStaticString.Text = "Time: ";
-            this.Controls.Add(TimeStaticString);
+            Controls.Add(TimeStaticString);
             TimeStaticString.BringToFront();
 
             TimeLabel = new Label();
@@ -181,7 +209,7 @@ namespace Bomberman
             TimeLabel.Left = 40 + TimeLabel.Width - 40;
             TimeLabel.Height = 25;
             TimeLabel.Width = 100;
-            this.Controls.Add(TimeLabel);
+            Controls.Add(TimeLabel);
             TimeLabel.BringToFront();
 
             gameTimer = new Timer();
@@ -194,10 +222,35 @@ namespace Bomberman
         {
             gameTimer.Enabled = true;
         }
+
         private void gameTimerUpdate(object sender, EventArgs e)
         {
             secondsCounter++;
             TimeLabel.Text = secondsCounter.ToString() + " sec";
+        }
+
+        public void youDiedScreen()
+        {
+            SuspendLayout();
+            youDied = new Label();
+            youDied.Text = "YOU DIED";
+            youDied.ForeColor = Color.Maroon;
+            youDied.Font = new Font("Franklin Gothic Medium", 50, FontStyle.Bold);
+            youDied.BackColor = Color.Black;
+            youDied.Visible = true;
+            youDied.AutoSize = true;
+            youDied.Location = new Point(Width / 2 - youDied.Width / 2, Height / 2 - youDied.Height / 2);
+            Controls.Add(youDied);
+            youDied.BringToFront();
+            ResumeLayout();
+            for (int i = 50; i < 100; ++i)
+            {
+                youDied.Font = new Font("Franklin Gothic Medium", i, FontStyle.Bold);
+                youDied.Location = new Point(Width / 2 - youDied.Width / 2, Height / 2 - youDied.Height / 2);
+                youDied.Refresh();
+                System.Threading.Thread.Sleep(50);
+            }
+            System.Threading.Thread.Sleep(1000);
         }
     }
 }

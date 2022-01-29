@@ -40,7 +40,7 @@
             this.closeGame.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.closeGame.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeGame.Location = new System.Drawing.Point(987, 1);
-            this.closeGame.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.closeGame.Margin = new System.Windows.Forms.Padding(2);
             this.closeGame.Name = "closeGame";
             this.closeGame.Size = new System.Drawing.Size(109, 58);
             this.closeGame.TabIndex = 1;
