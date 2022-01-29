@@ -11,7 +11,7 @@ namespace Bomberman.Classes
     public class Player
     {
         private const int MaxLives = 10;
-        private static int PlayerCnt = 0;
+        int PlayerCnt = 0;
         public int Lives = 3;
         public int Score = 0;
         public int MaxLevel = 1;

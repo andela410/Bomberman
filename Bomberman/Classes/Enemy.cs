@@ -12,7 +12,7 @@ namespace Bomberman.Classes
     {
         private int xEnemy, yEnemy;
         private int enemyType;
-        private static int enemyCnt = 0;
+        int enemyCnt = 0;
         GameField Field;
         Form Form;
         PictureBox enemyPicture;
@@ -173,13 +173,15 @@ namespace Bomberman.Classes
 
         public void Die()
         {
+            player.UpdateScore(100 * enemyType);
+            Field.ShowScore(100 * enemyType, xEnemy, yEnemy);
             xEnemy = -1;
             yEnemy = -1;
             EnemyTimer.Stop();
             enemyPicture.Dispose();
             if (--enemyCnt == 0) // Ako unistimo sve neprijatelje pokazu nam se vrata (nije jos dokraja implementirano)
             {
-                Field.ShowDoors();
+                Field.EnableLevelPass();
             }
         }
     }

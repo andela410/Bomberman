@@ -10,7 +10,9 @@ namespace Bomberman.Classes
 {
     public class GameField
     {
-        Form Form;
+        Form1 Form;
+
+        Boolean LevelPass = false;
 
         protected const char EmptyElement = ' ';
         protected const char Wall = 'w';
@@ -59,7 +61,7 @@ namespace Bomberman.Classes
         //    get { return fields; }
         //}
 
-        public GameField(Form form)
+        public GameField(Form1 form)
         {
             Form = form;
         }
@@ -192,9 +194,52 @@ namespace Bomberman.Classes
             p.BringToFront();
         }
 
+        async public void ShowScore(int score, int x, int y)
+        {
+            Label ScoreText = new Label();
+
+            ScoreText.ForeColor = Color.White;
+            ScoreText.BackColor = Color.DarkOliveGreen;
+            ScoreText.Font = new System.Drawing.Font("Folio XBd BT", 7);
+            ScoreText.Top = ElementSize * x + 5 + PictureBox.Location.Y;
+            ScoreText.Left = ElementSize * y + 5 + PictureBox.Location.X;
+            ScoreText.Height = 15;
+            ScoreText.Width = 25;
+            ScoreText.Text = score.ToString();
+            Form.Controls.Add(ScoreText);
+            ScoreText.BringToFront();
+
+            await Task.Delay(300);
+
+            ScoreText.Visible = false;
+        }
         public void UpdateField(int x, int y)
         {
             field[x, y] = ' ';
+        }
+
+        int DoorX;
+        int DoorY;
+
+        public void UpdateFieldToDoor(int x, int y)
+        {
+            field[x, y] = 'd';
+            DoorX = x;
+            DoorY = y;
+        }
+
+        public void EnableLevelPass()
+        {
+            LevelPass = true;
+        }
+
+        public void CheckIfLevelPassed(Player player)
+        {
+            if (LevelPass && player.XPlayer == DoorX && player.YPlayer == DoorY)
+            {
+                LevelPass = false;
+                Form.NextLevel();
+            }
         }
     }
 }

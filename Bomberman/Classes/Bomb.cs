@@ -138,7 +138,7 @@ namespace Bomberman.Classes
                 else if(Field.Field[x, y] == 'h')
                 {
                     if (Brick.DestroyDoorBrick(x, y))
-                        Player.UpdateScore(100);
+                        Player.UpdateScore(200);
                 }
             }
         }

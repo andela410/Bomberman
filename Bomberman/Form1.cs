@@ -21,12 +21,18 @@ namespace Bomberman
         PlayerKeys P1keys;
         PlayerKeys P2keys;
         List<Enemy> Enemies;
+        int Level;
+        int PlayerNumber;
+        int GameMode;
         public Label youDied;
 
-        public Form1(int level, int player_number, PlayerKeys p1keys, PlayerKeys p2keys)
+        public Form1(int level, int player_number, int game_mode, PlayerKeys p1keys, PlayerKeys p2keys)
         {
             InitializeComponent();
             KeyPreview = true;
+            Level = level;
+            PlayerNumber = player_number;
+            GameMode = game_mode;
             P1keys = p1keys;
             P2keys = p2keys;
             SetupGame(level, player_number);
@@ -45,6 +51,7 @@ namespace Bomberman
             player1.CreateLives();
             player1.CreatePlayerScore();
             player1.Brick = brick;
+            player1.PlayerMoved += game.CheckIfLevelPassed;
 
             KeyDown += player1.OnKeyDown;
             //KeyDown += player2.OnKeyDown;
@@ -61,7 +68,7 @@ namespace Bomberman
         private void SetupEnemies(int level)
         {
             Enemies = new List<Enemy>();
-            Enemy enemy;
+
             switch (level)//ovo dodavanje enemya isto ne smije biti u formi nego odvojeno, npr. nova klasa level u koji onda ovo napravimo
             {
                 case 1:
@@ -117,6 +124,25 @@ namespace Bomberman
                 player1.PlayerMoved += en.CheckIfPlayerHit;
             }
 
+        }
+
+        public void NextLevel()
+        {
+            this.Close();
+            this.Dispose();
+            if (Level == 5)
+            {
+                // kraj
+                // Ovdje treba dodati neku formu
+                return;
+
+            }
+            if (GameMode == 1) //campain
+            {
+                Form NextLevelForm = new Form1(++Level, PlayerNumber, GameMode, P1keys, P2keys);
+                NextLevelForm.Show();
+                NextLevelForm.Closed += (s, args) => { NextLevelForm.Show(); NextLevelForm.Dispose(); };
+            }
         }
 
         private void closeGame_Click(object sender, EventArgs e)

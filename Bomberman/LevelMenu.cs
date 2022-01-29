@@ -13,6 +13,7 @@ namespace Bomberman
     public partial class LevelMenu : Form
     {
         Menu menu;
+        int GameMode;
         PlayerKeys P1keys;
         PlayerKeys P2keys;
 
@@ -22,10 +23,11 @@ namespace Bomberman
             Width = Screen.PrimaryScreen.Bounds.Width;
             Height = Screen.PrimaryScreen.Bounds.Height;
             menu = tempMenu;
+            GameMode = menuType;
             int vert_pomak, hor_pomak;
             if(menuType == 1) //Campaign
             {
-                button1.Hide();
+                //button1.Hide();
                 button2.Hide();
                 button3.Hide();
                 button4.Hide();
@@ -86,13 +88,13 @@ namespace Bomberman
                 Form Form1;
 
                 if (radioButton1.Checked)
-                    Form1 = new Form1(level, 1, P1keys, P2keys);
+                    Form1 = new Form1(level, 1, GameMode, P1keys, P2keys);
                 else if (radioButton2.Checked)
-                    Form1 = new Form1(level, 2, P1keys, P2keys);
+                    Form1 = new Form1(level, 2, GameMode, P1keys, P2keys);
                 else if (radioButton3.Checked)
-                    Form1 = new Form1(level, 3, P1keys, P2keys);
+                    Form1 = new Form1(level, 3, GameMode, P1keys, P2keys);
                 else
-                    Form1 = new Form1(level, 4, P1keys, P2keys);
+                    Form1 = new Form1(level, 4, GameMode, P1keys, P2keys);
                 
                 Form1.Show();
                 Form1.Closed += (s, args) => { Show(); Form1.Dispose(); };
