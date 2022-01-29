@@ -284,6 +284,7 @@ namespace Bomberman.Classes
 
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
+            if (!Alive) return;
             String key = e.KeyCode.ToString();
 
             if (key == playerKeys.Left.ToUpper())
