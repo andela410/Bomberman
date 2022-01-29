@@ -162,7 +162,7 @@ namespace Bomberman
         {
             Close();
             Dispose();
-            if (level == 5)
+            if (level == 5 || GameMode != 1)
             {
                 // kraj
                 Form gameOver = new GameOver(player1.Score, gameMode, level);

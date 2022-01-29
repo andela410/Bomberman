@@ -95,7 +95,14 @@ namespace Bomberman
             else
             {
                 levelBox.Enabled = true;
-                levelBox.SelectedIndex = 0;
+                if (levelBox.SelectedIndex == 0)
+                {
+                    drawTable();
+                }
+                else
+                {
+                    levelBox.SelectedIndex = 0;
+                }
             }
         }
 
