@@ -151,7 +151,7 @@ namespace Bomberman.Classes
         {
             enemyPicture.Name = "Enemy" + xEnemy.ToString() + yEnemy.ToString();
             enemyPicture.SizeMode = PictureBoxSizeMode.AutoSize;
-            enemyPicture.Location = new Point(x * Field.ElementSize + Field.PictureBox.Location.X, y * Field.ElementSize + Field.PictureBox.Location.Y);
+            enemyPicture.Location = new Point(y * Field.ElementSize + Field.PictureBox.Location.X, x * Field.ElementSize + Field.PictureBox.Location.Y);
 
             Bitmap Enemy_transparent = new Bitmap(Properties.Resources.Enemy);
 
