@@ -10,7 +10,7 @@ namespace Bomberman.Classes
 {
     public class GameField
     {
-        Form1 Form;
+        LevelForm Form;
 
         Boolean LevelPass = false;
 
@@ -61,12 +61,12 @@ namespace Bomberman.Classes
         //    get { return fields; }
         //}
 
-        public GameField(Form1 form)
+        public GameField(LevelForm form)
         {
             Form = form;
         }
 
-        public void CreateGameField(int level, int player_number)
+        public void CreateGameField(int level)
         {
             PictureBox p = new PictureBox();
             p.Name = "GameField";

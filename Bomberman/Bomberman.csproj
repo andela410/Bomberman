@@ -86,11 +86,11 @@
     <Compile Include="Classes\GameField.cs" />
     <Compile Include="Classes\Keys.cs" />
     <Compile Include="Classes\Player.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="LevelForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="LevelForm.Designer.cs">
+      <DependentUpon>LevelForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Scoreboard.cs">
       <SubType>Form</SubType>
@@ -124,8 +124,8 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="LevelForm.resx">
+      <DependentUpon>LevelForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GameOver.resx">
       <DependentUpon>GameOver.cs</DependentUpon>

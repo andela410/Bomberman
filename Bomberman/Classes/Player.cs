@@ -11,15 +11,15 @@ namespace Bomberman.Classes
     public class Player
     {
         private const int MaxLives = 10;
-        int PlayerCnt = 0;
+        static int PlayerCnt = 0;
         public int Lives = 3;
-        public int Score = 0;
+        public static int Score = 0;
         public int MaxLevel = 1;
-        public Label ScoreText = new Label();
+        public static Label ScoreText = new Label();
         public PictureBox[] LifeImage = new PictureBox[MaxLives];
         private int xPlayer, yPlayer;
         GameField Field;
-        Form1 Form;
+        LevelForm Form;
         PictureBox playerPicture;
         List<Enemy> enemies;
         Timer MoveTimer;
@@ -73,7 +73,7 @@ namespace Bomberman.Classes
 
         public PlayerKeys playerKeys { get; set; }
 
-        public Player(Form1 form, GameField field, int x, int y, int player_number, PlayerKeys keys, List<Enemy> enemies)
+        public Player(LevelForm form, GameField field, int x, int y, int player_number, PlayerKeys keys, List<Enemy> enemies)
         {
             xPlayer = x;
             yPlayer = y;
@@ -93,19 +93,20 @@ namespace Bomberman.Classes
             playerKeys = keys;
         }
 
-        public void CheckIfEnemyHit(Enemy enemy)
+        public void CheckIfHit(Tuple<int, int> coordinates)
         {
-            if (xPlayer == enemy.XEnemy && yPlayer == enemy.YEnemy) LoseLife();
+            (int x, int y) = coordinates;
+            if (xPlayer == x && yPlayer == y) LoseLife();
         }
 
-        public void CreateLives()
+        public void CreateLives(int player)
         {
             for (int x = 0; x < MaxLives; x++)
             {
                 LifeImage[x] = new PictureBox();
                 LifeImage[x].Name = "Life" + x.ToString();
                 LifeImage[x].SizeMode = PictureBoxSizeMode.AutoSize;
-                LifeImage[x].Location = new Point(x * 22 + 15, 10);
+                LifeImage[x].Location = new Point(x * 22 + 15 + 100 * player, 10);
                 LifeImage[x].Image = Properties.Resources.Life;
                 Form.Controls.Add(LifeImage[x]);
                 LifeImage[x].BringToFront();
@@ -116,6 +117,8 @@ namespace Bomberman.Classes
         public void CreatePlayerScore()
         {
             // Create Score label
+            Score = 0;
+            ScoreText = new Label();
             ScoreText.ForeColor = Color.White;
             ScoreText.Font = new Font("Folio XBd BT", 14);
             ScoreText.Top = 10;
@@ -148,8 +151,11 @@ namespace Bomberman.Classes
 
             if (Lives == 0)
             {
+                SetLives();
+                Move();
                 Alive = false;
                 PlayerCnt--;
+                if (PlayerCnt > 0) playerPicture.Hide();
             }
             else if (Lives > 0)
             {
@@ -158,10 +164,12 @@ namespace Bomberman.Classes
 
             if(PlayerCnt == 0)
             {
-                youDiedScreen();               
+                Form.youDiedScreen();               
                 Form gameOver = new GameOver();
                 Form.Hide();
-                gameOver.Closed += (s, args) => Form.Close();
+                MoveTimer.Dispose();
+                ScoreText.Dispose();
+                gameOver.Closed += (s, args) => { Form.Close(); Form.Dispose(); };
                 gameOver.Show();
             }
         }
@@ -176,7 +184,7 @@ namespace Bomberman.Classes
             }
         }
 
-        public void UpdateScore(int amount = 1)
+        public static void UpdateScore(int amount = 1)
         {
             // Update score value and text
             Score += amount;
@@ -192,8 +200,8 @@ namespace Bomberman.Classes
 
             playerPicture.Name = "Player" + xPlayer.ToString() + yPlayer.ToString();
             playerPicture.SizeMode = PictureBoxSizeMode.AutoSize;
-            playerPicture.Location = new Point(x * Field.ElementSize + Field.PictureBox.Location.X, y * Field.ElementSize + Field.PictureBox.Location.Y);
-            Bitmap Player_transparent = new Bitmap(Properties.Resources.Player1);
+            playerPicture.Location = new Point(y * Field.ElementSize + Field.PictureBox.Location.X, x * Field.ElementSize + Field.PictureBox.Location.Y);
+            Bitmap Player_transparent;
             switch (player_number)
             {
                 case 1:
@@ -205,10 +213,8 @@ namespace Bomberman.Classes
                 case 3:
                     Player_transparent = new Bitmap(Properties.Resources.Player3);
                     break;
-                case 4:
-                    Player_transparent = new Bitmap(Properties.Resources.Player4);
-                    break;
                 default:
+                    Player_transparent = new Bitmap(Properties.Resources.Player4);
                     break;
             }
 
@@ -269,36 +275,7 @@ namespace Bomberman.Classes
             MoveTimer.Enabled = false;
         }
 
-        public void BringPicToFront()
-        {
-            playerPicture.BringToFront();
-        }
-
-        public event Action<Player> PlayerMoved;
-
-        public void youDiedScreen()
-        {
-            Form.SuspendLayout();
-            Form.youDied = new Label();
-            Form.youDied.Text = "YOU DIED";
-            Form.youDied.ForeColor = Color.Maroon;
-            Form.youDied.Font = new Font("Franklin Gothic Medium", 50, FontStyle.Bold);
-            Form.youDied.BackColor = Color.Black;
-            Form.youDied.Visible = true;
-            Form.youDied.AutoSize = true;
-            Form.youDied.Location = new Point(Form.Width / 2 - Form.youDied.Width / 2, Form.Height / 2 - Form.youDied.Height / 2);
-            Form.Controls.Add(Form.youDied);
-            Form.youDied.BringToFront();
-            Form.ResumeLayout();
-            for (int i = 50; i < 100; ++i)
-            {
-                Form.youDied.Font = new Font("Franklin Gothic Medium", i, FontStyle.Bold);
-                Form.youDied.Location = new Point(Form.Width / 2 - Form.youDied.Width / 2, Form.Height / 2 - Form.youDied.Height / 2);
-                Form.youDied.Refresh();
-                System.Threading.Thread.Sleep(50);
-            }
-            System.Threading.Thread.Sleep(1000);
-        }
+        public static event Action<Player> PlayerMoved;
 
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
@@ -338,9 +315,9 @@ namespace Bomberman.Classes
             }
             if (key == playerKeys.Bomb.ToUpper()) //Pusti bombu na tipku B
             {
-                Bomb bomb = new Bomb(Form, Field, this, this.enemies, Brick, XPlayer, YPlayer);
+                Bomb bomb = new Bomb(Form, Field, Brick, XPlayer, YPlayer);
                 bomb.PlantBomb();
-                BringPicToFront();
+                playerPicture.BringToFront();
             }
         }
 
@@ -370,6 +347,5 @@ namespace Bomberman.Classes
                 MoveStop();
             }
         }
-
     }
 }
