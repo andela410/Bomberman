@@ -21,20 +21,30 @@ namespace Bomberman
         PlayerKeys P1keys;
         PlayerKeys P2keys;
         List<Enemy> Enemies;
-        int Level;
+        int level;
         int PlayerNumber1;
         int PlayerNumber2;
-        int GameMode;
+        int gameMode;
         Label youDied;
 
-        public LevelForm(int level, int player_number1, int player_number2, int game_mode, PlayerKeys p1keys, PlayerKeys p2keys)
+        public int Level
+        {
+            get { return level; }
+        }
+
+        public int GameMode
+        {
+            get { return gameMode; }
+        }
+
+        public LevelForm(int tmpLevel, int player_number1, int player_number2, int game_mode, PlayerKeys p1keys, PlayerKeys p2keys)
         {
             InitializeComponent();
             KeyPreview = true;
-            Level = level;
+            level = tmpLevel;
             PlayerNumber1 = player_number1;
             PlayerNumber2 = player_number2;
-            GameMode = game_mode;
+            gameMode = game_mode;
             P1keys = p1keys;
             P2keys = p2keys;
             SetupGame(level);
@@ -152,16 +162,19 @@ namespace Bomberman
         {
             Close();
             Dispose();
-            if (Level == 5)
+            if (level == 5)
             {
                 // kraj
-                // Ovdje treba dodati neku formu
+                Form gameOver = new GameOver(player1.Score, gameMode, level);
+                this.Hide();
+                gameOver.Closed += (s, args) => { this.Close(); this.Dispose(); };
+                gameOver.Show();
                 return;
 
             }
             if (GameMode == 1) //campain
             {
-                Form NextLevelForm = new LevelForm(++Level, PlayerNumber1, PlayerNumber2, GameMode, P1keys, P2keys);
+                Form NextLevelForm = new LevelForm(++level, PlayerNumber1, PlayerNumber2, GameMode, P1keys, P2keys);
                 NextLevelForm.Show();
                 NextLevelForm.Closed += (s, args) => {
                     NextLevelForm.Show();

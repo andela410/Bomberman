@@ -13,7 +13,7 @@ namespace Bomberman.Classes
         private const int MaxLives = 10;
         static int PlayerCnt = 0;
         public int Lives = 3;
-        public static int Score = 0;
+        public static int score = 0;
         public int MaxLevel = 1;
         public static Label ScoreText = new Label();
         public PictureBox[] LifeImage = new PictureBox[MaxLives];
@@ -24,6 +24,11 @@ namespace Bomberman.Classes
         List<Enemy> enemies;
         Timer MoveTimer;
         bool Alive;
+
+        public int Score
+        {
+            get { return score; }
+        }
 
         public Brick Brick 
         {
@@ -116,8 +121,8 @@ namespace Bomberman.Classes
 
         public void CreatePlayerScore()
         {
-            // Create Score label
-            Score = 0;
+            // Create score label
+            score = 0;
             ScoreText = new Label();
             ScoreText.ForeColor = Color.White;
             ScoreText.Font = new Font("Folio XBd BT", 14);
@@ -165,7 +170,7 @@ namespace Bomberman.Classes
             if(PlayerCnt == 0)
             {
                 Form.youDiedScreen();               
-                Form gameOver = new GameOver();
+                Form gameOver = new GameOver(score, Form.GameMode, Form.Level);
                 Form.Hide();
                 MoveTimer.Dispose();
                 ScoreText.Dispose();
@@ -187,9 +192,9 @@ namespace Bomberman.Classes
         public static void UpdateScore(int amount = 1)
         {
             // Update score value and text
-            Score += amount;
-            ScoreText.Text = Score.ToString();
-            //if (Score > Form1.highscore.Score) { Form1.highscore.UpdateHighScore(Score); }
+            score += amount;
+            ScoreText.Text = score.ToString();
+            //if (score > Form1.highscore.score) { Form1.highscore.UpdateHighScore(score); }
         }
 
         private void SetPlayer(int x, int y, int player_number) //pozovi u konstruktoru

@@ -8,10 +8,18 @@ namespace Bomberman
 {
     public partial class GameOver : Form
     {
-        public GameOver()
+        int score, gameType, level;
+        public GameOver(int tmpScore, int tmpGameType, int tmpLevel)
         {
-            InitializeComponent();
-            setComponents();            
+            InitializeComponent();           
+            score = tmpScore;
+            gameType = tmpGameType;
+            level = tmpLevel;
+            if(gameType == 1)
+            {
+                level = 0;
+            }
+            setComponents();
         }
 
         private void setComponents()
@@ -23,15 +31,12 @@ namespace Bomberman
             nameTextBox.Location = new Point(Width / 2 - gameOverLabel.Width / 2, Height / 2);
             scoreLabel.Location = new Point(Width / 2 - gameOverLabel.Width / 2 + nameTextBox.Width + Width / 30, Height / 2);
             scoreNumber.Location = new Point(Width / 2 - gameOverLabel.Width / 2 + nameTextBox.Width + Width / 30 + scoreLabel.Width, Height / 2);
-            //scoreNumber.Text = ToString(NEKI SCORE);
+            scoreNumber.Text = score.ToString();
         }
         private void save_Click(object sender, EventArgs e)
         {
             //spremaju se podaci u tablicu i vraća na LevelMenu
             string name = nameTextBox.Text;           
-            int score = 333;
-            int gameType = 7;
-            int level = 6;
             
             string relativePath = @"Database.sqlite";
             var parentDirectory = Path.GetDirectoryName(Application.StartupPath);
