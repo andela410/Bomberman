@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace Bomberman.Classes
 {
@@ -14,7 +15,7 @@ namespace Bomberman.Classes
         private int enemyType;
         public static int enemyCnt = 0;
         GameField Field;
-        Form Form;
+        LevelForm Form;
         PictureBox enemyPicture;
         string Direction;
         private Timer EnemyTimer;
@@ -37,7 +38,7 @@ namespace Bomberman.Classes
         }
 
 
-        public Enemy(Form form, GameField field, int x, int y, int type, string direction)
+        public Enemy(LevelForm form, GameField field, int x, int y, int type, string direction)
         {
             enemyCnt++;
             xEnemy = x;
@@ -63,21 +64,22 @@ namespace Bomberman.Classes
             SetEnemy(x, y, type);
             //Move();
         }
-
         public void CheckIfPlayerHit(Player player)
         {
-            if (player.XPlayer == XEnemy && player.YPlayer == YEnemy) player.LoseLife();
+            if (player.XPlayer == XEnemy && player.YPlayer == YEnemy)
+                player.LoseLife();
+
         }
 
         private void EnemyTimer_Tick(object sender, EventArgs e)
         {
             if (Direction == "left")
             {
-                if (Field.Field[xEnemy, yEnemy - 1] != 'w' && Field.Field[xEnemy, yEnemy - 1] != 'b' && Field.Field[xEnemy, yEnemy - 1] != 'h')
+                if (Field.Field[xEnemy, yEnemy - 1] == ' ')
                 {
                     yEnemy--;
                 }
-                else if (Field.Field[xEnemy, yEnemy + 1] != 'w' && Field.Field[xEnemy, yEnemy + 1] != 'b' && Field.Field[xEnemy, yEnemy + 1] != 'h')
+                else if (Field.Field[xEnemy, yEnemy + 1] == ' ')
                 {
                     yEnemy++;
                     Direction = "right";
@@ -85,11 +87,11 @@ namespace Bomberman.Classes
             }
             else if (Direction == "right")
             {
-                if (Field.Field[xEnemy, yEnemy + 1] != 'w' && Field.Field[xEnemy, yEnemy + 1] != 'b' && Field.Field[xEnemy, yEnemy + 1] != 'h')
+                if (Field.Field[xEnemy, yEnemy + 1] == ' ')
                 {
                     yEnemy++;
                 }
-                else if (Field.Field[xEnemy, yEnemy - 1] != 'w' && Field.Field[xEnemy, yEnemy - 1] != 'b' && Field.Field[xEnemy, yEnemy - 1] != 'h')
+                else if (Field.Field[xEnemy, yEnemy - 1] == ' ')
                 {
                     yEnemy--;
                     Direction = "left";
@@ -97,11 +99,11 @@ namespace Bomberman.Classes
             }
             else if(Direction == "down")
             {
-                if (Field.Field[xEnemy + 1, yEnemy] != 'w' && Field.Field[xEnemy + 1, yEnemy] != 'b' && Field.Field[xEnemy + 1, yEnemy] != 'h')
+                if (Field.Field[xEnemy + 1, yEnemy] == ' ')
                 { 
                     xEnemy++;
                 }
-                else if(Field.Field[xEnemy - 1, yEnemy] != 'w' && Field.Field[xEnemy - 1, yEnemy] != 'b' && Field.Field[xEnemy - 1, yEnemy] != 'h')
+                else if(Field.Field[xEnemy - 1, yEnemy] == ' ')
                 {
                     xEnemy--;
                     Direction = "up";
@@ -109,11 +111,11 @@ namespace Bomberman.Classes
             }
             else if(Direction == "up")
             {
-                if (Field.Field[xEnemy - 1, yEnemy] != 'w' && Field.Field[xEnemy - 1, yEnemy] != 'b' && Field.Field[xEnemy - 1, yEnemy] != 'h')
+                if (Field.Field[xEnemy - 1, yEnemy] == ' ')
                 {
                     xEnemy--;
                 }
-                else if (Field.Field[xEnemy + 1, yEnemy] != 'w' && Field.Field[xEnemy + 1, yEnemy] != 'b' && Field.Field[xEnemy + 1, yEnemy] != 'h')
+                else if (Field.Field[xEnemy + 1, yEnemy] == ' ')
                 {
                     xEnemy++;
                     Direction = "down";
@@ -129,16 +131,16 @@ namespace Bomberman.Classes
 
             if(cnt % 3 == 0 && (Direction == "right" || Direction == "left"))
             {
-                if (Field.Field[xEnemy - 1, yEnemy] != 'w' && Field.Field[xEnemy - 1, yEnemy] != 'b' && Field.Field[xEnemy - 1, yEnemy] != 'h')
+                if (Field.Field[xEnemy - 1, yEnemy] == ' ')
                     Direction = "up";
-                else if (Field.Field[xEnemy + 1, yEnemy] != 'w' && Field.Field[xEnemy + 1, yEnemy] != 'b' && Field.Field[xEnemy + 1, yEnemy] != 'h')
+                else if (Field.Field[xEnemy + 1, yEnemy] == ' ')
                     Direction = "down";
              }
             else if (cnt % 3 == 0 && (Direction == "up" || Direction == "down"))
             {
-                if (Field.Field[xEnemy, yEnemy - 1] != 'w' && Field.Field[xEnemy, yEnemy - 1] != 'b' && Field.Field[xEnemy, yEnemy - 1] != 'h')
+                if (Field.Field[xEnemy, yEnemy - 1] == ' ')
                     Direction = "left";
-                else if(Field.Field[xEnemy, yEnemy + 1] != 'w' && Field.Field[xEnemy, yEnemy + 1] != 'b' && Field.Field[xEnemy, yEnemy + 1] != 'h')
+                else if(Field.Field[xEnemy, yEnemy + 1] == ' ')
                     Direction="right";
             }
             EnemyMoved?.Invoke(new Tuple<int, int>(xEnemy, yEnemy));
@@ -177,7 +179,7 @@ namespace Bomberman.Classes
 
         public void Die()
         {
-            Player.UpdateScore(100 * enemyType);
+            Form.UpdateTotalScore(100 * enemyType);
             Field.ShowScore(100 * enemyType, xEnemy, yEnemy);
             CleanUp();
             if (--enemyCnt == 0) // Ako unistimo sve neprijatelje pokazu nam se vrata (nije jos dokraja implementirano)

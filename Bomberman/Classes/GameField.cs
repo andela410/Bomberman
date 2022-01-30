@@ -228,6 +228,11 @@ namespace Bomberman.Classes
             DoorY = y;
         }
 
+        public void UpdateFieldToBomb(int x, int y)
+        {
+            field[x, y] = 'b';
+        }
+
         public void EnableLevelPass()
         {
             LevelPass = true;

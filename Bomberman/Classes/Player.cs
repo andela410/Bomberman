@@ -5,17 +5,15 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace Bomberman.Classes
 {
     public class Player
     {
         private const int MaxLives = 10;
-        public static int PlayerCnt = 0;
         public int Lives = 3;
-        public static int score = 0;
         public int MaxLevel = 1;
-        public static Label ScoreText = new Label();
         public PictureBox[] LifeImage = new PictureBox[MaxLives];
         private int xPlayer, yPlayer;
         GameField Field;
@@ -23,11 +21,6 @@ namespace Bomberman.Classes
         PictureBox playerPicture;
         Timer MoveTimer;
         bool Alive;
-
-        public int Score
-        {
-            get { return score; }
-        }
 
         public Brick Brick 
         {
@@ -85,7 +78,6 @@ namespace Bomberman.Classes
             MoveTimer = new Timer();
             MoveTimer.Interval = 250;
             MoveTimer.Tick += new EventHandler(MoveTimer_Tick);
-            PlayerCnt++;
             Alive = true;
             playerKeys = keys;
         }
@@ -112,22 +104,6 @@ namespace Bomberman.Classes
             SetLives();
         }
 
-        public void CreatePlayerScore()
-        {
-            // Create score label
-            score = 0;
-            ScoreText = new Label();
-            ScoreText.ForeColor = Color.White;
-            ScoreText.Font = new Font("Folio XBd BT", 14);
-            ScoreText.Top = 10;
-            ScoreText.Left = Form.Width / 2 - 50;
-            ScoreText.Height = 20;
-            ScoreText.Width = 100;
-            Form.Controls.Add(ScoreText);
-            ScoreText.BringToFront();
-            UpdateScore(0);
-        }
-
         void SetLives()
         {
             // Display lives in form
@@ -152,23 +128,19 @@ namespace Bomberman.Classes
                 SetLives();
                 Move();
                 Alive = false;
-                PlayerCnt--;
-                if (PlayerCnt > 0) playerPicture.Hide();
+                Form.PlayerCnt--;
+                if (Form.PlayerCnt > 0) playerPicture.Hide();
             }
             else if (Lives > 0)
             {
                 SetLives();
             }
 
-            if(PlayerCnt == 0)
+            if(Form.PlayerCnt == 0)
             {
-                Form.youDiedScreen();               
-                Form gameOver = new GameOver(score, Form.GameMode, Form.Level);
-                Form.Hide();
                 MoveTimer.Dispose();
-                ScoreText.Dispose();
-                gameOver.Closed += (s, args) => { Form.Close(); Form.Dispose(); };
-                gameOver.Show();
+
+                Form.GameOver();
                 Form.CleanUp();
             }
         }
@@ -181,14 +153,6 @@ namespace Bomberman.Classes
                 Lives++;
                 SetLives();
             }
-        }
-
-        public static void UpdateScore(int amount = 1)
-        {
-            // Update score value and text
-            score += amount;
-            ScoreText.Text = score.ToString();
-            //if (score > Form1.highscore.score) { Form1.highscore.UpdateHighScore(score); }
         }
 
         private void SetPlayer(int x, int y, int player_number) //pozovi u konstruktoru
@@ -235,28 +199,28 @@ namespace Bomberman.Classes
             MoveTimer.Enabled = true;
             if (goleft == true)
             {
-                if (Field.Field[xPlayer, yPlayer - 1] != 'w' && Field.Field[xPlayer, yPlayer - 1] != 'b' && Field.Field[xPlayer, yPlayer - 1] != 'h')
+                if (Field.Field[xPlayer, yPlayer - 1] == ' ' || Field.Field[xPlayer, yPlayer - 1] == 'd')
                 {
                     yPlayer--;
                 }
             }
             else if (goright == true)
             {
-                if (Field.Field[xPlayer, yPlayer + 1] != 'w' && Field.Field[xPlayer, yPlayer + 1] != 'b' && Field.Field[xPlayer, yPlayer + 1] != 'h')
+                if (Field.Field[xPlayer, yPlayer + 1] == ' ' || Field.Field[xPlayer, yPlayer + 1] == 'd')
                 {
                     yPlayer++;
                 }
             }
             else if (godown == true)
             {
-                if (Field.Field[xPlayer + 1, yPlayer] != 'w' && Field.Field[xPlayer + 1, yPlayer] != 'b' && Field.Field[xPlayer + 1, yPlayer] != 'h')
+                if (Field.Field[xPlayer + 1, yPlayer] == ' ' || Field.Field[xPlayer + 1, yPlayer] == 'd')
                 {
                     xPlayer++;
                 }
             }
             else if (goup == true)
             {
-                if (Field.Field[xPlayer - 1, yPlayer] != 'w' && Field.Field[xPlayer - 1, yPlayer] != 'b' && Field.Field[xPlayer - 1, yPlayer] != 'h')
+                if (Field.Field[xPlayer - 1, yPlayer] == ' ' || Field.Field[xPlayer - 1, yPlayer] == 'd')
                 {
                     xPlayer--;
                 }

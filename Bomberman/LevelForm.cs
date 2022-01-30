@@ -26,6 +26,8 @@ namespace Bomberman
         int PlayerNumber2;
         int gameMode;
         Label youDied;
+        Label ScoreTextLabel;
+        private static int TotalScore = 0;
 
         public int Level
         {
@@ -35,6 +37,11 @@ namespace Bomberman
         public int GameMode
         {
             get { return gameMode; }
+        }
+
+        public int PlayerCnt
+        {
+            get; set;
         }
 
         public LevelForm(int tmpLevel, int player_number1, int player_number2, int game_mode, PlayerKeys p1keys, PlayerKeys p2keys)
@@ -61,8 +68,8 @@ namespace Bomberman
 
             player1 = new Player(this, game, 1, 1, PlayerNumber1, P1keys);
             player1.CreateLives(0);
-            player1.CreatePlayerScore();
             player1.Brick = brick;
+            PlayerCnt = 1;
             Player.PlayerMoved += game.CheckIfLevelPassed;
             Bomb.BombExploadedEvent += player1.CheckIfHit;
 
@@ -73,18 +80,19 @@ namespace Bomberman
             {
                 player2 = new Player(this, game, 1, 2, PlayerNumber2, P2keys);
                 player2.CreateLives(1);
-                player2.CreatePlayerScore();
                 player2.Brick = brick;
 
                 KeyDown += player2.OnKeyDown;
                 KeyUp += player2.OnKeyUp;
+
+                PlayerCnt = 2;
             }
 
+            CreateScoreLabel();
             SetupEnemies(level);
 
             if (GameMode == 3)
             {
-                Enemy.EnemyMoved += player2.CheckIfHit;
                 Bomb.BombExploadedEvent += player2.CheckIfHit;
             }
 
@@ -100,16 +108,16 @@ namespace Bomberman
             {
                 case 1:
                     Enemies.Add(new Enemy(this, game, 3, 14, 1, "left"));
-                    Enemies.Add(new Enemy(this, game, 5, 20, 1, "right"));
+                    /*Enemies.Add(new Enemy(this, game, 5, 20, 1, "right"));
                     Enemies.Add(new Enemy(this, game, 11, 21, 1, "left"));
-                    Enemies.Add(new Enemy(this, game, 11, 27, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 11, 27, 1, "left"));*/
                     break;
                 case 2:
                     Enemies.Add(new Enemy(this, game, 1, 11, 2, "left"));
-                    Enemies.Add(new Enemy(this, game, 7, 9, 1, "right"));
+                    /*Enemies.Add(new Enemy(this, game, 7, 9, 1, "right"));
                     Enemies.Add(new Enemy(this, game, 3, 12, 2, "left"));
                     Enemies.Add(new Enemy(this, game, 6, 13, 2, "left"));
-                    Enemies.Add(new Enemy(this, game, 11, 28, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 11, 28, 1, "left"));*/
                     break;
                 case 3:
                     Enemies.Add(new Enemy(this, game, 6, 11, 3, "left"));
@@ -157,20 +165,22 @@ namespace Bomberman
 
         public void NextLevel()
         {
-            Close();
-            Dispose();
+            //Dispose();
             if (level == 5 || GameMode != 1)
             {
                 // kraj
-                Form gameOver = new GameOver(player1.Score, gameMode, level);
+                Form gameOver = new GameOver(TotalScore, gameMode, level);
+                TotalScore = 0;
                 Hide();
-                gameOver.Closed += (s, args) => { this.Close(); this.Dispose(); };
+                gameOver.Closed += (s, args) => { Close(); Dispose(); };
                 gameOver.Show();
                 return;
 
             }
-            if (GameMode == 1) //campain
+            if (GameMode == 1) //campaign
             {
+                Close();
+                Dispose();
                 Form NextLevelForm = new LevelForm(++level, PlayerNumber1, PlayerNumber2, GameMode, P1keys, P2keys);
                 NextLevelForm.Show();
                 NextLevelForm.Closed += (s, args) => {
@@ -180,10 +190,22 @@ namespace Bomberman
             }
         }
 
+        public void GameOver()
+        {
+            youDiedScreen();
+            Form gameOver = new GameOver(TotalScore, GameMode, Level);
+            TotalScore = 0;
+            Close();
+
+            gameOver.Closed += (s, args) => { Close(); Dispose(); };
+            gameOver.Show();
+        }
+
         private void closeGame_Click(object sender, EventArgs e)
         {
             CleanUp();
             Close();
+            TotalScore = 0;
             Dispose();
         }
 
@@ -238,6 +260,30 @@ namespace Bomberman
             TimeLabel.Text = secondsCounter.ToString() + " sec";
         }
 
+        public void CreateScoreLabel()
+        {
+            // Create score label
+            ScoreTextLabel = new Label();
+            ScoreTextLabel.ForeColor = Color.White;
+            ScoreTextLabel.Font = new Font("Folio XBd BT", 14);
+            ScoreTextLabel.Top = 10;
+            ScoreTextLabel.Left = Width / 2 - 50;
+            ScoreTextLabel.Height = 20;
+            ScoreTextLabel.Width = 100;
+            Controls.Add(ScoreTextLabel);
+            ScoreTextLabel.BringToFront();
+            UpdateTotalScore();
+        }
+
+
+        public void UpdateTotalScore(int amount = 0)
+        {
+            // Update score value and text
+            //score += amount;
+            TotalScore += amount;
+            ScoreTextLabel.Text = TotalScore.ToString();
+            //if (score > Form1.highscore.score) { Form1.highscore.UpdateHighScore(score); }
+        }
         public void youDiedScreen()
         {
             SuspendLayout();
@@ -284,8 +330,6 @@ namespace Bomberman
             }
 
             Enemies.Clear();      
-            Player.score = 0;
-            Player.PlayerCnt = 0;
             Enemy.enemyCnt = 0;
         }
     }
