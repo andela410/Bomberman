@@ -17,27 +17,21 @@ namespace Bomberman
         GameField game;
         Player player1;
         Player player2;
-        Brick brick;
         PlayerKeys P1keys;
         PlayerKeys P2keys;
         List<Enemy> Enemies;
-        int level;
         int PlayerNumber1;
         int PlayerNumber2;
-        int gameMode;
-        Label youDied;
         Label ScoreTextLabel;
         private static int TotalScore = 0;
+        Label TimeLabel;
+        Label TimeStaticString;
+        Timer gameTimer;
+        int secondsCounter;
 
-        public int Level
-        {
-            get { return level; }
-        }
+        public int Level { get; private set; }
 
-        public int GameMode
-        {
-            get { return gameMode; }
-        }
+        public int GameMode { get; }
 
         public int PlayerCnt
         {
@@ -48,13 +42,13 @@ namespace Bomberman
         {
             InitializeComponent();
             KeyPreview = true;
-            level = tmpLevel;
+            Level = tmpLevel;
             PlayerNumber1 = player_number1;
             PlayerNumber2 = player_number2;
-            gameMode = game_mode;
+            GameMode = game_mode;
             P1keys = p1keys;
             P2keys = p2keys;
-            SetupGame(level);
+            SetupGame(Level);
         }
 
         void SetupGame(int level)
@@ -62,8 +56,8 @@ namespace Bomberman
             game = new GameField(this);
             game.CreateGameField(level);
             game.InitializeGameField(level);
-            
-            brick = new Brick(this, game);
+
+            Brick brick = new Brick(this, game);
             brick.CreateBrickWalls();
 
             player1 = new Player(this, game, 1, 1, PlayerNumber1, P1keys);
@@ -166,10 +160,10 @@ namespace Bomberman
         public void NextLevel()
         {
             //Dispose();
-            if (level == 5 || GameMode != 1)
+            if (Level == 5 || GameMode != 1)
             {
                 // kraj
-                Form gameOver = new GameOver(TotalScore, gameMode, level);
+                Form gameOver = new GameOver(TotalScore, GameMode, Level);
                 TotalScore = 0;
                 Hide();
                 gameOver.Closed += (s, args) => { Close(); Dispose(); };
@@ -182,7 +176,7 @@ namespace Bomberman
                 CleanUp();
                 Close();
                 Dispose();
-                Form NextLevelForm = new LevelForm(++level, PlayerNumber1, PlayerNumber2, GameMode, P1keys, P2keys);
+                Form NextLevelForm = new LevelForm(++Level, PlayerNumber1, PlayerNumber2, GameMode, P1keys, P2keys);
                 NextLevelForm.Show();
                 NextLevelForm.Closed += (s, args) => {
                     NextLevelForm.Show();
@@ -213,14 +207,9 @@ namespace Bomberman
 
         public void SetPlayersKeys(Tuple<PlayerKeys, PlayerKeys> tup)
         {
-            player1.playerKeys = tup.Item1;
-            player2.playerKeys = tup.Item2;
+            player1.PlayerKeys = tup.Item1;
+            player2.PlayerKeys = tup.Item2;
         }
-
-        Label TimeLabel;
-        Label TimeStaticString;
-        Timer gameTimer;
-        int secondsCounter;
 
         private void setupGameTimer()
         {
@@ -289,7 +278,7 @@ namespace Bomberman
         public void youDiedScreen()
         {
             SuspendLayout();
-            youDied = new Label();
+            Label youDied = new Label();
             youDied.Text = "YOU DIED";
             youDied.ForeColor = Color.Maroon;
             youDied.Font = new Font("Franklin Gothic Medium", 50, FontStyle.Bold);
@@ -331,7 +320,10 @@ namespace Bomberman
                 Enemies[i] = null;
             }
 
+
             Enemies.Clear();      
+            Player.Score = 0;
+            PlayerCnt = 0;
             Enemy.enemyCnt = 0;
         }
     }

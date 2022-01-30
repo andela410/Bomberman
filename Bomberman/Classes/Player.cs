@@ -14,8 +14,9 @@ namespace Bomberman.Classes
         private const int MaxLives = 10;
         public int Lives = 3;
         public int MaxLevel = 1;
+        public static int Score = 0;
+        public static Label ScoreText = new Label();
         public PictureBox[] LifeImage = new PictureBox[MaxLives];
-        private int xPlayer, yPlayer;
         GameField Field;
         LevelForm Form;
         PictureBox playerPicture;
@@ -27,47 +28,36 @@ namespace Bomberman.Classes
             get; set;
         }
 
-        public Enemy Enemy
+        public int XPlayer { get; private set; }
+
+        public int YPlayer { get; private set; }
+
+        public bool GoLeft
         {
             get; set;
         }
 
-        public int XPlayer
-        {
-            get { return xPlayer; }
-        }
-
-        public int YPlayer
-        {
-            get { return yPlayer; }
-        }
-
-        public Boolean goleft
+        public bool GoRight
         {
             get; set;
         }
 
-        public Boolean goright
+        public bool GoUp
         {
             get; set;
         }
 
-        public Boolean goup
+        public bool GoDown
         {
             get; set;
         }
 
-        public Boolean godown
-        {
-            get; set;
-        }
-
-        public PlayerKeys playerKeys { get; set; }
+        public PlayerKeys PlayerKeys { get; set; }
 
         public Player(LevelForm form, GameField field, int x, int y, int player_number, PlayerKeys keys)
         {
-            xPlayer = x;
-            yPlayer = y;
+            XPlayer = x;
+            YPlayer = y;
             Field = field;
             Form = form;
 
@@ -75,17 +65,19 @@ namespace Bomberman.Classes
 
             SetPlayer(x, y, player_number);
 
-            MoveTimer = new Timer();
-            MoveTimer.Interval = 250;
+            MoveTimer = new Timer 
+            {
+                Interval = 250
+            };
             MoveTimer.Tick += new EventHandler(MoveTimer_Tick);
             Alive = true;
-            playerKeys = keys;
+            PlayerKeys = keys;
         }
 
         public void CheckIfHit(Tuple<int, int> coordinates)
         {
             (int x, int y) = coordinates;
-            if (xPlayer == x && yPlayer == y)
+            if (XPlayer == x && YPlayer == y)
                 LoseLife();
         }
 
@@ -93,15 +85,35 @@ namespace Bomberman.Classes
         {
             for (int x = 0; x < MaxLives; x++)
             {
-                LifeImage[x] = new PictureBox();
-                LifeImage[x].Name = "Life" + x.ToString();
-                LifeImage[x].SizeMode = PictureBoxSizeMode.AutoSize;
-                LifeImage[x].Location = new Point(x * 22 + 15 + 100 * player, 10);
-                LifeImage[x].Image = Properties.Resources.Life;
+                LifeImage[x] = new PictureBox
+                {
+                    Name = "Life" + x.ToString(),
+                    SizeMode = PictureBoxSizeMode.AutoSize,
+                    Location = new Point(x * 22 + 15 + 100 * player, 10),
+                    Image = Properties.Resources.Life
+                };
                 Form.Controls.Add(LifeImage[x]);
                 LifeImage[x].BringToFront();
             }
             SetLives();
+        }
+
+        public void CreatePlayerScore()
+        {
+            // Create score label
+            Score = 0;
+            ScoreText = new Label
+            {
+                ForeColor = Color.White,
+                Font = new Font("Folio XBd BT", 14),
+                Top = 10,
+                Left = Form.Width / 2 - 50,
+                Height = 20,
+                Width = 100
+            };
+            Form.Controls.Add(ScoreText);
+            ScoreText.BringToFront();
+            UpdateScore(0);
         }
 
         void SetLives()
@@ -119,8 +131,8 @@ namespace Bomberman.Classes
 
         private void ResetPlayerPosition()
         {
-            xPlayer = 1;
-            yPlayer = 1;
+            XPlayer = 1;
+            YPlayer = 1;
         }
         public void LoseLife()
         {
@@ -143,8 +155,10 @@ namespace Bomberman.Classes
 
             if(Form.PlayerCnt == 0)
             {
+                Form.youDiedScreen();               
+                Form gameOver = new GameOver(Score, Form.GameMode, Form.Level);
+                Form.Hide();
                 MoveTimer.Dispose();
-
                 Form.GameOver();
                 Form.CleanUp();
             }
@@ -161,13 +175,21 @@ namespace Bomberman.Classes
             }
         }
 
+        public static void UpdateScore(int amount = 1)
+        {
+            // Update score value and text
+            Score += amount;
+            ScoreText.Text = Score.ToString();
+            //if (score > Form1.highscore.score) { Form1.highscore.UpdateHighScore(score); }
+        }
+
         private void SetPlayer(int x, int y, int player_number) //pozovi u konstruktoru
         {
 
             //PictureBox e = new PictureBox();
             // e.Name = "Fire" + x.ToString() + y.ToString();
 
-            playerPicture.Name = "Player" + xPlayer.ToString() + yPlayer.ToString();
+            playerPicture.Name = "Player" + XPlayer.ToString() + YPlayer.ToString();
             playerPicture.SizeMode = PictureBoxSizeMode.AutoSize;
             playerPicture.Location = new Point(y * Field.ElementSize + Field.PictureBox.Location.X, x * Field.ElementSize + Field.PictureBox.Location.Y);
             Bitmap Player_transparent;
@@ -203,42 +225,42 @@ namespace Bomberman.Classes
         {
             if (!Alive) return;
             MoveTimer.Enabled = true;
-            if (goleft == true)
+            if (GoLeft == true)
             {
-                if (Field.Field[xPlayer, yPlayer - 1] == ' ' || Field.Field[xPlayer, yPlayer - 1] == 'd' || Field.Field[xPlayer, yPlayer - 1] == 'x')
+                if (Field.Field[XPlayer, YPlayer - 1] == ' ' || Field.Field[XPlayer, YPlayer - 1] == 'd' || Field.Field[XPlayer, YPlayer - 1] == 'x')
                 {
-                    yPlayer--;
+                    YPlayer--;
                 }
             }
-            else if (goright == true)
+            else if (GoRight == true)
             {
-                if (Field.Field[xPlayer, yPlayer + 1] == ' ' || Field.Field[xPlayer, yPlayer + 1] == 'd' || Field.Field[xPlayer, yPlayer + 1] == 'x')
+                if (Field.Field[XPlayer, YPlayer + 1] == ' ' || Field.Field[XPlayer, YPlayer + 1] == 'd' || Field.Field[XPlayer, YPlayer + 1] == 'x')
                 {
-                    yPlayer++;
+                    YPlayer++;
                 }
             }
-            else if (godown == true)
+            else if (GoDown == true)
             {
-                if (Field.Field[xPlayer + 1, yPlayer] == ' ' || Field.Field[xPlayer + 1, yPlayer] == 'd' || Field.Field[xPlayer + 1, yPlayer] == 'x')
+                if (Field.Field[XPlayer + 1, YPlayer] == ' ' || Field.Field[XPlayer + 1, YPlayer] == 'd' || Field.Field[XPlayer + 1, YPlayer] == 'x')
                 {
-                    xPlayer++;
+                    XPlayer++;
                 }
             }
-            else if (goup == true)
+            else if (GoUp == true)
             {
-                if (Field.Field[xPlayer - 1, yPlayer] == ' ' || Field.Field[xPlayer - 1, yPlayer] == 'd' || Field.Field[xPlayer - 1, yPlayer] == 'x')
+                if (Field.Field[XPlayer - 1, YPlayer] == ' ' || Field.Field[XPlayer - 1, YPlayer] == 'd' || Field.Field[XPlayer - 1, YPlayer] == 'x')
                 {
-                    xPlayer--;
+                    XPlayer--;
                 }
             }
 
-            playerPicture.Location = new Point(yPlayer * Field.ElementSize + Field.PictureBox.Location.X, xPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
+            playerPicture.Location = new Point(YPlayer * Field.ElementSize + Field.PictureBox.Location.X, XPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
             Form.Controls.Add(playerPicture);
 
             playerPicture.BringToFront();
 
             // ako se igrac pomaknuo na eksploziju, oduzmi zivot
-            if (Field.Field[xPlayer, yPlayer] == 'x') LoseLife();
+            if (Field.Field[XPlayer, YPlayer] == 'x') LoseLife();
 
             PlayerMoved?.Invoke(this);
         }
@@ -255,39 +277,39 @@ namespace Bomberman.Classes
             if (!Alive) return;
             String key = e.KeyCode.ToString();
 
-            if (key == playerKeys.Left.ToUpper())
+            if (key == PlayerKeys.Left.ToUpper())
             {
-                if (!goleft)
+                if (!GoLeft)
                 {
-                    goleft = true;
+                    GoLeft = true;
                     Move();
                 }
             }
-            if (key == playerKeys.Right.ToUpper())
+            if (key == PlayerKeys.Right.ToUpper())
             {
-                if (!goright)
+                if (!GoRight)
                 {
-                    goright = true;
+                    GoRight = true;
                     Move();
                 }
             }
-            if (key == playerKeys.Up.ToUpper())
+            if (key == PlayerKeys.Up.ToUpper())
             {
-                if (!goup)
+                if (!GoUp)
                 {
-                    goup = true;
+                    GoUp = true;
                     Move();
                 }
             }
-            if (key == playerKeys.Down.ToUpper())
+            if (key == PlayerKeys.Down.ToUpper())
             {
-                if (!godown)
+                if (!GoDown)
                 {
-                    godown = true;
+                    GoDown = true;
                     Move();
                 }
             }
-            if (key == playerKeys.Bomb.ToUpper()) //Pusti bombu na tipku B
+            if (key == PlayerKeys.Bomb.ToUpper()) //Pusti bombu na tipku B
             {
                 Bomb bomb = new Bomb(Form, Field, Brick, XPlayer, YPlayer);
                 bomb.PlantBomb();
@@ -300,24 +322,24 @@ namespace Bomberman.Classes
             //keyUp = true;
             String key = e.KeyCode.ToString();
 
-            if (key == playerKeys.Left.ToUpper())
+            if (key == PlayerKeys.Left.ToUpper())
             {
-                goleft = false;
+                GoLeft = false;
                 MoveStop();
             }
-            if (key == playerKeys.Right.ToUpper())
+            if (key == PlayerKeys.Right.ToUpper())
             {
-                goright = false;
+                GoRight = false;
                 MoveStop();
             }
-            if (key == playerKeys.Up.ToUpper())
+            if (key == PlayerKeys.Up.ToUpper())
             {
-                goup = false;
+                GoUp = false;
                 MoveStop();
             }
-            if (key == playerKeys.Down.ToUpper())
+            if (key == PlayerKeys.Down.ToUpper())
             {
-                godown = false;
+                GoDown = false;
                 MoveStop();
             }
         }
