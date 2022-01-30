@@ -11,7 +11,7 @@ namespace Bomberman.Classes
     public class Player
     {
         private const int MaxLives = 10;
-        static int PlayerCnt = 0;
+        public static int PlayerCnt = 0;
         public int Lives = 3;
         public static int score = 0;
         public int MaxLevel = 1;
@@ -21,7 +21,6 @@ namespace Bomberman.Classes
         GameField Field;
         LevelForm Form;
         PictureBox playerPicture;
-        List<Enemy> enemies;
         Timer MoveTimer;
         bool Alive;
 
@@ -70,21 +69,14 @@ namespace Bomberman.Classes
             get; set;
         }
 
-        public List<Enemy> Enemies
-        {
-            get { return enemies; }
-            set { enemies = value; }
-        }
-
         public PlayerKeys playerKeys { get; set; }
 
-        public Player(LevelForm form, GameField field, int x, int y, int player_number, PlayerKeys keys, List<Enemy> enemies)
+        public Player(LevelForm form, GameField field, int x, int y, int player_number, PlayerKeys keys)
         {
             xPlayer = x;
             yPlayer = y;
             Field = field;
             Form = form;
-            this.enemies = enemies;
 
             playerPicture = new PictureBox();
 
@@ -101,7 +93,8 @@ namespace Bomberman.Classes
         public void CheckIfHit(Tuple<int, int> coordinates)
         {
             (int x, int y) = coordinates;
-            if (xPlayer == x && yPlayer == y) LoseLife();
+            if (xPlayer == x && yPlayer == y)
+                LoseLife();
         }
 
         public void CreateLives(int player)
@@ -176,6 +169,7 @@ namespace Bomberman.Classes
                 ScoreText.Dispose();
                 gameOver.Closed += (s, args) => { Form.Close(); Form.Dispose(); };
                 gameOver.Show();
+                Form.CleanUp();
             }
         }
 
