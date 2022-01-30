@@ -320,5 +320,10 @@ namespace Bomberman
             Enemies.Clear();
             Enemy.enemyCnt = 0;
         }
+
+        private void LevelForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CleanUp();
+        }
     }
 }

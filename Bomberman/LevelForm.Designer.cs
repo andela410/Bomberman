@@ -47,7 +47,7 @@
             this.closeGame.UseVisualStyleBackColor = false;
             this.closeGame.Click += new System.EventHandler(this.closeGame_Click);
             // 
-            // Form1
+            // LevelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -56,10 +56,11 @@
             this.Controls.Add(this.closeGame);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "LevelForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bomberman";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LevelForm_FormClosing);
             this.ResumeLayout(false);
 
         }
