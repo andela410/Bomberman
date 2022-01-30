@@ -233,6 +233,13 @@ namespace Bomberman.Classes
             field[x, y] = 'b';
         }
 
+        public void UpdateFieldToExplosion(int x, int y)
+        {
+            if (field[x, y] == ' ')
+            {
+                field[x, y] = 'x';
+            }
+        }
         public void EnableLevelPass()
         {
             LevelPass = true;

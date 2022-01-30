@@ -75,11 +75,11 @@ namespace Bomberman.Classes
         {
             if (Direction == "left")
             {
-                if (Field.Field[xEnemy, yEnemy - 1] == ' ')
+                if (Field.Field[xEnemy, yEnemy - 1] == ' ' || Field.Field[xEnemy, yEnemy - 1] == 'x')
                 {
                     yEnemy--;
                 }
-                else if (Field.Field[xEnemy, yEnemy + 1] == ' ')
+                else if (Field.Field[xEnemy, yEnemy + 1] == ' ' || Field.Field[xEnemy, yEnemy + 1] == 'x')
                 {
                     yEnemy++;
                     Direction = "right";
@@ -87,11 +87,11 @@ namespace Bomberman.Classes
             }
             else if (Direction == "right")
             {
-                if (Field.Field[xEnemy, yEnemy + 1] == ' ')
+                if (Field.Field[xEnemy, yEnemy + 1] == ' ' || Field.Field[xEnemy, yEnemy + 1] == 'x')
                 {
                     yEnemy++;
                 }
-                else if (Field.Field[xEnemy, yEnemy - 1] == ' ')
+                else if (Field.Field[xEnemy, yEnemy - 1] == ' ' || Field.Field[xEnemy, yEnemy - 1] == 'x')
                 {
                     yEnemy--;
                     Direction = "left";
@@ -99,11 +99,11 @@ namespace Bomberman.Classes
             }
             else if(Direction == "down")
             {
-                if (Field.Field[xEnemy + 1, yEnemy] == ' ')
+                if (Field.Field[xEnemy + 1, yEnemy] == ' ' || Field.Field[xEnemy + 1, yEnemy] == 'x')
                 { 
                     xEnemy++;
                 }
-                else if(Field.Field[xEnemy - 1, yEnemy] == ' ')
+                else if(Field.Field[xEnemy - 1, yEnemy] == ' ' || Field.Field[xEnemy - 1, yEnemy] == 'x')
                 {
                     xEnemy--;
                     Direction = "up";
@@ -111,11 +111,11 @@ namespace Bomberman.Classes
             }
             else if(Direction == "up")
             {
-                if (Field.Field[xEnemy - 1, yEnemy] == ' ')
+                if (Field.Field[xEnemy - 1, yEnemy] == ' ' || Field.Field[xEnemy - 1, yEnemy] == 'x')
                 {
                     xEnemy--;
                 }
-                else if (Field.Field[xEnemy + 1, yEnemy] == ' ')
+                else if (Field.Field[xEnemy + 1, yEnemy] == ' ' || Field.Field[xEnemy + 1, yEnemy] == 'x')
                 {
                     xEnemy++;
                     Direction = "down";
@@ -131,18 +131,22 @@ namespace Bomberman.Classes
 
             if(cnt % 3 == 0 && (Direction == "right" || Direction == "left"))
             {
-                if (Field.Field[xEnemy - 1, yEnemy] == ' ')
+                if (Field.Field[xEnemy - 1, yEnemy] == ' ' || Field.Field[xEnemy - 1, yEnemy] == 'x')
                     Direction = "up";
-                else if (Field.Field[xEnemy + 1, yEnemy] == ' ')
+                else if (Field.Field[xEnemy + 1, yEnemy] == ' ' || Field.Field[xEnemy + 1, yEnemy] == 'x')
                     Direction = "down";
              }
             else if (cnt % 3 == 0 && (Direction == "up" || Direction == "down"))
             {
-                if (Field.Field[xEnemy, yEnemy - 1] == ' ')
+                if (Field.Field[xEnemy, yEnemy - 1] == ' ' || Field.Field[xEnemy, yEnemy - 1] == 'x')
                     Direction = "left";
-                else if(Field.Field[xEnemy, yEnemy + 1] == ' ')
+                else if(Field.Field[xEnemy, yEnemy + 1] == ' ' || Field.Field[xEnemy, yEnemy + 1] == 'x')
                     Direction="right";
             }
+
+            // Ako se Enemy pomaknuo na eksploziju, unisti ga
+            if (Field.Field[xEnemy, yEnemy] == 'x') Die();
+
             EnemyMoved?.Invoke(new Tuple<int, int>(xEnemy, yEnemy));
         }
 

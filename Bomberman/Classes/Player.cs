@@ -117,6 +117,11 @@ namespace Bomberman.Classes
             }
         }
 
+        private void ResetPlayerPosition()
+        {
+            xPlayer = 1;
+            yPlayer = 1;
+        }
         public void LoseLife()
         {
             // Lose a life
@@ -143,6 +148,7 @@ namespace Bomberman.Classes
                 Form.GameOver();
                 Form.CleanUp();
             }
+            ResetPlayerPosition();
         }
 
         public void GetLife()
@@ -199,28 +205,28 @@ namespace Bomberman.Classes
             MoveTimer.Enabled = true;
             if (goleft == true)
             {
-                if (Field.Field[xPlayer, yPlayer - 1] == ' ' || Field.Field[xPlayer, yPlayer - 1] == 'd')
+                if (Field.Field[xPlayer, yPlayer - 1] == ' ' || Field.Field[xPlayer, yPlayer - 1] == 'd' || Field.Field[xPlayer, yPlayer - 1] == 'x')
                 {
                     yPlayer--;
                 }
             }
             else if (goright == true)
             {
-                if (Field.Field[xPlayer, yPlayer + 1] == ' ' || Field.Field[xPlayer, yPlayer + 1] == 'd')
+                if (Field.Field[xPlayer, yPlayer + 1] == ' ' || Field.Field[xPlayer, yPlayer + 1] == 'd' || Field.Field[xPlayer, yPlayer + 1] == 'x')
                 {
                     yPlayer++;
                 }
             }
             else if (godown == true)
             {
-                if (Field.Field[xPlayer + 1, yPlayer] == ' ' || Field.Field[xPlayer + 1, yPlayer] == 'd')
+                if (Field.Field[xPlayer + 1, yPlayer] == ' ' || Field.Field[xPlayer + 1, yPlayer] == 'd' || Field.Field[xPlayer + 1, yPlayer] == 'x')
                 {
                     xPlayer++;
                 }
             }
             else if (goup == true)
             {
-                if (Field.Field[xPlayer - 1, yPlayer] == ' ' || Field.Field[xPlayer - 1, yPlayer] == 'd')
+                if (Field.Field[xPlayer - 1, yPlayer] == ' ' || Field.Field[xPlayer - 1, yPlayer] == 'd' || Field.Field[xPlayer - 1, yPlayer] == 'x')
                 {
                     xPlayer--;
                 }
@@ -230,6 +236,10 @@ namespace Bomberman.Classes
             Form.Controls.Add(playerPicture);
 
             playerPicture.BringToFront();
+
+            // ako se igrac pomaknuo na eksploziju, oduzmi zivot
+            if (Field.Field[xPlayer, yPlayer] == 'x') LoseLife();
+
             PlayerMoved?.Invoke(this);
         }
 

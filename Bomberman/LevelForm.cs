@@ -179,6 +179,7 @@ namespace Bomberman
             }
             if (GameMode == 1) //campaign
             {
+                CleanUp();
                 Close();
                 Dispose();
                 Form NextLevelForm = new LevelForm(++level, PlayerNumber1, PlayerNumber2, GameMode, P1keys, P2keys);
@@ -195,6 +196,7 @@ namespace Bomberman
             youDiedScreen();
             Form gameOver = new GameOver(TotalScore, GameMode, Level);
             TotalScore = 0;
+            CleanUp();
             Close();
 
             gameOver.Closed += (s, args) => { Close(); Dispose(); };

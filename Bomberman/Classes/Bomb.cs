@@ -91,6 +91,7 @@ namespace Bomberman.Classes
 
                 Explosion[i].BringToFront();
                 BombExploadedEvent?.Invoke(new Tuple<int, int>(x, y));
+                Field.UpdateFieldToExplosion(x, y);
 
                 // Prodji kroz sve postavljenje bombe i vidi preklapa li se pozicija
                 // sa eksplozijom bombe koja je eksplodirala
@@ -137,6 +138,10 @@ namespace Bomberman.Classes
                 {
                     if (Brick.DestroyDoorBrick(x, y))
                         Form.UpdateTotalScore(200);
+                }
+                else if (Field.Field[x, y] == 'x')
+                {
+                    Field.UpdateField(x, y);
                 }
             }
         }
