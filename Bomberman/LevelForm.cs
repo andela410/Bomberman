@@ -108,16 +108,16 @@ namespace Bomberman
             {
                 case 1:
                     Enemies.Add(new Enemy(this, game, 3, 14, 1, "left"));
-                    /*Enemies.Add(new Enemy(this, game, 5, 20, 1, "right"));
+                    Enemies.Add(new Enemy(this, game, 5, 20, 1, "right"));
                     Enemies.Add(new Enemy(this, game, 11, 21, 1, "left"));
-                    Enemies.Add(new Enemy(this, game, 11, 27, 1, "left"));*/
+                    Enemies.Add(new Enemy(this, game, 11, 27, 1, "left"));
                     break;
                 case 2:
                     Enemies.Add(new Enemy(this, game, 1, 11, 2, "left"));
-                    /*Enemies.Add(new Enemy(this, game, 7, 9, 1, "right"));
+                    Enemies.Add(new Enemy(this, game, 7, 9, 1, "right"));
                     Enemies.Add(new Enemy(this, game, 3, 12, 2, "left"));
                     Enemies.Add(new Enemy(this, game, 6, 13, 2, "left"));
-                    Enemies.Add(new Enemy(this, game, 11, 28, 1, "left"));*/
+                    Enemies.Add(new Enemy(this, game, 11, 28, 1, "left"));
                     break;
                 case 3:
                     Enemies.Add(new Enemy(this, game, 6, 11, 3, "left"));
