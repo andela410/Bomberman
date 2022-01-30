@@ -45,7 +45,7 @@
             this.closeGame.Size = new System.Drawing.Size(109, 58);
             this.closeGame.TabIndex = 1;
             this.closeGame.UseVisualStyleBackColor = false;
-            this.closeGame.Click += new System.EventHandler(this.closeGame_Click);
+            this.closeGame.Click += new System.EventHandler(this.CloseGame_Click);
             // 
             // LevelForm
             // 

@@ -19,10 +19,10 @@ namespace Bomberman
             {
                 level = 0;
             }
-            setComponents();
+            SetComponents();
         }
 
-        private void setComponents()
+        private void SetComponents()
         {
             //dinamički pozicioniramo elemente
             Width = Screen.PrimaryScreen.Bounds.Width;
@@ -34,7 +34,7 @@ namespace Bomberman
             scoreNumber.Location = new Point(Width / 2 - gameOverLabel.Width / 2 + nameTextBox.Width + Width / 30 + scoreLabel.Width, Height / 2);
             scoreNumber.Text = score.ToString();
         }
-        private void save_Click(object sender, EventArgs e)
+        private void Save_Click(object sender, EventArgs e)
         {
             //spremaju se podaci u tablicu i vraća na LevelMenu
             string name = nameTextBox.Text; //name se čita dinamički iz TextBoxa

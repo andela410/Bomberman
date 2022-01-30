@@ -92,7 +92,7 @@
             this.save.TabIndex = 5;
             this.save.Text = "SAVE";
             this.save.UseVisualStyleBackColor = false;
-            this.save.Click += new System.EventHandler(this.save_Click);
+            this.save.Click += new System.EventHandler(this.Save_Click);
             // 
             // GameOver
             // 

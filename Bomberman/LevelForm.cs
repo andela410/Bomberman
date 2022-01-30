@@ -33,11 +33,13 @@ namespace Bomberman
 
         public int GameMode { get; }
 
+        // 0, 1 ili 2 ovisno o načinu i stanju trenutne igre
         public int PlayerCnt
         {
             get; set;
         }
 
+        // Konstruktor
         public LevelForm(int tmpLevel, int player_number1, int player_number2, int game_mode, PlayerKeys p1keys, PlayerKeys p2keys)
         {
             InitializeComponent();
@@ -48,10 +50,12 @@ namespace Bomberman
             GameMode = game_mode;
             P1keys = p1keys;
             P2keys = p2keys;
-            SetupGame(Level);
+            SetUpGame(Level);
         }
 
-        void SetupGame(int level)
+        // Metoda koja se poziva isključivo u konstruktoru, ali je malo preglednije možda razlomiti
+        // tako dugačak konstruktor, plus, puna je stvari koje se dobro opisuju sa "SetUpGame"
+        void SetUpGame(int level)
         {
             game = new GameField(this);
             game.CreateGameField(level);
@@ -64,12 +68,15 @@ namespace Bomberman
             player1.CreateLives(0);
             player1.Brick = brick;
             PlayerCnt = 1;
+
+            // Pretplata na potrebne eventove da smanjimo broj referenci koji objekti imaju jedan na drugog
             Player.PlayerMoved += game.CheckIfLevelPassed;
             Bomb.BombExploadedEvent += player1.CheckIfHit;
 
             KeyDown += player1.OnKeyDown;
             KeyUp += player1.OnKeyUp;
 
+            // MultiPlayer
             if (GameMode == 3)
             {
                 player2 = new Player(this, game, 1, 2, PlayerNumber2, P2keys);
@@ -80,31 +87,29 @@ namespace Bomberman
                 KeyUp += player2.OnKeyUp;
 
                 PlayerCnt = 2;
+                Bomb.BombExploadedEvent += player2.CheckIfHit;
             }
 
             CreateScoreLabel();
             SetupEnemies(level);
 
-            if (GameMode == 3)
-            {
-                Bomb.BombExploadedEvent += player2.CheckIfHit;
-            }
-
-            setupGameTimer();
-            startGameTimer();
+            SetupGameTimer();
+            StartGameTimer();
         }
 
+        // Metoda koja ovisno o nivou postavlja neprijatelje na određena mjesta
+        // i radi pretplate na potrebne događaje
         private void SetupEnemies(int level)
         {
             Enemies = new List<Enemy>();
 
-            switch (level)//ovo dodavanje enemya isto ne smije biti u formi nego odvojeno, npr. nova klasa level u koji onda ovo napravimo
+            switch (level)
             {
                 case 1:
                     Enemies.Add(new Enemy(this, game, 3, 14, 1, "left"));
-                    Enemies.Add(new Enemy(this, game, 5, 20, 1, "right"));
-                    Enemies.Add(new Enemy(this, game, 11, 21, 1, "left"));
-                    Enemies.Add(new Enemy(this, game, 11, 27, 1, "left"));
+                    //Enemies.Add(new Enemy(this, game, 5, 20, 1, "right"));
+                    //Enemies.Add(new Enemy(this, game, 11, 21, 1, "left"));
+                    //Enemies.Add(new Enemy(this, game, 11, 27, 1, "left"));
                     break;
                 case 2:
                     Enemies.Add(new Enemy(this, game, 1, 11, 2, "left"));
@@ -157,21 +162,20 @@ namespace Bomberman
 
         }
 
+        // Ovisno o načinu igre, na kraju nivoa smo ili gotovi ili idemo na sljedeći nivo
         public void NextLevel()
         {
-            //Dispose();
             if (Level == 5 || GameMode != 1)
             {
-                // kraj
+                // Kraj
                 Form gameOver = new GameOver(TotalScore, GameMode, Level);
                 CleanUp();
                 Hide();
                 gameOver.Closed += (s, args) => { Close(); Dispose(); };
                 gameOver.Show();
                 return;
-
             }
-            if (GameMode == 1) //campaign
+            if (GameMode == 1) // Campaign mode
             {
                 CleanUp();
                 Close();
@@ -185,9 +189,10 @@ namespace Bomberman
             }
         }
 
+        // Metoda zaduzena za formu koja se pojavljuje kada izgubimo
         public void GameOver()
         {
-            youDiedScreen();
+            YouDiedScreen();
             Form gameOver = new GameOver(TotalScore, GameMode, Level);
             CleanUp();
             Close();
@@ -196,7 +201,7 @@ namespace Bomberman
             gameOver.Show();
         }
 
-        private void closeGame_Click(object sender, EventArgs e)
+        private void CloseGame_Click(object sender, EventArgs e)
         {
             CleanUp();
             Close();
@@ -209,41 +214,47 @@ namespace Bomberman
             player2.PlayerKeys = tup.Item2;
         }
 
-        private void setupGameTimer()
+        private void SetupGameTimer()
         {
-            TimeStaticString = new Label();
-            TimeStaticString.ForeColor = Color.White;
-            TimeStaticString.Font = new Font("Folio XBd BT", 14);
-            TimeStaticString.Top = 40 + 30 + game.GameFieldHeight * game.ElementSize;
-            TimeStaticString.Left = 40;
-            TimeStaticString.Height = 25;
-            TimeStaticString.Width = 100;
-            TimeStaticString.Text = "Time: ";
+            TimeStaticString = new Label
+            {
+                ForeColor = Color.White,
+                Font = new Font("Folio XBd BT", 14),
+                Top = 70 + game.GameFieldHeight * game.ElementSize,
+                Left = 40,
+                Height = 25,
+                Width = 100,
+                Text = "Time: "
+            };
             Controls.Add(TimeStaticString);
             TimeStaticString.BringToFront();
 
-            TimeLabel = new Label();
-            TimeLabel.ForeColor = Color.White;
-            TimeLabel.Font = new Font("Folio XBd BT", 14);
-            TimeLabel.Top = 40 + 30 + game.GameFieldHeight * game.ElementSize;
-            TimeLabel.Left = 40 + TimeLabel.Width - 40;
+            TimeLabel = new Label
+            {
+                ForeColor = Color.White,
+                Font = new Font("Folio XBd BT", 14),
+                Top = 70 + game.GameFieldHeight * game.ElementSize
+            };
+            TimeLabel.Left = TimeLabel.Width;
             TimeLabel.Height = 25;
             TimeLabel.Width = 100;
             Controls.Add(TimeLabel);
             TimeLabel.BringToFront();
 
-            gameTimer = new Timer();
-            gameTimer.Interval = 1000;
-            gameTimer.Tick += new EventHandler(gameTimerUpdate);
+            gameTimer = new Timer
+            {
+                Interval = 1000
+            };
+            gameTimer.Tick += new EventHandler(GameTimerUpdate);
 
         }
 
-        private void startGameTimer()
+        private void StartGameTimer()
         {
             gameTimer.Enabled = true;
         }
 
-        private void gameTimerUpdate(object sender, EventArgs e)
+        private void GameTimerUpdate(object sender, EventArgs e)
         {
             secondsCounter++;
             TimeLabel.Text = secondsCounter.ToString() + " sec";
@@ -251,40 +262,45 @@ namespace Bomberman
 
         public void CreateScoreLabel()
         {
-            // Create score label
-            ScoreTextLabel = new Label();
-            ScoreTextLabel.ForeColor = Color.White;
-            ScoreTextLabel.Font = new Font("Folio XBd BT", 14);
-            ScoreTextLabel.Top = 10;
-            ScoreTextLabel.Left = Width / 2 - 50;
-            ScoreTextLabel.Height = 20;
-            ScoreTextLabel.Width = 100;
+            ScoreTextLabel = new Label
+            {
+                ForeColor = Color.White,
+                Font = new Font("Folio XBd BT", 14),
+                Top = 10,
+                Left = Width / 2 - 50,
+                Height = 20,
+                Width = 100
+            };
             Controls.Add(ScoreTextLabel);
             ScoreTextLabel.BringToFront();
             UpdateTotalScore();
         }
 
-
         public void UpdateTotalScore(int amount = 0)
         {
-            // Update score value and text
             TotalScore += amount;
             ScoreTextLabel.Text = TotalScore.ToString();
         }
-        public void youDiedScreen()
+
+        // Metoda koja prikazuje prikladnu animaciju nakon što izgubimo
+        public void YouDiedScreen()
         {
             SuspendLayout();
-            Label youDied = new Label();
-            youDied.Text = "YOU DIED";
-            youDied.ForeColor = Color.Maroon;
-            youDied.Font = new Font("Franklin Gothic Medium", 50, FontStyle.Bold);
-            youDied.BackColor = Color.Black;
-            youDied.Visible = true;
-            youDied.AutoSize = true;
+            Label youDied = new Label
+            {
+                Text = "YOU DIED",
+                ForeColor = Color.Maroon,
+                Font = new Font("Franklin Gothic Medium", 50, FontStyle.Bold),
+                BackColor = Color.Black,
+                Visible = true,
+                AutoSize = true
+            };
+
             youDied.Location = new Point(Width / 2 - youDied.Width / 2, Height / 2 - youDied.Height / 2);
             Controls.Add(youDied);
             youDied.BringToFront();
             ResumeLayout();
+
             for (int i = 50; i < 100; ++i)
             {
                 youDied.Font = new Font("Franklin Gothic Medium", i, FontStyle.Bold);
@@ -295,17 +311,21 @@ namespace Bomberman
             System.Threading.Thread.Sleep(1000);
         }
 
+        // Metoda zadužena za resetiranje potrebnih stvari po završetku igre ili nivoa
         public void CleanUp()
         {
-            gameTimer.Tick -= new EventHandler(gameTimerUpdate);
+            gameTimer.Tick -= new EventHandler(GameTimerUpdate);
             gameTimer.Dispose();
             Enemy.EnemyMoved -= player1.CheckIfHit;
             Bomb.BombExploadedEvent -= player1.CheckIfHit;
+            Player.PlayerMoved -= game.CheckIfLevelPassed;
+            player1.CleanUp();
 
             if (GameMode == 3)
             {
                 Enemy.EnemyMoved -= player2.CheckIfHit;
                 Bomb.BombExploadedEvent -= player2.CheckIfHit;
+                player2.CleanUp();
             }
 
             for (int i = 0; i < Enemies.Count(); ++i)

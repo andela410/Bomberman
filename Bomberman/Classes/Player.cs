@@ -13,48 +13,29 @@ namespace Bomberman.Classes
     public class Player
     {
         private const int MaxLives = 10;
-        public int Lives = 3;
-        public int MaxLevel = 1;
-        public static Label ScoreText = new Label();
-        public PictureBox[] LifeImage = new PictureBox[MaxLives];
+        private bool Alive;
+        private bool GoLeft;
+        private bool GoRight;
+        private bool GoUp;
+        private bool GoDown;
         GameField Field;
         LevelForm Form;
         PictureBox playerPicture;
         Timer MoveTimer;
-        bool Alive;
+        public int Lives = 3;
+        public int MaxLevel = 1;
+        public static Label ScoreText = new Label();
+        public PictureBox[] LifeImage = new PictureBox[MaxLives];
 
-        public Brick Brick 
-        {
-            get; set;
-        }
+        public Brick Brick { get; set; }
 
         public int XPlayer { get; private set; }
 
         public int YPlayer { get; private set; }
 
-        public bool GoLeft
-        {
-            get; set;
-        }
-
-        public bool GoRight
-        {
-            get; set;
-        }
-
-        public bool GoUp
-        {
-            get; set;
-        }
-
-        public bool GoDown
-        {
-            get; set;
-        }
-
         public PlayerKeys PlayerKeys { get; set; }
 
-        //konstruktor
+        // Konstruktor
         public Player(LevelForm form, GameField field, int x, int y, int player_number, PlayerKeys keys)
         {
             XPlayer = x;
@@ -75,7 +56,8 @@ namespace Bomberman.Classes
             PlayerKeys = keys;
         }
 
-        //provjera je li nešto došlo na mjesto igrača
+        // Provjera je li nešto došlo na mjesto igrača, eksplozija bombe ili neprijatelj
+        // Metoda služi da se pretplati na događaje pomaka neprijatelja i eksplozije bombe
         public void CheckIfHit(Tuple<int, int> coordinates)
         {
             (int x, int y) = coordinates;
@@ -100,6 +82,7 @@ namespace Bomberman.Classes
             SetLives();
         }
 
+        // Postavlja slike srca za svakog igrača
         void SetLives()
         {
             // Display lives in form
@@ -118,12 +101,14 @@ namespace Bomberman.Classes
             XPlayer = 1;
             YPlayer = 1;
         }
+
         public void LoseLife()
         {
-            // Lose a life
+            // Ako je broj života pozitivan, oduzmi jedan
             if (Lives > 0) Lives--;
             else return;
 
+            // Ako je broj života jednak 0, taj igrač je mrtav
             if (Lives == 0)
             {
                 SetLives();
@@ -132,31 +117,33 @@ namespace Bomberman.Classes
                 Form.PlayerCnt--;
                 if (Form.PlayerCnt > 0) playerPicture.Hide();
             }
-            else if (Lives > 0)
-            {
-                SetLives();
-            }
 
+            // Inače prikaži ostale živote
+            else if (Lives > 0)
+                SetLives();
+            
+            // Ako su svi igrači mrtvi, pojavljuje se prikladna poruka
             if(Form.PlayerCnt == 0)
             {
                 MoveTimer.Dispose();
                 Form.GameOver();
             }
+
+            // Ako se izgubi život, igrač ide na početnu poziciju
             ResetPlayerPosition();
         }
 
-        public void GetLife()
+        // "Resetira" varijable
+        public void CleanUp()
         {
-            // Get a life
-            if (Lives < MaxLives)
-            {
-                Lives++;
-                SetLives();
-            }
+            MoveTimer.Dispose();
+            XPlayer = -100;
+            YPlayer = -100;
+            Alive = false;
         }
 
-        //postavljanje slike igrača na zadanu poziciju
-        private void SetPlayer(int x, int y, int player_number) //pozovi u konstruktoru
+        // Postavljanje slike igrača na zadanu poziciju, poziva se u konstruktoru
+        private void SetPlayer(int x, int y, int player_number)
         {
 
             //PictureBox e = new PictureBox();
@@ -232,7 +219,7 @@ namespace Bomberman.Classes
 
             playerPicture.BringToFront();
 
-            // ako se igrac pomaknuo na eksploziju, oduzmi zivot
+            // Ako se igrac pomaknuo na eksploziju, oduzmi zivot
             if (Field.Field[XPlayer, YPlayer] == 'x') LoseLife();
 
             PlayerMoved?.Invoke(this);
@@ -243,8 +230,11 @@ namespace Bomberman.Classes
             MoveTimer.Enabled = false;
         }
 
+        // Event na koji se enemy pretplate tako da se moze izgubiti život kada se igrač kreće
+        // i pređe preko neprijatelja
         public static event Action<Player> PlayerMoved;
 
+        // Metoda koja reagira kada pritisnemo tipku ako je igrač živ
         public void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (!Alive) return;
@@ -290,6 +280,7 @@ namespace Bomberman.Classes
             }
         }
 
+        // Metoda koja reagira kada otpustimo tipku ako je igrač živ
         public void OnKeyUp(object sender, KeyEventArgs e)
         {
             //keyUp = true;
