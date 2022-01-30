@@ -15,7 +15,6 @@ namespace Bomberman.Classes
         private const int MaxLives = 10;
         public int Lives = 3;
         public int MaxLevel = 1;
-        public static int Score = 0;
         public static Label ScoreText = new Label();
         public PictureBox[] LifeImage = new PictureBox[MaxLives];
         GameField Field;
@@ -101,24 +100,6 @@ namespace Bomberman.Classes
             SetLives();
         }
 
-        public void CreatePlayerScore()
-        {
-            // Create score label
-            Score = 0;
-            ScoreText = new Label
-            {
-                ForeColor = Color.White,
-                Font = new Font("Folio XBd BT", 14),
-                Top = 10,
-                Left = Form.Width / 2 - 50,
-                Height = 20,
-                Width = 100
-            };
-            Form.Controls.Add(ScoreText);
-            ScoreText.BringToFront();
-            UpdateScore(0);
-        }
-
         void SetLives()
         {
             // Display lives in form
@@ -158,12 +139,8 @@ namespace Bomberman.Classes
 
             if(Form.PlayerCnt == 0)
             {
-                Form.youDiedScreen();               
-                Form gameOver = new GameOver(Score, Form.GameMode, Form.Level);
-                Form.Hide();
                 MoveTimer.Dispose();
                 Form.GameOver();
-                Form.CleanUp();
             }
             ResetPlayerPosition();
         }
@@ -178,18 +155,7 @@ namespace Bomberman.Classes
             }
         }
 
-<<<<<<< Updated upstream
-        public static void UpdateScore(int amount = 1)
-        {
-            // Update score value and text
-            Score += amount;
-            ScoreText.Text = Score.ToString();
-            //if (score > Form1.highscore.score) { Form1.highscore.UpdateHighScore(score); }
-        }
-
-=======
         //postavljanje slike igrača na zadanu poziciju
->>>>>>> Stashed changes
         private void SetPlayer(int x, int y, int player_number) //pozovi u konstruktoru
         {
 

@@ -164,7 +164,7 @@ namespace Bomberman
             {
                 // kraj
                 Form gameOver = new GameOver(TotalScore, GameMode, Level);
-                TotalScore = 0;
+                CleanUp();
                 Hide();
                 gameOver.Closed += (s, args) => { Close(); Dispose(); };
                 gameOver.Show();
@@ -189,7 +189,6 @@ namespace Bomberman
         {
             youDiedScreen();
             Form gameOver = new GameOver(TotalScore, GameMode, Level);
-            TotalScore = 0;
             CleanUp();
             Close();
 
@@ -201,7 +200,6 @@ namespace Bomberman
         {
             CleanUp();
             Close();
-            TotalScore = 0;
             Dispose();
         }
 
@@ -270,10 +268,8 @@ namespace Bomberman
         public void UpdateTotalScore(int amount = 0)
         {
             // Update score value and text
-            //score += amount;
             TotalScore += amount;
             ScoreTextLabel.Text = TotalScore.ToString();
-            //if (score > Form1.highscore.score) { Form1.highscore.UpdateHighScore(score); }
         }
         public void youDiedScreen()
         {
@@ -319,11 +315,9 @@ namespace Bomberman
                 Enemies[i].CleanUp();
                 Enemies[i] = null;
             }
-
-
-            Enemies.Clear();      
-            Player.Score = 0;
+            TotalScore = 0;
             PlayerCnt = 0;
+            Enemies.Clear();
             Enemy.enemyCnt = 0;
         }
     }
