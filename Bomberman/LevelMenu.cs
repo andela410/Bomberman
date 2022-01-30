@@ -27,9 +27,8 @@ namespace Bomberman
             int vert_pomak, hor_pomak;
             button1.Text = "LEVEL 1";
             button1.BackColor = Color.LightSalmon;
-            if (menuType == 1) //Campaign
+            if (menuType == 1) //Campaign izgled forme
             {
-                //button1.Hide();
                 button2.Hide();
                 button3.Hide();
                 button4.Hide();
@@ -43,7 +42,7 @@ namespace Bomberman
                 button1.Text = "START";
                 button1.BackColor = Color.Lime;
             }
-            else if (menuType == 3) //Multiplayer
+            else if (menuType == 3) //Multiplayer izgled forme
             {
                 vert_pomak = Height / 2 - button1.Height *54/20;
                 hor_pomak = Width/2 + (Width/2 - button1.Width/2)/3 ;
@@ -63,7 +62,7 @@ namespace Bomberman
                 hor_pomak = hor_pomak*2 + player1panel.Width;
                 player2panel.Location = new Point(hor_pomak, vert_pomak);
             }
-            else //Singleplayer
+            else //Singleplayer izgled forme
             {
                 player2panel.Hide();
                 vert_pomak = Height / 2 - button1.Height * 54 / 20;
@@ -88,7 +87,7 @@ namespace Bomberman
             string ime = ((Button)sender).Name;
             int level = ime.Last() - '0';
             int playerCharacter2 = -1;
-            if (radioButton5.Checked || radioButton6.Checked || radioButton7.Checked || radioButton8.Checked)
+            if (radioButton5.Checked || radioButton6.Checked || radioButton7.Checked || radioButton8.Checked) //provjeravamo izbor 2. lika
             {
                 if (radioButton5.Checked)
                     playerCharacter2 = 1;
@@ -100,7 +99,7 @@ namespace Bomberman
                     playerCharacter2 = 4;
             }
             if (GameMode == 3 && playerCharacter2 == -1) return;
-            if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked)
+            if (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked)//provjeravamo izbor 1.lika
             {
                 Hide();
                 Form Form1;

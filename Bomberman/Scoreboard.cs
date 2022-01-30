@@ -23,6 +23,7 @@ namespace Bomberman
             Height = Screen.PrimaryScreen.Bounds.Height;
             backButton.Location = new Point(Width - backButton.Width * 11 / 8, 12);
             int maxHeight;
+            //Računamo visinu da dropdown menu ne bude preko tablice
             if (gameTypeBox.Height * 3 > levelBox.Height * 5)
             {
                 maxHeight = gameTypeBox.Height * 3;
@@ -54,7 +55,7 @@ namespace Bomberman
         {
             int gameType = gameTypeBox.SelectedIndex +1;
             int level = levelBox.SelectedIndex +1;
-
+            //Spajanje na SQLite bazu
             string relativePath = @"Database.sqlite";
             var parentDirectory = Path.GetDirectoryName(Application.StartupPath);
             string absolutePath = Path.Combine(parentDirectory, relativePath);
@@ -77,6 +78,7 @@ namespace Bomberman
             }
             grid.Rows.Clear();
             grid.Height = grid.ColumnHeadersHeight;
+            //Upisujemo podatke i računamo visinu tablice dinamički
             while (podaci.Read())
             {
                 grid.Rows.Add(podaci.GetString(0), podaci.GetInt32(1));
@@ -85,9 +87,9 @@ namespace Bomberman
             grid.Refresh();
         }
 
-        private void updateGameTypeForTable(object sender, EventArgs e)
+        private void updateGameTypeForTable(object sender, EventArgs e) //Promijena tipa igre
         {
-            if (gameTypeBox.SelectedIndex == 0)
+            if (gameTypeBox.SelectedIndex == 0) //Campaing mode nema izbor levela
             {
                 levelBox.Enabled = false;
                 levelBox.SelectedIndex = -1;
@@ -106,7 +108,7 @@ namespace Bomberman
             }
         }
 
-        private void changeTable(object sender, EventArgs e)
+        private void changeTable(object sender, EventArgs e) //Promijena levela za koji se prikazuje tablica
         {
             drawTable();
         }

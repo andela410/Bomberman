@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 
@@ -21,6 +15,7 @@ namespace Bomberman
         public Settings(Menu tempMenu, PlayerKeys p1keys, PlayerKeys p2keys)
         {
             InitializeComponent();
+
             Width = Screen.PrimaryScreen.Bounds.Width;
             Height = Screen.PrimaryScreen.Bounds.Height;
             backButton.Location = new Point(Width - backButton.Width * 11 / 8, 12);
@@ -29,10 +24,10 @@ namespace Bomberman
             controlsLabel.Location = new Point(Width / 2 - controlsLabel.Width / 2, Height / 3 - controlsLabel.Height * 2);
             igrac1Kontrola.Location = new Point(Width/2 - igrac1Kontrola.Width - (Width / 2 - igrac1Kontrola.Width) / 4, Height /3);
             igrac2Kontrola.Location = new Point(Width/2 +(Width / 2 - igrac2Kontrola.Width) / 4, Height / 3);
-            player = new SoundPlayer(Properties.Resources.Black_Betty);
             menu = tempMenu;
-            P1keys = p1keys;
-            P2keys = p2keys;
+
+            //postavljamo button za glazbu ovisno o tome svira li ili ne
+            player = new SoundPlayer(Properties.Resources.Black_Betty);                          
             if (menu.SviraMuzika)
             {
                 SoundOnOff.Tag = "on";
@@ -44,6 +39,9 @@ namespace Bomberman
                 SoundOnOff.BackgroundImage = Properties.Resources.soundOn;
             }
 
+            //Popunjavaju se textboxovi s kontrolama
+            P1keys = p1keys;
+            P2keys = p2keys;
             L1.Text = P1keys.Left;
             U1.Text = P1keys.Up;
             R1.Text = P1keys.Right;
@@ -101,7 +99,7 @@ namespace Bomberman
             {
                 newCommand = false;
             }
-
+            //pridruživanje nove kontrole ako je nova tipka dobra, inače vraćamo textbox na staru vrijednost
             switch (box.Name)
             {
                 case "L1":
