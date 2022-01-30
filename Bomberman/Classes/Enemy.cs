@@ -75,11 +75,11 @@ namespace Bomberman.Classes
         {
             if (Direction == "left")
             {
-                if (Field.Field[xEnemy, yEnemy - 1] != 'w' && Field.Field[xEnemy, yEnemy - 1] != 'b' && Field.Field[xEnemy, yEnemy - 1] != 'h')
+                if (Field.Field[xEnemy, yEnemy - 1] == ' ')
                 {
                     yEnemy--;
                 }
-                else if (Field.Field[xEnemy, yEnemy + 1] != 'w' && Field.Field[xEnemy, yEnemy + 1] != 'b' && Field.Field[xEnemy, yEnemy + 1] != 'h')
+                else if (Field.Field[xEnemy, yEnemy + 1] == ' ')
                 {
                     yEnemy++;
                     Direction = "right";
@@ -87,11 +87,11 @@ namespace Bomberman.Classes
             }
             else if (Direction == "right")
             {
-                if (Field.Field[xEnemy, yEnemy + 1] != 'w' && Field.Field[xEnemy, yEnemy + 1] != 'b' && Field.Field[xEnemy, yEnemy + 1] != 'h')
+                if (Field.Field[xEnemy, yEnemy + 1] == ' ')
                 {
                     yEnemy++;
                 }
-                else if (Field.Field[xEnemy, yEnemy - 1] != 'w' && Field.Field[xEnemy, yEnemy - 1] != 'b' && Field.Field[xEnemy, yEnemy - 1] != 'h')
+                else if (Field.Field[xEnemy, yEnemy - 1] == ' ')
                 {
                     yEnemy--;
                     Direction = "left";
@@ -99,11 +99,11 @@ namespace Bomberman.Classes
             }
             else if(Direction == "down")
             {
-                if (Field.Field[xEnemy + 1, yEnemy] != 'w' && Field.Field[xEnemy + 1, yEnemy] != 'b' && Field.Field[xEnemy + 1, yEnemy] != 'h')
+                if (Field.Field[xEnemy + 1, yEnemy] == ' ')
                 { 
                     xEnemy++;
                 }
-                else if(Field.Field[xEnemy - 1, yEnemy] != 'w' && Field.Field[xEnemy - 1, yEnemy] != 'b' && Field.Field[xEnemy - 1, yEnemy] != 'h')
+                else if(Field.Field[xEnemy - 1, yEnemy] == ' ')
                 {
                     xEnemy--;
                     Direction = "up";
@@ -111,11 +111,11 @@ namespace Bomberman.Classes
             }
             else if(Direction == "up")
             {
-                if (Field.Field[xEnemy - 1, yEnemy] != 'w' && Field.Field[xEnemy - 1, yEnemy] != 'b' && Field.Field[xEnemy - 1, yEnemy] != 'h')
+                if (Field.Field[xEnemy - 1, yEnemy] == ' ')
                 {
                     xEnemy--;
                 }
-                else if (Field.Field[xEnemy + 1, yEnemy] != 'w' && Field.Field[xEnemy + 1, yEnemy] != 'b' && Field.Field[xEnemy + 1, yEnemy] != 'h')
+                else if (Field.Field[xEnemy + 1, yEnemy] == ' ')
                 {
                     xEnemy++;
                     Direction = "down";
@@ -131,16 +131,16 @@ namespace Bomberman.Classes
 
             if(cnt % 3 == 0 && (Direction == "right" || Direction == "left"))
             {
-                if (Field.Field[xEnemy - 1, yEnemy] != 'w' && Field.Field[xEnemy - 1, yEnemy] != 'b' && Field.Field[xEnemy - 1, yEnemy] != 'h')
+                if (Field.Field[xEnemy - 1, yEnemy] == ' ')
                     Direction = "up";
-                else if (Field.Field[xEnemy + 1, yEnemy] != 'w' && Field.Field[xEnemy + 1, yEnemy] != 'b' && Field.Field[xEnemy + 1, yEnemy] != 'h')
+                else if (Field.Field[xEnemy + 1, yEnemy] == ' ')
                     Direction = "down";
              }
             else if (cnt % 3 == 0 && (Direction == "up" || Direction == "down"))
             {
-                if (Field.Field[xEnemy, yEnemy - 1] != 'w' && Field.Field[xEnemy, yEnemy - 1] != 'b' && Field.Field[xEnemy, yEnemy - 1] != 'h')
+                if (Field.Field[xEnemy, yEnemy - 1] == ' ')
                     Direction = "left";
-                else if(Field.Field[xEnemy, yEnemy + 1] != 'w' && Field.Field[xEnemy, yEnemy + 1] != 'b' && Field.Field[xEnemy, yEnemy + 1] != 'h')
+                else if(Field.Field[xEnemy, yEnemy + 1] == ' ')
                     Direction="right";
             }
             EnemyMoved?.Invoke(new Tuple<int, int>(xEnemy, yEnemy));

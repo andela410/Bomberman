@@ -55,7 +55,7 @@ namespace Bomberman.Classes
             BombPositions.Add(new Tuple<Bomb, int, int>(this, X, Y));
 
             PrepareExplosion();
-
+            Field.UpdateFieldToBomb(X, Y);
             BombTimer.Enabled = true;
         }
 
@@ -107,7 +107,11 @@ namespace Bomberman.Classes
                     }
                 }
             }
-            if (temp != null) BombPositions.Remove(temp);
+            if (temp != null)
+            {
+                BombPositions.Remove(temp);
+                Field.UpdateField(temp.Item2, temp.Item3);
+            }
             FireTimer.Enabled = true;
         }
 
