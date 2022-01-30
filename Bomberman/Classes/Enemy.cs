@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace Bomberman.Classes
 {
@@ -14,7 +15,7 @@ namespace Bomberman.Classes
         private int enemyType;
         public static int enemyCnt = 0;
         GameField Field;
-        Form Form;
+        LevelForm Form;
         PictureBox enemyPicture;
         string Direction;
         private Timer EnemyTimer;
@@ -37,7 +38,7 @@ namespace Bomberman.Classes
         }
 
 
-        public Enemy(Form form, GameField field, int x, int y, int type, string direction)
+        public Enemy(LevelForm form, GameField field, int x, int y, int type, string direction)
         {
             enemyCnt++;
             xEnemy = x;
@@ -63,10 +64,11 @@ namespace Bomberman.Classes
             SetEnemy(x, y, type);
             //Move();
         }
-
         public void CheckIfPlayerHit(Player player)
         {
-            if (player.XPlayer == XEnemy && player.YPlayer == YEnemy) player.LoseLife();
+            if (player.XPlayer == XEnemy && player.YPlayer == YEnemy)
+                player.LoseLife();
+
         }
 
         private void EnemyTimer_Tick(object sender, EventArgs e)
@@ -177,7 +179,7 @@ namespace Bomberman.Classes
 
         public void Die()
         {
-            Player.UpdateScore(100 * enemyType);
+            Form.UpdateTotalScore(100 * enemyType);
             Field.ShowScore(100 * enemyType, xEnemy, yEnemy);
             CleanUp();
             if (--enemyCnt == 0) // Ako unistimo sve neprijatelje pokazu nam se vrata (nije jos dokraja implementirano)

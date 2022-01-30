@@ -14,14 +14,14 @@ namespace Bomberman.Classes
         private Timer BombTimer, FireTimer;
         private int X, Y;
         GameField Field;
-        Form Form;
+        LevelForm Form;
         Brick Brick;
         int BombStrength = 2;
         List<PictureBox> Explosion = new List<PictureBox>();
         List<Tuple<int, int>> LogicalExplosion = new List<Tuple<int, int>>();
         static List<Tuple<Bomb, int, int>> BombPositions = new List<Tuple<Bomb, int, int>>();
 
-        public Bomb(Form form, GameField field, Brick brick, int x, int y)
+        public Bomb(LevelForm form, GameField field, Brick brick, int x, int y)
         {
             X = x;
             Y = y;
@@ -127,12 +127,12 @@ namespace Bomberman.Classes
                 if (Field.Field[x, y] == 'b')
                 {
                     if (Brick.DestroyBrickWall(x, y))
-                        Player.UpdateScore(100);
+                        Form.UpdateTotalScore(100);
                 }
                 else if(Field.Field[x, y] == 'h')
                 {
                     if (Brick.DestroyDoorBrick(x, y))
-                        Player.UpdateScore(200);
+                        Form.UpdateTotalScore(200);
                 }
             }
         }
