@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Bomberman.Classes
 {
-    //klasa koja predstavlja bombe koje se postavljaju u polju
+    // Klasa koja predstavlja bombe koje se postavljaju u polju
     public class Bomb
     {
         PictureBox bomb, fire;
@@ -22,7 +22,7 @@ namespace Bomberman.Classes
         List<Tuple<int, int>> LogicalExplosion = new List<Tuple<int, int>>();
         static List<Tuple<Bomb, int, int>> BombPositions = new List<Tuple<Bomb, int, int>>();
 
-        //konstruktor 
+        // Konstruktor 
         public Bomb(LevelForm form, GameField field, Brick brick, int x, int y)
         {
             X = x;
@@ -45,6 +45,7 @@ namespace Bomberman.Classes
             fire = new PictureBox();
         }
 
+        // Metoda za logičko i slikovno prikazivanje bombe
         public void PlantBomb()
         {
             bomb.Name = "Bomb" + X.ToString() + Y.ToString();
@@ -61,9 +62,10 @@ namespace Bomberman.Classes
             BombTimer.Enabled = true;
         }
 
+        // Metoda za logičko i slikovno prikazivanje eksplozije
         private void SetExplosion(int x, int y)
         {
-            if (x > 0 && y > 0 && /*x < Field.GameFieldHeight && y < Field.GameFieldWidth && */Field.Field[x, y] != 'w')
+            if (x > 0 && y > 0 && Field.Field[x, y] != 'w')
             {
                 PictureBox e = new PictureBox();
                 e.Name = "Fire" + x.ToString() + y.ToString();
@@ -77,6 +79,7 @@ namespace Bomberman.Classes
             }
         }
 
+        // Event na koji se pretplate Enemy objekti i Player objekti 
         public static event Action<Tuple<int, int>> BombExploadedEvent;
 
         private void BombTimer_Tick(object sender, EventArgs e)

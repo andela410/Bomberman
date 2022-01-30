@@ -107,9 +107,9 @@ namespace Bomberman
             {
                 case 1:
                     Enemies.Add(new Enemy(this, game, 3, 14, 1, "left"));
-                    //Enemies.Add(new Enemy(this, game, 5, 20, 1, "right"));
-                    //Enemies.Add(new Enemy(this, game, 11, 21, 1, "left"));
-                    //Enemies.Add(new Enemy(this, game, 11, 27, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 5, 20, 1, "right"));
+                    Enemies.Add(new Enemy(this, game, 11, 21, 1, "left"));
+                    Enemies.Add(new Enemy(this, game, 11, 27, 1, "left"));
                     break;
                 case 2:
                     Enemies.Add(new Enemy(this, game, 1, 11, 2, "left"));
@@ -201,6 +201,7 @@ namespace Bomberman
             gameOver.Show();
         }
 
+        // Metoda koja se poziva kada se klikne "Fire Exit" gumb
         private void CloseGame_Click(object sender, EventArgs e)
         {
             CleanUp();
