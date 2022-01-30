@@ -38,6 +38,11 @@ namespace Bomberman.Classes
             set { enemyType = value; }
         }
 
+        public bool Alive
+        {
+            get; set;
+        }
+
         //konstruktor za neprijatelja
         public Enemy(LevelForm form, GameField field, int x, int y, int type, string direction)
         {
@@ -48,6 +53,7 @@ namespace Bomberman.Classes
             Form = form;
             Direction = direction;
             EnemyType = type;
+            Alive = true;
 
             EnemyTimer = new Timer();
             if (type == 1)
@@ -194,6 +200,7 @@ namespace Bomberman.Classes
         //uništimo neprijatelja
         public void Die()
         {
+            Alive = false;
             Form.UpdateTotalScore(100 * enemyType);
             Field.ShowScore(100 * enemyType, xEnemy, yEnemy);
             CleanUp();
@@ -211,6 +218,16 @@ namespace Bomberman.Classes
             EnemyTimer.Stop();
             enemyPicture.Dispose();
             EnemyTimer.Dispose();
+        }
+
+        public void StopTimer()
+        {
+            EnemyTimer.Stop();
+        }
+
+        public void StartTimer()
+        {
+            EnemyTimer.Start();
         }
     }
 }

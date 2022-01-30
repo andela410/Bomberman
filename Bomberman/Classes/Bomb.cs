@@ -87,8 +87,6 @@ namespace Bomberman.Classes
             bomb.Visible = false;
             BombTimer.Enabled = false;
 
-            Tuple<Bomb, int, int> temp = null;
-
             // eksplozija
             for (int i = 0; i < Explosion.Count(); ++i)
             {
@@ -106,17 +104,7 @@ namespace Bomberman.Classes
                     {
                         BombPosition.Item1.BombTimer.Interval = 1;
                     }
-                    else if (BombPosition.Item1 == this)
-                    {
-                        // Ova bomba je eksplodirala, izbaci je iz liste pozicija
-                        temp = BombPosition;
-                    }
                 }
-            }
-            if (temp != null)
-            {
-                BombPositions.Remove(temp);
-                Field.UpdateField(temp.Item2, temp.Item3);
             }
             FireTimer.Enabled = true;
         }
@@ -148,6 +136,22 @@ namespace Bomberman.Classes
                 {
                     Field.UpdateField(x, y);
                 }
+            }
+
+            Tuple<Bomb, int, int> temp = null;
+            foreach (var BombPosition in BombPositions)
+            {
+                if (BombPosition.Item1 == this)
+                {
+                    // Ova bomba je eksplodirala, izbaci je iz liste pozicija
+                    temp = BombPosition;
+                    break;
+                }
+            }
+            if (temp != null)
+            {
+                BombPositions.Remove(temp);
+                Field.UpdateField(temp.Item2, temp.Item3);
             }
         }
 
@@ -215,6 +219,37 @@ namespace Bomberman.Classes
                     break;
                 }
             }
+        }
+
+        public static void RemoveActiveBombs()
+        {
+            foreach (var bomb in BombPositions)
+            {
+                // ugasi bomb & explosion timere
+                bomb.Item1.BombTimer.Dispose();
+                bomb.Item1.FireTimer.Dispose();
+
+                // Izbrisi 'b' iz polja
+                bomb.Item1.Field.UpdateField(bomb.Item2, bomb.Item3);
+
+                // Makni bombu
+                bomb.Item1.bomb.Hide();
+
+                // Ugasi eksploziju
+                foreach (var ex in bomb.Item1.Explosion)
+                {
+                    ex.Hide();
+                }
+
+                // Izbrisi 'x' iz polja
+                foreach (var exPosition in bomb.Item1.LogicalExplosion)
+                {
+                    bomb.Item1.Field.UpdateField(exPosition.Item1, exPosition.Item2);
+                }
+            }
+
+            // ocisti listu bombi
+            BombPositions.Clear();
         }
     }
 }

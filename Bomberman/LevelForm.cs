@@ -346,5 +346,37 @@ namespace Bomberman
         {
             CleanUp();
         }
+
+        // Zaustavi sve neprijatelje
+        public void StopAllEnemies()
+        {
+            foreach (var enemy in Enemies)
+            {
+                enemy.StopTimer();
+            }
+        }
+
+        // Pokreni sve zive neprijatelje
+        public void StartAllEnemies()
+        {
+            foreach (var enemy in Enemies)
+            {
+                if (enemy.Alive) enemy.StartTimer();
+            }
+        }
+
+        // Zaustavi kretanje svih igraca
+        public void StopPlayers()
+        {
+            player1.StopTimer();
+            if (player2 != null) player2.StopTimer();
+        }
+
+        // Pokreni kretanje svih igraca
+        public void StartPlayers()
+        {
+            player1.StartTimer();
+            if (player2 != null) player2.StartTimer();
+        }
     }
 }

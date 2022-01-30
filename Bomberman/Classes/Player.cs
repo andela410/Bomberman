@@ -14,6 +14,7 @@ namespace Bomberman.Classes
     {
         private const int MaxLives = 10;
         private bool Alive;
+        private bool Stopped;
         private bool GoLeft;
         private bool GoRight;
         private bool GoUp;
@@ -100,13 +101,32 @@ namespace Bomberman.Classes
         {
             XPlayer = 1;
             YPlayer = 1;
+            playerPicture.Location = new Point(YPlayer * Field.ElementSize + Field.PictureBox.Location.X, XPlayer * Field.ElementSize + Field.PictureBox.Location.Y);
+            Form.Controls.Add(playerPicture);
+            
+            playerPicture.BringToFront();
         }
 
-        public void LoseLife()
+        async public void LoseLife()
         {
             // Ako je broj života pozitivan, oduzmi jedan
             if (Lives > 0) Lives--;
             else return;
+
+            Form.StopAllEnemies();
+            Form.StopPlayers();
+
+            for (int i = 1; i < 5; ++i)
+            {
+                // Slika igraca blinka kad izgubi zivot
+                playerPicture.Visible = false;
+                await Task.Delay(i * 100);
+                playerPicture.Visible = true;
+                await Task.Delay(i * 100);
+            }
+
+            // Ukloni sve aktivne bombe i njihove eksplozije prije nastavka
+            Bomb.RemoveActiveBombs();
 
             // Ako je broj života jednak 0, taj igrač je mrtav
             if (Lives == 0)
@@ -123,7 +143,7 @@ namespace Bomberman.Classes
                 SetLives();
             
             // Ako su svi igrači mrtvi, pojavljuje se prikladna poruka
-            if(Form.PlayerCnt == 0)
+            if (Form.PlayerCnt == 0)
             {
                 MoveTimer.Dispose();
                 Form.GameOver();
@@ -131,6 +151,10 @@ namespace Bomberman.Classes
 
             // Ako se izgubi život, igrač ide na početnu poziciju
             ResetPlayerPosition();
+            // Pokreni igrace
+            Form.StartPlayers();
+            // Pokreni enemies
+            Form.StartAllEnemies();
         }
 
         // "Resetira" varijable
@@ -183,7 +207,7 @@ namespace Bomberman.Classes
 
         public void Move()
         {
-            if (!Alive) return;
+            if (!Alive || Stopped) return;
             MoveTimer.Enabled = true;
             if (GoLeft == true)
             {
@@ -305,6 +329,21 @@ namespace Bomberman.Classes
             {
                 GoDown = false;
                 MoveStop();
+            }
+        }
+
+        // Zaustavi kretanje igraca kad se izgubi zivot
+        public void StopTimer()
+        {
+            Stopped = true;
+        }
+
+        // Nastavi kretanje zivog igraca
+        public void StartTimer()
+        {
+            if (Alive)
+            {
+                Stopped = false;
             }
         }
     }
