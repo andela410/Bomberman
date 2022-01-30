@@ -25,7 +25,9 @@ namespace Bomberman
             menu = tempMenu;
             GameMode = menuType;
             int vert_pomak, hor_pomak;
-            if(menuType == 1) //Campaign
+            button1.Text = "LEVEL 1";
+            button1.BackColor = Color.LightSalmon;
+            if (menuType == 1) //Campaign
             {
                 //button1.Hide();
                 button2.Hide();
@@ -34,9 +36,12 @@ namespace Bomberman
                 button5.Hide();
                 player2panel.Hide();
                 player1panel.Width = choosePlayer1.Width;
-                vert_pomak = (Height - player1panel.Height) / 2;
+                vert_pomak = Height *2 / 5 - player1panel.Height / 2;
                 hor_pomak = (Width - player1panel.Width) / 2;
                 player1panel.Location = new Point(hor_pomak, vert_pomak);
+                button1.Location = new Point(Width / 2 - button1.Width / 2, vert_pomak +player1panel.Height + 20);
+                button1.Text = "START";
+                button1.BackColor = Color.Lime;
             }
             else if (menuType == 3) //Multiplayer
             {

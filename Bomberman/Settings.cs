@@ -87,38 +87,121 @@ namespace Bomberman
         private void promjenaKontrole(object sender, EventArgs e)
         {
             TextBox box = (TextBox)sender;
+            bool newCommand;
+            newCommand = true; //provjerava je li tipka nova ili je već pridružena nekoj kontroli ili je prazna
+            if(P1keys.Left == box.Text || P1keys.Right == box.Text || P1keys.Up == box.Text || P1keys.Down == box.Text || P1keys.Bomb == box.Text)
+            {
+                newCommand = false;
+            }
+            if (P2keys.Left == box.Text || P2keys.Right == box.Text || P2keys.Up == box.Text || P2keys.Down == box.Text || P2keys.Bomb == box.Text)
+            {
+                newCommand = false;
+            }
+            if(box.Text == "")
+            {
+                newCommand = false;
+            }
 
             switch (box.Name)
             {
                 case "L1":
-                    P1keys.Left = box.Text;
+                    if (newCommand)
+                    {
+                        P1keys.Left = box.Text;
+                    } else
+                    {
+                        box.Text = P1keys.Left;
+                    }
                     break;
                 case "U1":
-                    P1keys.Up = box.Text;
+                    if (newCommand)
+                    {
+                        P1keys.Up = box.Text;
+                    }
+                    else
+                    {
+                        box.Text = P1keys.Up;
+                    }
                     break;
                 case "R1":
-                    P1keys.Right = box.Text;
+                    if (newCommand)
+                    {
+                        P1keys.Right = box.Text;
+                    }
+                    else
+                    {
+                        box.Text = P1keys.Right;
+                    }
                     break;
                 case "D1":
-                    P1keys.Down = box.Text;
+                    if (newCommand)
+                    {
+                        P1keys.Down = box.Text;
+                    }
+                    else
+                    {
+                        box.Text = P1keys.Down;
+                    }
                     break;
                 case "B1":
-                    P1keys.Bomb = box.Text;
+                    if (newCommand)
+                    {
+                        P1keys.Bomb = box.Text;
+                    }
+                    else
+                    {
+                        box.Text = P1keys.Bomb;
+                    }
                     break;
                 case "L2":
-                    P2keys.Left = box.Text;
+                    if (newCommand)
+                    {
+                        P2keys.Left = box.Text;
+                    }
+                    else
+                    {
+                        box.Text = P2keys.Left;
+                    }
                     break;
                 case "U2":
-                    P2keys.Up = box.Text;
+                    if (newCommand)
+                    {
+                        P2keys.Up = box.Text;
+                    }
+                    else
+                    {
+                        box.Text = P2keys.Up;
+                    }
                     break;
                 case "R2":
-                    P2keys.Right = box.Text;
+                    if (newCommand)
+                    {
+                        P2keys.Right = box.Text;
+                    }
+                    else
+                    {
+                        box.Text = P2keys.Right;
+                    }
                     break;
                 case "D2":
-                    P2keys.Down = box.Text;
+                    if (newCommand)
+                    {
+                        P2keys.Down = box.Text;
+                    }
+                    else
+                    {
+                        box.Text = P2keys.Down;
+                    }
                     break;
                 case "B2":
-                    P2keys.Bomb = box.Text;
+                    if (newCommand)
+                    {
+                        P2keys.Bomb = box.Text;
+                    }
+                    else
+                    {
+                        box.Text = P2keys.Bomb;
+                    }
                     break;
             }
         }
