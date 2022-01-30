@@ -15,7 +15,7 @@ namespace Bomberman
             score = tmpScore;
             gameType = tmpGameType;
             level = tmpLevel;
-            if(gameType == 1)
+            if(gameType == 1) //u tablici je za Campaign mode, level jednak 0
             {
                 level = 0;
             }
@@ -24,6 +24,7 @@ namespace Bomberman
 
         private void setComponents()
         {
+            //dinamički pozicioniramo elemente
             Width = Screen.PrimaryScreen.Bounds.Width;
             Height = Screen.PrimaryScreen.Bounds.Height;
             save.Location = new Point(Width / 2 - save.Width / 2, Height * 2 / 3);
@@ -36,7 +37,7 @@ namespace Bomberman
         private void save_Click(object sender, EventArgs e)
         {
             //spremaju se podaci u tablicu i vraća na LevelMenu
-            string name = nameTextBox.Text;           
+            string name = nameTextBox.Text; //name se čita dinamički iz TextBoxa
             
             string relativePath = @"Database.sqlite";
             var parentDirectory = Path.GetDirectoryName(Application.StartupPath);

@@ -36,6 +36,7 @@ namespace Bomberman
 
         private void setComponents()
         {
+            //Dinamički zadajemo pozicije elemenata
             int vert_pomak = (Height - naslov.Height - 5 * campaignButton.Height) / 2;
             naslov.Location = new Point((Width - naslov.Width) / 2, vert_pomak);
             vert_pomak += 25;
@@ -51,6 +52,7 @@ namespace Bomberman
             naslov.BackColorChanged += (s, e) => {
                 naslov.FlatAppearance.MouseOverBackColor = naslov.BackColor;
             };
+            //Pokreće se muzika
             soundPlayer = new SoundPlayer(Properties.Resources.Black_Betty);
             soundPlayer.PlayLooping();
             sviraMuzika = true;
