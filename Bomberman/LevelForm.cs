@@ -59,7 +59,7 @@ namespace Bomberman
             brick = new Brick(this, game);
             brick.CreateBrickWalls();
 
-            player1 = new Player(this, game, 1, 1, PlayerNumber1, P1keys, Enemies);
+            player1 = new Player(this, game, 1, 1, PlayerNumber1, P1keys);
             player1.CreateLives(0);
             player1.CreatePlayerScore();
             player1.Brick = brick;
@@ -71,7 +71,7 @@ namespace Bomberman
 
             if (GameMode == 3)
             {
-                player2 = new Player(this, game, 1, 2, PlayerNumber2, P2keys, Enemies);
+                player2 = new Player(this, game, 1, 2, PlayerNumber2, P2keys);
                 player2.CreateLives(1);
                 player2.CreatePlayerScore();
                 player2.Brick = brick;
@@ -82,11 +82,8 @@ namespace Bomberman
 
             SetupEnemies(level);
 
-            player1.Enemies = Enemies;
-
             if (GameMode == 3)
             {
-                player2.Enemies = Enemies;
                 Enemy.EnemyMoved += player2.CheckIfHit;
                 Bomb.BombExploadedEvent += player2.CheckIfHit;
             }
@@ -166,7 +163,7 @@ namespace Bomberman
             {
                 // kraj
                 Form gameOver = new GameOver(player1.Score, gameMode, level);
-                this.Hide();
+                Hide();
                 gameOver.Closed += (s, args) => { this.Close(); this.Dispose(); };
                 gameOver.Show();
                 return;
@@ -185,6 +182,7 @@ namespace Bomberman
 
         private void closeGame_Click(object sender, EventArgs e)
         {
+            CleanUp();
             Close();
             Dispose();
         }
@@ -262,6 +260,33 @@ namespace Bomberman
                 System.Threading.Thread.Sleep(50);
             }
             System.Threading.Thread.Sleep(1000);
+        }
+
+        public void CleanUp()
+        {
+            gameTimer.Tick -= new EventHandler(gameTimerUpdate);
+            gameTimer.Dispose();
+            Enemy.EnemyMoved -= player1.CheckIfHit;
+            Bomb.BombExploadedEvent -= player1.CheckIfHit;
+
+            if (GameMode == 3)
+            {
+                Enemy.EnemyMoved -= player2.CheckIfHit;
+                Bomb.BombExploadedEvent -= player2.CheckIfHit;
+            }
+
+            for (int i = 0; i < Enemies.Count(); ++i)
+            {
+                Player.PlayerMoved -= Enemies[i].CheckIfPlayerHit;
+                Bomb.BombExploadedEvent -= Enemies[i].CheckIfHit;
+                Enemies[i].CleanUp();
+                Enemies[i] = null;
+            }
+
+            Enemies.Clear();      
+            Player.score = 0;
+            Player.PlayerCnt = 0;
+            Enemy.enemyCnt = 0;
         }
     }
 }

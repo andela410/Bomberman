@@ -12,14 +12,13 @@ namespace Bomberman.Classes
     {
         private int xEnemy, yEnemy;
         private int enemyType;
-        static int enemyCnt = 0;
+        public static int enemyCnt = 0;
         GameField Field;
         Form Form;
         PictureBox enemyPicture;
         string Direction;
         private Timer EnemyTimer;
         int cnt = 0;
-        Player player;
         Random rand = new Random();
         
         public int XEnemy
@@ -180,14 +179,20 @@ namespace Bomberman.Classes
         {
             Player.UpdateScore(100 * enemyType);
             Field.ShowScore(100 * enemyType, xEnemy, yEnemy);
-            xEnemy = -1;
-            yEnemy = -1;
-            EnemyTimer.Stop();
-            enemyPicture.Dispose();
+            CleanUp();
             if (--enemyCnt == 0) // Ako unistimo sve neprijatelje pokazu nam se vrata (nije jos dokraja implementirano)
             {
                 Field.EnableLevelPass();
             }
+        }
+
+        public void CleanUp()
+        {
+            xEnemy = -1;
+            yEnemy = -1;
+            EnemyTimer.Stop();
+            enemyPicture.Dispose();
+            EnemyTimer.Dispose();
         }
     }
 }
