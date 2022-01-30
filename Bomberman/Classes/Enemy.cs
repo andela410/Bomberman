@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace Bomberman.Classes
 {
+    //klasa koja predstavlja neprijatelje 
     public class Enemy
     {
         private int xEnemy, yEnemy;
@@ -21,7 +22,7 @@ namespace Bomberman.Classes
         private Timer EnemyTimer;
         int cnt = 0;
         Random rand = new Random();
-        
+        //imamo više neprijatelja različitih tipova koji se mogu micati u svim smjerovima nasumično
         public int XEnemy
         {
             get { return xEnemy; }
@@ -37,7 +38,7 @@ namespace Bomberman.Classes
             set { enemyType = value; }
         }
 
-
+        //konstruktor za neprijatelja
         public Enemy(LevelForm form, GameField field, int x, int y, int type, string direction)
         {
             enemyCnt++;
@@ -58,12 +59,17 @@ namespace Bomberman.Classes
             
             EnemyTimer.Tick += new EventHandler(EnemyTimer_Tick);
             EnemyTimer.Start();
-
+            //zelimo pozivati metodu EnemyTimer_Tick periodički (svakih 500/400/250 ms), zato postavimo vremenske
+            //intervale ovisno o tipu neprijatelja
+            //upravljamo na taj način njihovim kretanjem i mijenjanjem smjera
             enemyPicture = new PictureBox();
 
             SetEnemy(x, y, type);
             //Move();
         }
+
+        //provjeravamo je li igrač na poziciji neprijatelja
+        //u slučaju da je, igrač gubi život
         public void CheckIfPlayerHit(Player player)
         {
             if (player.XPlayer == XEnemy && player.YPlayer == YEnemy)
@@ -71,6 +77,7 @@ namespace Bomberman.Classes
 
         }
 
+        //upravljamo smjerom kretanja
         private void EnemyTimer_Tick(object sender, EventArgs e)
         {
             if (Direction == "left")
@@ -121,14 +128,14 @@ namespace Bomberman.Classes
                     Direction = "down";
                 }
             }
-
+            //omogućujemo vidljivost sličice neprijatelja na zadanoj lokaciji
             enemyPicture.Location = new Point(yEnemy * Field.ElementSize + Field.PictureBox.Location.X, xEnemy * Field.ElementSize + Field.PictureBox.Location.Y);
                 Form.Controls.Add(enemyPicture);
 
                 enemyPicture.BringToFront();
 
-            cnt = rand.Next(4);
-
+            cnt = rand.Next(4); //generira proizvoljan broj manji od 4
+            //ovisno o generiranom broju, mijenjamo smjer kretanja
             if(cnt % 3 == 0 && (Direction == "right" || Direction == "left"))
             {
                 if (Field.Field[xEnemy - 1, yEnemy] == ' ' || Field.Field[xEnemy - 1, yEnemy] == 'x')
@@ -152,6 +159,7 @@ namespace Bomberman.Classes
 
         public static event Action<Tuple<int, int>> EnemyMoved;
 
+        //postavljanje neprijatelja na poziciju
         private void SetEnemy(int x, int y, int type)
         {
             enemyPicture.Name = "Enemy" + xEnemy.ToString() + yEnemy.ToString();
@@ -175,12 +183,15 @@ namespace Bomberman.Classes
             enemyPicture.BringToFront();
         }
 
+        //provjera je li nesto na poziciji neprijatelja
         internal void CheckIfHit(Tuple<int, int> coordinates)
         {
             (int x, int y) = coordinates;
             if (x == XEnemy && y == YEnemy) Die();
         }
 
+
+        //uništimo neprijatelja
         public void Die()
         {
             Form.UpdateTotalScore(100 * enemyType);
@@ -192,6 +203,7 @@ namespace Bomberman.Classes
             }
         }
 
+        //neprijatelj postaje nevidljiv i nalazi se na poziciji (-1,-1)
         public void CleanUp()
         {
             xEnemy = -1;

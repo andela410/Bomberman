@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace Bomberman.Classes
 {
+    //klasa koja predstavlja igraće polje
     public class GameField
     {
         LevelForm Form;

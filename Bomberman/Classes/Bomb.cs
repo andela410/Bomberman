@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace Bomberman.Classes
 {
+    //klasa koja predstavlja bombe koje se postavljaju u polju
     public class Bomb
     {
         PictureBox bomb, fire;
@@ -21,6 +22,7 @@ namespace Bomberman.Classes
         List<Tuple<int, int>> LogicalExplosion = new List<Tuple<int, int>>();
         static List<Tuple<Bomb, int, int>> BombPositions = new List<Tuple<Bomb, int, int>>();
 
+        //konstruktor 
         public Bomb(LevelForm form, GameField field, Brick brick, int x, int y)
         {
             X = x;

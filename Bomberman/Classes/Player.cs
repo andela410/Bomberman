@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace Bomberman.Classes
 {
+    //klasa koja predstavlja igrača
     public class Player
     {
         private const int MaxLives = 10;
@@ -54,6 +55,7 @@ namespace Bomberman.Classes
 
         public PlayerKeys PlayerKeys { get; set; }
 
+        //konstruktor
         public Player(LevelForm form, GameField field, int x, int y, int player_number, PlayerKeys keys)
         {
             XPlayer = x;
@@ -74,6 +76,7 @@ namespace Bomberman.Classes
             PlayerKeys = keys;
         }
 
+        //provjera je li nešto došlo na mjesto igrača
         public void CheckIfHit(Tuple<int, int> coordinates)
         {
             (int x, int y) = coordinates;
@@ -175,6 +178,7 @@ namespace Bomberman.Classes
             }
         }
 
+<<<<<<< Updated upstream
         public static void UpdateScore(int amount = 1)
         {
             // Update score value and text
@@ -183,6 +187,9 @@ namespace Bomberman.Classes
             //if (score > Form1.highscore.score) { Form1.highscore.UpdateHighScore(score); }
         }
 
+=======
+        //postavljanje slike igrača na zadanu poziciju
+>>>>>>> Stashed changes
         private void SetPlayer(int x, int y, int player_number) //pozovi u konstruktoru
         {
 
@@ -193,7 +200,7 @@ namespace Bomberman.Classes
             playerPicture.SizeMode = PictureBoxSizeMode.AutoSize;
             playerPicture.Location = new Point(y * Field.ElementSize + Field.PictureBox.Location.X, x * Field.ElementSize + Field.PictureBox.Location.Y);
             Bitmap Player_transparent;
-            switch (player_number)
+            switch (player_number) //odabir slike igrača ovisno o odabiru korisnika
             {
                 case 1:
                     Player_transparent = new Bitmap(Properties.Resources.Player1);

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bomberman
 {
+    //klasa za postavljanje kontrola igrača 
     public class PlayerKeys
     {
         public String Left { get; set; }

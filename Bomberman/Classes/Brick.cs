@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace Bomberman.Classes
 {
+    //klasa koja predstavlja cigle u polju
     public class Brick
     {
         Form Form;
